@@ -1,0 +1,25 @@
+{
+  "description": "Spoken forms for the narration. Keys are matched as whole words, case-sensitively, longest first. CVE ids and dates are handled in code.",
+  "terms": {
+    "KEV-listed": "K E V listed",
+    "KEV": "K E V",
+    "CISA": "sissa",
+    "EPSS": "E P S S",
+    "SLA": "S L A",
+    "CVSS": "C V S S",
+    "PAN-OS": "pan O S",
+    "FortiOS": "forty O S",
+    "NetScaler ADC": "net scaler A D C",
+    "NetScaler": "net scaler",
+    "SharePoint": "share point",
+    "Nextcloud": "next cloud",
+    "Collabora": "collabora",
+    "CODE Server": "code server",
+    "Ivanti": "ee vanti",
+    "Tenable": "tenable",
+    "OpenSSH": "open S S H",
+    "OpenSSL": "open S S L",
+    "IPv6": "I P v six",
+    "Exposure Radio": "Exposure Radio"
+  }
+}
