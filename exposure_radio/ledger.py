@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 
@@ -52,7 +53,7 @@ PREDICATES: dict[str, type] = {
 }
 
 # Facts that identify systems. Never shown to a model, never in executive output.
-SENSITIVE = {"cve.affected_hosts"}
+SENSITIVE = {"cve.affected_hosts", "cve.owners"}
 
 DEFAULT_SLA_DAYS = {"kev": 7, "critical": 15, "high": 30, "medium": 90, "low": 180, "info": 365}
 
@@ -81,6 +82,9 @@ class Ledger:
     def __post_init__(self) -> None:
         self._by_id = {f.id: f for f in self.facts}
         self._by_key = {(f.subject, f.predicate): f for f in self.facts}
+        terms = sorted((re.escape(t) for t in self.sensitive_terms if t), key=len, reverse=True)
+        self._sensitive_pattern = re.compile(r"(?<![A-Za-z0-9])(?:" + "|".join(terms) +
+                                             r")(?![A-Za-z0-9])", re.I) if terms else None
 
     def get(self, fact_id: str) -> Fact | None:
         return self._by_id.get(fact_id)
@@ -111,7 +115,8 @@ class Ledger:
         return [f.as_dict() for f in self.facts
                 if f.predicate not in SENSITIVE
                 and not (f.predicate == "cve.name" and not f.source.startswith("CISA KEV"))
-                and (subjects is None or f.subject in subjects)]
+                and (subjects is None or f.subject in subjects)
+                and not (self._sensitive_pattern and self._sensitive_pattern.search(json.dumps(f.as_dict())))]
 
 
 def _days(a: datetime, b: datetime) -> int:
@@ -142,7 +147,7 @@ def build_ledger(delta: Delta, kev: KevCatalog, epss: EpssScores | None, decisio
     add(("tenant", "tenant.unverified_assets", len(delta.missed_assets) + len(delta.gone_assets), diff_src))
     add(("tenant", "tenant.assets_scanned", sum(1 for a in curr.assets if curr.covered(a)), scan_src))
     add(("tenant", "tenant.assets_total", len(curr.assets), scan_src))
-    add(("tenant", "tenant.export_complete", curr.complete, scan_src))
+    add(("tenant", "tenant.export_complete", curr.complete and prev.complete, scan_src))
     add(("bulletin", "bulletin.decision", decision, "alert policy"))
     add(("bulletin", "bulletin.lead", lead, "alert policy"))
 
@@ -191,6 +196,7 @@ def build_ledger(delta: Delta, kev: KevCatalog, epss: EpssScores | None, decisio
 
     terms: set[str] = set()
     for snap in (prev, curr):
+        terms.update(snap.identifiers)
         for asset in snap.assets.values():
             terms.add(asset.id)
             terms.update(asset.hostnames)

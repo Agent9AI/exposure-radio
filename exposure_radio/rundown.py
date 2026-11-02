@@ -141,7 +141,7 @@ def build_script(decision: Decision, ledger: Ledger, order: list[str] | None = N
     if lead:
         _lead_block(s, ledger, lead, full=True)
         _action(s, ledger, lead)
-    seconds = [c for c in (order or [a.cve for a in decision.fresh_alerts])[1:] if c != lead][:1]
+    seconds = [c for c in (order or [a.cve for a in decision.fresh_alerts])[1:] if c != lead]
     for cve in seconds:
         s.fixed("Second item.")
         _lead_block(s, ledger, cve, full=False)
@@ -196,14 +196,14 @@ def build_card(delta: Delta, decision: Decision, ledger: Ledger, kev: KevCatalog
         if not v("cve.owners"):
             steps.append("Assign an owner: no Owner tag is set on the affected assets.")
         item = {
-            "cve": cve, "name": v("cve.name"), "severity": v("cve.severity"),
+            "cve": cve, "name": v("cve.name") if entry else "Scanner finding", "severity": v("cve.severity"),
             "why_now": reasons.get(cve, []),
             "open_assets": v("cve.open_assets", 0), "new_exposure_assets": v("cve.new_exposure_assets", 0),
             "new_visibility_assets": v("cve.new_visibility_assets", 0),
             "unverified_assets": v("cve.unverified_assets", 0), "fixed_assets": v("cve.fixed_assets", 0),
             "internal_deadline": v("cve.internal_due"), "overdue_assets": v("cve.overdue_assets", 0),
             "oldest_open_days": v("cve.oldest_open_days"),
-            "owners": list(v("cve.owners", ())),
+            "owners": list(v("cve.owners", ())) if edition == "analyst" else [],
             "kev": {"listed": bool(entry), "date_added": entry.date_added if entry else None,
                     "known_ransomware_use": entry.ransomware if entry else None,
                     "required_action": entry.required_action if entry else None,
@@ -248,7 +248,7 @@ def build_card(delta: Delta, decision: Decision, ledger: Ledger, kev: KevCatalog
 
 def find_leaks(text: str, ledger: Ledger) -> list[str]:
     return sorted(t for t in ledger.sensitive_terms
-                  if len(t) >= 3 and re.search(rf"(?<![\w.-]){re.escape(t)}(?![\w-])", text, re.I))
+                  if re.search(rf"(?<![A-Za-z0-9]){re.escape(t)}(?![A-Za-z0-9])", text, re.I))
 
 
 def card_markdown(card: dict) -> str:

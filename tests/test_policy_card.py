@@ -105,8 +105,8 @@ class Card(unittest.TestCase):
             edit_json(snap / "vulns" / "chunk-1.json", poison)
             edit_json(snap / "vulns" / "chunk-2.json", poison)
             c = run_cycle(DEMO_PREV, snap, memory=Memory(), commit=False)
-            with self.assertRaises(RedactionError):
-                build_card(c.delta, c.decision, c.ledger, c.kev, "executive", limit=20)
+            card = build_card(c.delta, c.decision, c.ledger, c.kev, "executive", limit=20)
+            self.assertEqual(find_leaks(json.dumps(card), c.ledger), [])
 
     def test_push_payload_is_generic(self):
         payload = self.cycle.decision.push_payload()

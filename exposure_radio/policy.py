@@ -33,6 +33,7 @@ class Alert:
     key: str
     reasons: list[str]
     duplicate: bool = False
+    assets: frozenset[str] = frozenset()
 
 
 @dataclass
@@ -58,7 +59,7 @@ class Decision:
 
 
 def rank_key(r: CveRollup) -> tuple:
-    return (r.in_kev and bool(r.newly_listed or r.new_exposure_assets), r.newly_listed, r.in_kev,
+    return (bool(r.open_assets - r.unverified_assets), r.in_kev and bool(r.newly_listed or r.new_exposure_assets or r.reopened_assets), r.newly_listed, r.in_kev,
             bool(r.new_exposure_assets), bool(r.new_visibility_assets), SEV.index(r.severity), len(r.open_assets),
             r.cve)
 
@@ -75,6 +76,7 @@ class Memory:
         self.db.executescript("""
             CREATE TABLE IF NOT EXISTS alerts (key TEXT PRIMARY KEY, cve TEXT NOT NULL,
                 episode TEXT NOT NULL, created TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS alert_assets (cve TEXT NOT NULL, asset TEXT NOT NULL, PRIMARY KEY(cve, asset));
             CREATE TABLE IF NOT EXISTS episodes (id TEXT PRIMARY KEY, created TEXT NOT NULL,
                 prev TEXT, curr TEXT, kev TEXT, decision TEXT, lead TEXT);
         """)
@@ -91,6 +93,9 @@ class Memory:
     def seen_alert(self, key: str) -> bool:
         return self.db.execute("SELECT 1 FROM alerts WHERE key = ?", (key,)).fetchone() is not None
 
+    def seen_assets(self, cve: str) -> set[str]:
+        return {row[0] for row in self.db.execute("SELECT asset FROM alert_assets WHERE cve = ?", (cve,))}
+
     def seen_episode(self, episode: str) -> bool:
         return self.db.execute("SELECT 1 FROM episodes WHERE id = ?", (episode,)).fetchone() is not None
 
@@ -100,9 +105,16 @@ class Memory:
             self.db.execute("INSERT OR IGNORE INTO episodes VALUES (?,?,?,?,?,?,?)",
                             (decision.episode, now, delta.prev.digest, delta.curr.digest, kev.version,
                              decision.kind, decision.lead))
+            # A verified closure ends the announced exposure for that asset.
+            # Reopening the same CVE later is a new event and must alert again.
+            for roll in delta.cves.values():
+                self.db.executemany("DELETE FROM alert_assets WHERE cve = ? AND asset = ?",
+                                    [(roll.cve, asset) for asset in roll.fixed_assets])
             for alert in decision.fresh_alerts:
                 self.db.execute("INSERT OR IGNORE INTO alerts VALUES (?,?,?,?)",
                                 (alert.key, alert.cve, decision.episode, now))
+                self.db.executemany("INSERT OR IGNORE INTO alert_assets VALUES (?,?)",
+                                    [(alert.cve, asset) for asset in alert.assets])
 
 
 def alert_key(r: CveRollup) -> str:
@@ -126,10 +138,15 @@ def decide(delta: Delta, kev: KevCatalog, memory: Memory) -> Decision:
         if r.new_exposure_assets:
             reasons.append("newly appeared on scanned assets")
         if r.new_visibility_assets:
-            reasons.append("found on newly scanned assets")
+            reasons.append("found on newly scanned or newly credentialed assets")
+        if r.reopened_assets:
+            reasons.append("reopened on scanned assets")
+        if not reasons and r.open_assets - r.unverified_assets - memory.seen_assets(r.cve):
+            reasons.append("exploited exposure not previously announced")
         if reasons:
             key = alert_key(r)
-            alerts.append(Alert(r.cve, key, reasons, duplicate=memory.seen_alert(key)))
+            assets = frozenset(r.open_assets - r.unverified_assets)
+            alerts.append(Alert(r.cve, key, reasons, duplicate=not bool(assets - memory.seen_assets(r.cve)), assets=assets))
 
     log = [f"{a.cve}: {'; '.join(a.reasons)}" + (" (already announced for these assets)" if a.duplicate else "")
            for a in alerts]

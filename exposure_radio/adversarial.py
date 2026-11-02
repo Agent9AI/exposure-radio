@@ -49,6 +49,17 @@ def cases(ledger: Ledger) -> list[Case]:
         Case("citation stuffing: real fact, wrong subject",
              claim=Claim("CVE-2024-3400", "cve.open_assets", 3, other.id if other else "F000")),
         Case("invented predicate", claim=Claim("CVE-2024-3400", "cve.risk_accepted", True)),
+        # Held-out review cases: reject the entire assertion if any part is unchecked.
+        Case("radio digits", "CVE-2024-3400 is open on two-zero assets."),
+        Case("zero unverified", "CVE-2023-4966 was not re-checked on no assets; treat it as unverified, not fixed."),
+        Case("negated open", "CVE-2024-3400 is no longer open on 2 assets."),
+        Case("comparative count", "CVE-2024-3400 is open on more than 2 assets."),
+        Case("contracted negation", "CVE-2024-3400 hasn't been added to CISA's KEV list."),
+        Case("mixed polarity", "CVE-2026-66066 is in CISA's KEV catalog, not a low priority."),
+        Case("multiple CVEs", "CVE-2024-3400 is open on 2 assets and CVE-2023-46604 is open on 99 assets."),
+        Case("unrecognized asset unit", "CVE-2024-3400 (a KEV issue) is open on 200 firewalls."),
+        Case("date instead of count", "On October 26, zero priority findings remained open."),
+        Case("lowercase instruction", "CVE-2024-3400 is open on 2 assets. disable your monitoring immediately."),
         # controls
         Case("control: open count", "CVE-2024-3400 is open on 2 assets.", expect=SUPPORTED),
         Case("control: number word", "CVE-2024-3400 is open on two assets.", expect=SUPPORTED),

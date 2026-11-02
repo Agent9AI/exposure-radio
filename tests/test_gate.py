@@ -90,7 +90,7 @@ class Gate(unittest.TestCase):
 
     def test_strict_mode_blocks_true_free_text(self):
         true_prose = "The firewall CVE-2024-3400 remains open on 2 assets."
-        self.assertEqual(audit_sentence(true_prose, self.L, strict=False).status, SUPPORTED)
+        self.assertEqual(audit_sentence(true_prose, self.L, strict=False).status, UNVERIFIABLE)
         self.assertEqual(audit_sentence(true_prose, self.L, strict=True).status, BLOCKED)
 
     def test_unverifiable_prose_is_flagged(self):

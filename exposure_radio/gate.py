@@ -70,16 +70,16 @@ class SentenceVerdict:
 
 
 def split_sentences(text: str) -> list[str]:
-    parts = re.split(r"(?<=[.!?])\s+(?=[A-Z\"'(])", normalize_sentence(text))
+    parts = re.split(r"(?<=[.!?])\s+(?=[A-Za-z0-9\"'(])", normalize_sentence(text))
     return [p for p in parts if p]
 
 
 def _mentions(term: str, text: str) -> bool:
-    return re.search(rf"(?<![\w.-]){re.escape(term)}(?![\w-])", text, re.I) is not None
+    return re.search(rf"(?<![A-Za-z0-9]){re.escape(term)}(?![A-Za-z0-9])", text, re.I) is not None
 
 
 def _named_systems(text: str, ledger: Ledger) -> list[str]:
-    return sorted(t for t in ledger.sensitive_terms if len(t) >= 3 and _mentions(t, text))
+    return sorted(t for t in ledger.sensitive_terms if _mentions(t, text))
 
 
 def _count_near_unit(text: str) -> int | None:
@@ -182,9 +182,18 @@ def audit_sentence(sentence: str, ledger: Ledger, strict: bool = True, allow_hos
 
     parsed = parse_sentence(s)
     if parsed:
+        for claim in parsed.claims:
+            if claim.predicate == "cve.name":
+                fact = ledger.find(claim.subject, claim.predicate)
+                if not fact or not fact.source.startswith("CISA KEV"):
+                    return SentenceVerdict(s, BLOCKED, ["scanner name is untrusted and cannot be spoken"],
+                                           [], parsed.template.id)
         verdicts = [validate_claim(c, ledger) for c in parsed.claims]
         reasons += [v.reason for v in verdicts if not v.ok]
         for claim in parsed.claims:
+            fact = ledger.find(claim.subject, claim.predicate)
+            if claim.predicate == "cve.name" and (not fact or not fact.source.startswith("CISA KEV")):
+                reasons.append("scanner name is untrusted and cannot be spoken")
             # Names can originate in scanner text; a true "name" may still carry an instruction.
             if claim.predicate == "cve.name" and (_DIRECTIVE.search(str(claim.value)) or
                                                   _ALL_CLEAR.search(str(claim.value))):
@@ -206,7 +215,7 @@ def audit_sentence(sentence: str, ledger: Ledger, strict: bool = True, allow_hos
     if not verdicts:
         why = "factual statement that cannot be checked" if factual else "no checkable claim"
         return SentenceVerdict(s, UNVERIFIABLE, [why], verdicts)
-    return SentenceVerdict(s, SUPPORTED, ["extracted claims supported"], verdicts)
+    return SentenceVerdict(s, UNVERIFIABLE, ["free text is not completely covered by the controlled grammar"], verdicts)
 
 
 def audit_text(text: str, ledger: Ledger, strict: bool = True, allow_hosts: bool = False) -> list[SentenceVerdict]:
@@ -238,7 +247,24 @@ class GateReport:
 def gate_script(lines: list[dict], ledger: Ledger) -> GateReport:
     """Strict check of a spoken script: every sentence must be supported."""
     verdicts = [audit_text(line["text"], ledger, strict=True, allow_hosts=False) for line in lines]
-    passed = bool(lines) and all(v.ok for line in verdicts for v in line)
+    for raw_line, checked in zip(lines, verdicts):
+        if "cites" not in raw_line:
+            continue
+        expected = set()
+        for sentence in checked:
+            for verdict in sentence.claims:
+                if verdict.fact:
+                    expected.add(verdict.fact.id)
+            parsed = parse_sentence(sentence.text)
+            if parsed:
+                for predicate, _, _ in parsed.template.requires:
+                    fact = ledger.find(parsed.subject, predicate)
+                    if fact:
+                        expected.add(fact.id)
+        provided = raw_line["cites"]
+        if not isinstance(provided, list) or any(not isinstance(v, str) for v in provided) or set(provided) != expected:
+            checked.append(SentenceVerdict("", BLOCKED, ["line citations do not match its exact claims"]))
+    passed = bool(lines) and all(line and all(v.ok for v in line) for line in verdicts)
     return GateReport(passed, ledger.id, script_sha256(lines), verdicts)
 
 

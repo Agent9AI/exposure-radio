@@ -1,0 +1,603 @@
+{
+  "model": "gpt-6.1-terra",
+  "backend": "tool session via Finestra",
+  "token_counts": "not measured",
+  "description": "Actual model-tool demonstration using response adaptation; no direct Anthropic API call. Synthetic evidence only.",
+  "ledger": "8ca3e21fddba6eb7",
+  "steps": [
+    {
+      "tool": "list_candidates",
+      "args": {},
+      "result": {
+        "policy_decision": "BREAK_IN",
+        "candidates": [
+          {
+            "cve": "CVE-2026-118527",
+            "facts": {
+              "cve.severity": {
+                "id": "F222",
+                "value": "critical"
+              },
+              "cve.open_assets": {
+                "id": "F223",
+                "value": 1
+              },
+              "cve.unverified_assets": {
+                "id": "F224",
+                "value": 0
+              },
+              "cve.new_exposure_assets": {
+                "id": "F227",
+                "value": 0
+              },
+              "cve.new_visibility_assets": {
+                "id": "F228",
+                "value": 0
+              },
+              "cve.in_kev": {
+                "id": "F229",
+                "value": true
+              },
+              "cve.kev_newly_listed": {
+                "id": "F230",
+                "value": true
+              },
+              "cve.kev_ransomware": {
+                "id": "F232",
+                "value": false
+              },
+              "cve.overdue_assets": {
+                "id": "F236",
+                "value": 0
+              }
+            }
+          },
+          {
+            "cve": "CVE-2026-41709",
+            "facts": {
+              "cve.severity": {
+                "id": "F240",
+                "value": "critical"
+              },
+              "cve.open_assets": {
+                "id": "F241",
+                "value": 3
+              },
+              "cve.unverified_assets": {
+                "id": "F242",
+                "value": 0
+              },
+              "cve.new_exposure_assets": {
+                "id": "F245",
+                "value": 3
+              },
+              "cve.new_visibility_assets": {
+                "id": "F246",
+                "value": 0
+              },
+              "cve.in_kev": {
+                "id": "F247",
+                "value": true
+              },
+              "cve.kev_newly_listed": {
+                "id": "F248",
+                "value": false
+              },
+              "cve.kev_ransomware": {
+                "id": "F250",
+                "value": false
+              },
+              "cve.overdue_assets": {
+                "id": "F254",
+                "value": 0
+              }
+            }
+          },
+          {
+            "cve": "CVE-2021-44228",
+            "facts": {
+              "cve.severity": {
+                "id": "F053",
+                "value": "critical"
+              },
+              "cve.open_assets": {
+                "id": "F054",
+                "value": 2
+              },
+              "cve.unverified_assets": {
+                "id": "F055",
+                "value": 0
+              },
+              "cve.new_exposure_assets": {
+                "id": "F058",
+                "value": 0
+              },
+              "cve.new_visibility_assets": {
+                "id": "F059",
+                "value": 2
+              },
+              "cve.in_kev": {
+                "id": "F060",
+                "value": true
+              },
+              "cve.kev_newly_listed": {
+                "id": "F061",
+                "value": false
+              },
+              "cve.kev_ransomware": {
+                "id": "F063",
+                "value": true
+              },
+              "cve.epss_percent": {
+                "id": "F065",
+                "value": 100
+              },
+              "cve.overdue_assets": {
+                "id": "F068",
+                "value": 0
+              }
+            }
+          },
+          {
+            "cve": "CVE-2024-3400",
+            "facts": {
+              "cve.severity": {
+                "id": "F171",
+                "value": "critical"
+              },
+              "cve.open_assets": {
+                "id": "F172",
+                "value": 2
+              },
+              "cve.unverified_assets": {
+                "id": "F173",
+                "value": 0
+              },
+              "cve.new_exposure_assets": {
+                "id": "F176",
+                "value": 0
+              },
+              "cve.new_visibility_assets": {
+                "id": "F177",
+                "value": 0
+              },
+              "cve.in_kev": {
+                "id": "F178",
+                "value": true
+              },
+              "cve.kev_newly_listed": {
+                "id": "F179",
+                "value": false
+              },
+              "cve.kev_ransomware": {
+                "id": "F181",
+                "value": true
+              },
+              "cve.epss_percent": {
+                "id": "F183",
+                "value": 100
+              },
+              "cve.overdue_assets": {
+                "id": "F186",
+                "value": 2
+              }
+            }
+          },
+          {
+            "cve": "CVE-2023-46604",
+            "facts": {
+              "cve.severity": {
+                "id": "F124",
+                "value": "critical"
+              },
+              "cve.open_assets": {
+                "id": "F125",
+                "value": 2
+              },
+              "cve.unverified_assets": {
+                "id": "F126",
+                "value": 0
+              },
+              "cve.new_exposure_assets": {
+                "id": "F129",
+                "value": 0
+              },
+              "cve.new_visibility_assets": {
+                "id": "F130",
+                "value": 0
+              },
+              "cve.in_kev": {
+                "id": "F131",
+                "value": true
+              },
+              "cve.kev_newly_listed": {
+                "id": "F132",
+                "value": false
+              },
+              "cve.kev_ransomware": {
+                "id": "F134",
+                "value": true
+              },
+              "cve.epss_percent": {
+                "id": "F136",
+                "value": 100
+              },
+              "cve.overdue_assets": {
+                "id": "F139",
+                "value": 2
+              }
+            }
+          },
+          {
+            "cve": "CVE-2023-20198",
+            "facts": {
+              "cve.severity": {
+                "id": "F091",
+                "value": "critical"
+              },
+              "cve.open_assets": {
+                "id": "F092",
+                "value": 1
+              },
+              "cve.unverified_assets": {
+                "id": "F093",
+                "value": 0
+              },
+              "cve.new_exposure_assets": {
+                "id": "F096",
+                "value": 0
+              },
+              "cve.new_visibility_assets": {
+                "id": "F097",
+                "value": 0
+              },
+              "cve.in_kev": {
+                "id": "F098",
+                "value": true
+              },
+              "cve.kev_newly_listed": {
+                "id": "F099",
+                "value": false
+              },
+              "cve.kev_ransomware": {
+                "id": "F101",
+                "value": false
+              },
+              "cve.epss_percent": {
+                "id": "F103",
+                "value": 100
+              },
+              "cve.overdue_assets": {
+                "id": "F106",
+                "value": 0
+              }
+            }
+          },
+          {
+            "cve": "CVE-2022-22965",
+            "facts": {
+              "cve.severity": {
+                "id": "F072",
+                "value": "critical"
+              },
+              "cve.open_assets": {
+                "id": "F073",
+                "value": 1
+              },
+              "cve.unverified_assets": {
+                "id": "F074",
+                "value": 0
+              },
+              "cve.new_exposure_assets": {
+                "id": "F077",
+                "value": 0
+              },
+              "cve.new_visibility_assets": {
+                "id": "F078",
+                "value": 0
+              },
+              "cve.in_kev": {
+                "id": "F079",
+                "value": true
+              },
+              "cve.kev_newly_listed": {
+                "id": "F080",
+                "value": false
+              },
+              "cve.kev_ransomware": {
+                "id": "F082",
+                "value": false
+              },
+              "cve.epss_percent": {
+                "id": "F084",
+                "value": 100
+              },
+              "cve.overdue_assets": {
+                "id": "F087",
+                "value": 1
+              }
+            }
+          },
+          {
+            "cve": "CVE-2017-0144",
+            "facts": {
+              "cve.severity": {
+                "id": "F015",
+                "value": "high"
+              },
+              "cve.open_assets": {
+                "id": "F016",
+                "value": 1
+              },
+              "cve.unverified_assets": {
+                "id": "F017",
+                "value": 0
+              },
+              "cve.new_exposure_assets": {
+                "id": "F020",
+                "value": 0
+              },
+              "cve.new_visibility_assets": {
+                "id": "F021",
+                "value": 0
+              },
+              "cve.in_kev": {
+                "id": "F022",
+                "value": true
+              },
+              "cve.kev_newly_listed": {
+                "id": "F023",
+                "value": false
+              },
+              "cve.kev_ransomware": {
+                "id": "F025",
+                "value": true
+              },
+              "cve.epss_percent": {
+                "id": "F027",
+                "value": 99
+              },
+              "cve.overdue_assets": {
+                "id": "F030",
+                "value": 1
+              }
+            }
+          }
+        ]
+      },
+      "timestamp": "2026-11-02T20:42:26.270280+00:00"
+    },
+    {
+      "tool": "get_facts",
+      "args": {
+        "subject": "CVE-2026-118527"
+      },
+      "result": {
+        "facts": [
+          {
+            "id": "F221",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.name",
+            "value": "Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability",
+            "source": "CISA KEV catalog 2026.10.30 as of 2026-10-3\u2026"
+          },
+          {
+            "id": "F222",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.severity",
+            "value": "critical",
+            "source": "Tenable VM export 2026-10-30 (e208b654bb846a75)"
+          },
+          {
+            "id": "F223",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.open_assets",
+            "value": 1,
+            "source": "Tenable VM exports 2026-10-29 -> 2026-10-30 (065f9c15d35efe25->e208b654bb846a75)"
+          },
+          {
+            "id": "F224",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.unverified_assets",
+            "value": 0,
+            "source": "Tenable VM exports 2026-10-29 -> 2026-10-30 (065f9c15d35efe25->e208b654bb846a75)"
+          },
+          {
+            "id": "F225",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.fixed_assets",
+            "value": 0,
+            "source": "Tenable VM exports 2026-10-29 -> 2026-10-30 (065f9c15d35efe25->e208b654bb846a75)"
+          },
+          {
+            "id": "F226",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.not_detected_assets",
+            "value": 0,
+            "source": "Tenable VM exports 2026-10-29 -> 2026-10-30 (065f9c15d35efe25->e208b654bb846a75)"
+          },
+          {
+            "id": "F227",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.new_exposure_assets",
+            "value": 0,
+            "source": "Tenable VM exports 2026-10-29 -> 2026-10-30 (065f9c15d35efe25->e208b654bb846a75)"
+          },
+          {
+            "id": "F228",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.new_visibility_assets",
+            "value": 0,
+            "source": "Tenable VM exports 2026-10-29 -> 2026-10-30 (065f9c15d35efe25->e208b654bb846a75)"
+          },
+          {
+            "id": "F229",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.in_kev",
+            "value": true,
+            "source": "CISA KEV catalog 2026.10.30 as of 2026-10-3\u2026"
+          },
+          {
+            "id": "F230",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.kev_newly_listed",
+            "value": true,
+            "source": "CISA KEV catalog 2026.10.30 as of 2026-10-3\u2026"
+          },
+          {
+            "id": "F231",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.kev_added",
+            "value": "2026-10-30",
+            "source": "CISA KEV catalog 2026.10.30 as of 2026-10-3\u2026"
+          },
+          {
+            "id": "F232",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.kev_ransomware",
+            "value": false,
+            "source": "CISA KEV catalog 2026.10.30 as of 2026-10-3\u2026"
+          },
+          {
+            "id": "F233",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.kev_catalog_due",
+            "value": "2026-11-13",
+            "source": "CISA KEV catalog 2026.10.30 as of 2026-10-3\u2026"
+          },
+          {
+            "id": "F234",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.oldest_open_days",
+            "value": 9,
+            "source": "Tenable VM export 2026-10-30 (e208b654bb846a75)"
+          },
+          {
+            "id": "F235",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.internal_due",
+            "value": "2026-11-06",
+            "source": "internal SLA: 7 days from KEV listing or first detection, whichever is later"
+          },
+          {
+            "id": "F236",
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.overdue_assets",
+            "value": 0,
+            "source": "internal SLA: 7 days from KEV listing or first detection, whichever is later"
+          }
+        ]
+      },
+      "timestamp": "2026-11-02T20:42:34.588031+00:00"
+    },
+    {
+      "tool": "check_claims",
+      "args": {
+        "claims": [
+          {
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.fixed_assets",
+            "value": 20,
+            "cite": "F225"
+          }
+        ]
+      },
+      "result": {
+        "results": [
+          {
+            "ok": false,
+            "reason": "evidence F225 says 0, not 20 (evidence: open on 1, verified fixed on 0, unverified on 0)"
+          }
+        ]
+      },
+      "timestamp": "2026-11-02T20:42:43.459048+00:00"
+    },
+    {
+      "tool": "check_claims",
+      "args": {
+        "claims": [
+          {
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.kev_newly_listed",
+            "value": true,
+            "cite": "F230"
+          },
+          {
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.open_assets",
+            "value": 1,
+            "cite": "F223"
+          },
+          {
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.in_kev",
+            "value": true,
+            "cite": "F229"
+          }
+        ]
+      },
+      "result": {
+        "results": [
+          {
+            "ok": true,
+            "reason": "supported by F230"
+          },
+          {
+            "ok": true,
+            "reason": "supported by F223"
+          },
+          {
+            "ok": true,
+            "reason": "supported by F229"
+          }
+        ]
+      },
+      "timestamp": "2026-11-02T20:42:51.799188+00:00"
+    },
+    {
+      "tool": "submit_rundown",
+      "args": {
+        "order": [
+          "CVE-2026-118527",
+          "CVE-2026-41709",
+          "CVE-2024-3400",
+          "CVE-2023-46604",
+          "CVE-2021-44228"
+        ],
+        "angle": "newly_exploited",
+        "lead_claims": [
+          {
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.kev_newly_listed",
+            "value": true,
+            "cite": "F230"
+          },
+          {
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.open_assets",
+            "value": 1,
+            "cite": "F223"
+          },
+          {
+            "subject": "CVE-2026-118527",
+            "predicate": "cve.in_kev",
+            "value": true,
+            "cite": "F229"
+          }
+        ]
+      },
+      "result": {
+        "ok": true,
+        "order": [
+          "CVE-2026-118527",
+          "CVE-2026-41709",
+          "CVE-2024-3400",
+          "CVE-2023-46604",
+          "CVE-2021-44228"
+        ],
+        "problems": []
+      },
+      "timestamp": "2026-11-02T20:43:05.076067+00:00"
+    }
+  ]
+}

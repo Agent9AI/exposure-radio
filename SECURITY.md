@@ -15,12 +15,14 @@ text fields as untrusted.
 
 | Boundary | Rule |
 |---|---|
-| Scanner text | Plugin output, banners and other free text are never read. Names that are kept are length-capped and stripped to a safe character set before use. |
-| Claims | Every spoken or written factual statement is a structured claim checked against the evidence ledger. Claims that fail are blocked before any audio is generated. |
-| Model access | Optional. The analyst model sees only allowlisted, structured facts, can call read-only tools, and runs under hard call, token and time limits. |
+| Scanner text | Plugin output, banners and other free text are never read. Scanner names and owner tags are excluded from model-safe outputs; kept private fields are length-capped. |
+| Claims | Every factual narration sentence is rendered from structured claims and checked against the evidence ledger. Claims that fail are blocked before any audio is generated. |
+| Model access | Optional. The analyst model sees only allowlisted, structured facts, can call read-only tools, and runs under call and time caps. The API adapter reserves counted input and output tokens; the operator-trusted command adapter uses bounded bytes and requires separate provider controls. |
 | Hostnames | Executive editions, audio scripts and notification payloads are checked fail-closed for tenant hostnames, FQDNs, IP addresses and asset IDs. |
 | Notifications | Push payloads carry generic text and an opaque reference only. |
-| Network | The core and the demo make no network calls. Feed refresh and the optional model call are explicit opt-ins. |
+| Network | The core and the demo make no network calls. The optional API-backed analyst is an explicit opt-in. Feed files are supplied locally. |
 | Credentials | None are stored in the repository. API keys are read from the environment at run time. |
 
 Public demos and the hosted sample use synthetic data only.
+
+The stdio MCP server is local and exposes no network listener. Its export root limits file access; it rejects symlink exports, oversized messages and malformed tool arguments. It is not a multi-tenant authentication service.

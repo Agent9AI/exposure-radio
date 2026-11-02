@@ -1,9 +1,15 @@
 PY ?= python3
 
-.PHONY: check test gate-demo audit demo fixtures
+.PHONY: check test gate-demo audit demo fixtures site benchmark
 
 ## check: everything a reviewer needs, stdlib only
 check: test gate-demo audit
+
+site:
+	$(PY) scripts/build_site.py
+
+benchmark:
+	$(PY) scripts/benchmark.py --runs 5
 
 test:
 	$(PY) -m unittest discover -s tests -t . -q
