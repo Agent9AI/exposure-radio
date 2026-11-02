@@ -37,7 +37,7 @@ def main() -> int:
                  backend=type(backend).__name__, source=rundown.source, angle=rundown.angle,
                  order=rundown.order, log=rundown.log,
                  token_counts="exact (API usage)" if type(backend).__name__ == "AnthropicBackend"
-                 else "approximate (characters / 4)")
+                 else "conservative UTF-8 byte accounting; provider reasoning usage not measured")
     out = DEMO / "analyst-trace.json"
     if rundown.source != "analyst":
         print(json.dumps(trace, indent=1))

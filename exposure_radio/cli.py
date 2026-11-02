@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import tempfile
 import sys
 import time
 from pathlib import Path
@@ -54,16 +56,26 @@ def _print_analyst(cycle: Cycle, paint) -> None:
 
 
 def _write_outputs(cycle: Cycle, out: Path) -> None:
-    out.mkdir(parents=True, exist_ok=True)
     ep = cycle.episode
-    (out / "card.md").write_text(card_markdown(ep.card))
-    (out / "card.json").write_text(json.dumps(ep.card, indent=2) + "\n")
-    (out / "episode.json").write_text(json.dumps({
-        "decision": ep.decision.kind, "lead": ep.decision.lead, "episode": ep.decision.episode,
-        "policy_log": ep.decision.log, "push": ep.decision.push_payload(),
-        "lines": ep.lines, "gate": ep.gate.receipt() if ep.gate else None,
-        "ledger": cycle.ledger.public_view(),
-    }, indent=2) + "\n")
+    if ep.gate is None or not ep.gate.passed:
+        raise ValueError("output requires a passing script gate")
+    payloads = {
+        "card.md": card_markdown(ep.card),
+        "card.json": json.dumps(ep.card, indent=2) + "\n",
+        "episode.json": json.dumps({
+            "decision": ep.decision.kind, "lead": ep.decision.lead, "episode": ep.decision.episode,
+            "policy_log": ep.decision.log, "push": ep.decision.push_payload(),
+            "lines": ep.lines, "gate": ep.gate.receipt(), "ledger": cycle.ledger.public_view(),
+        }, indent=2) + "\n",
+    }
+    out.mkdir(parents=True, exist_ok=True)
+    # Complete all serialization and staging before replacing any output.
+    with tempfile.TemporaryDirectory(prefix=".exposure-radio-", dir=out.parent) as staging:
+        staging = Path(staging)
+        for name, value in payloads.items():
+            (staging / name).write_text(value)
+        for name in payloads:
+            os.replace(staging / name, out / name)
 
 
 def _print_cycle(cycle: Cycle, paint, show_card: bool = True) -> None:
@@ -106,12 +118,14 @@ def cmd_demo(args) -> int:
     paint = _color(sys.stdout.isatty() and not args.json)
     start = time.perf_counter()
     memory = Memory(args.state) if args.state else Memory()
-    first = run_cycle(memory=memory, edition=args.edition, analyst=_analyst(args.analyst))
+    first = run_cycle(memory=memory, edition=args.edition, analyst=_analyst(args.analyst), commit=False)
     t1 = time.perf_counter() - start
-    second = run_cycle(memory=memory, edition=args.edition)
-    t2 = time.perf_counter() - start - t1
     if args.out:
         _write_outputs(first, Path(args.out))
+    if first.episode.gate and first.episode.gate.passed:
+        memory.commit(first.decision, first.delta, first.kev)
+    second = run_cycle(memory=memory, edition=args.edition)
+    t2 = time.perf_counter() - start - t1
     if args.json:
         print(json.dumps({"first": first.episode.card, "first_lines": first.episode.lines,
                           "first_gate": first.episode.gate.receipt(),
@@ -140,9 +154,11 @@ def cmd_brief(args) -> int:
     paint = _color(sys.stdout.isatty() and not args.json)
     memory = Memory(args.state) if args.state else Memory()
     cycle = run_cycle(args.prev, args.curr, args.kev, args.epss, memory, args.edition, args.window_hours,
-                      analyst=_analyst(args.analyst), prev_kev_path=args.prev_kev)
-    if args.out:
+                      analyst=_analyst(args.analyst), prev_kev_path=args.prev_kev, commit=False)
+    if args.out and cycle.episode.gate is not None:
         _write_outputs(cycle, Path(args.out))
+    if cycle.episode.gate and cycle.episode.gate.passed:
+        memory.commit(cycle.decision, cycle.delta, cycle.kev)
     if args.json:
         print(json.dumps({"card": cycle.episode.card, "lines": cycle.episode.lines,
                           "gate": cycle.episode.gate.receipt() if cycle.episode.gate else None}, indent=2))

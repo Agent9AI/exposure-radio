@@ -107,6 +107,9 @@ def call_tool(name: str, args: dict) -> dict:
         for raw in args.get("claims") or []:
             if not isinstance(raw, dict) or not raw.get("cite"):
                 raise ToolError("every structured claim requires an evidence citation")
+            if raw["cite"] not in {f["id"] for f in c.ledger.public_view()}:
+                out.append({"ok": False, "reason": "citation is not a public fact"})
+                continue
             out.append(validate_claim(Claim.from_dict(raw), c.ledger).as_dict())
         if args.get("text"):
             out += [v.as_dict() for v in audit_text(str(args["text"])[:4000], c.ledger,

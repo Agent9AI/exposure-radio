@@ -24,4 +24,4 @@ exposure-radio = "exposure_radio.cli:main"
 include = ["exposure_radio*"]
 
 [tool.setuptools.package-data]
-exposure_radio = ["data/feeds/*.json", "data/demo/*/*.json", "data/demo/*/vulns/*.json"]
+exposure_radio = ["data/feeds/*.json", "data/demo/*.json", "data/demo/*/*.json", "data/demo/*/vulns/*.json"]

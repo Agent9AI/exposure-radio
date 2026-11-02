@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from exposure_radio.analyst import (AnthropicBackend, Limits, Step, Tools, _check_submission,
+from exposure_radio.analyst import (AnthropicBackend, CommandBackend, Limits, Step, Tools, _check_submission,
                                     run_analyst)
 from exposure_radio.mcp_server import ToolError, _dir, call_tool, handle, serve
 from exposure_radio.pipeline import DEMO_CURR, run_cycle
@@ -62,7 +62,7 @@ class AnalystChecks(unittest.TestCase):
     def test_unknown_tool_never_executes(self):
         out = self.run_backend(Backend([Step("shell", {"command": "do things"})]))
         self.assertEqual(out.source, "deterministic")
-        self.assertIn("invalid analyst tool", out.trace["failed"])
+        self.assertEqual(out.trace["failed"], "ValueError")
 
     def test_unknown_lead_and_unjustified_angle_rejected(self):
         for data in [self.submission(order=["CVE-1900-0000"]),
@@ -90,6 +90,52 @@ class AnalystChecks(unittest.TestCase):
             out = self.run_backend(b, max_seconds=1)
         self.assertEqual(out.source, "deterministic")
         self.assertIn("time", out.trace["failed"])
+
+    def test_hidden_fact_is_not_disclosed_by_validation(self):
+        tools = Tools(self.c.ledger, self.c.decision, self.candidates)
+        fact = next(f for f in self.c.ledger.facts if f.predicate == "cve.name" and
+                    f.id not in {p["id"] for p in self.c.ledger.public_view()})
+        raw = {"subject": fact.subject, "predicate": fact.predicate, "value": "probe", "cite": fact.id}
+        for result in [tools.check_claims([raw]), call_tool("check_claims", {"claims": [raw]}),
+                       call_tool("check_claims", {"text": f"{fact.subject} is listed as probe."})]:
+            self.assertNotIn(str(fact.value), json.dumps(result))
+
+    def test_provider_exception_does_not_leak_into_card(self):
+        b = Backend([])
+        def broken(_):
+            raise RuntimeError("vpn-gw-01 secret-provider-diagnostic")
+        b.start = broken
+        c = run_cycle(analyst=b, edition="executive", commit=False)
+        self.assertNotIn("vpn-gw-01", json.dumps(c.episode.card))
+        self.assertNotIn("secret-provider-diagnostic", json.dumps(c.rundown.trace))
+
+    def test_command_stream_is_bounded(self):
+        import sys
+        backend = CommandBackend(f"{sys.executable} -c 'import sys; sys.stderr.write(chr(120)*1000000)'")
+        backend.start("test")
+        with self.assertRaises(RuntimeError):
+            backend.step(Limits(max_output_tokens=64, max_seconds=3))
+
+    def test_model_cannot_omit_policy_alerts(self):
+        b = Backend([Step("list_candidates", {}), Step("submit_rundown", self.submission())])
+        c = run_cycle(analyst=b, commit=False)
+        spoken = " ".join(line["text"] for line in c.episode.lines)
+        for alert in c.decision.fresh_alerts:
+            self.assertIn(alert.cve, spoken)
+        self.assertTrue(c.episode.gate.passed)
+
+    def test_output_failure_leaves_alert_uncommitted(self):
+        from exposure_radio.cli import main
+        from exposure_radio.policy import Memory
+        with tempfile.TemporaryDirectory() as d:
+            state = str(Path(d) / "state.db")
+            with patch("exposure_radio.cli._write_outputs", side_effect=OSError("disk unavailable")):
+                with self.assertRaises(OSError):
+                    main(["demo", "--state", state, "--out", str(Path(d) / "out")])
+            memory = Memory(state)
+            self.assertFalse(memory.seen_episode(self.c.decision.episode))
+            self.assertEqual(memory.seen_assets(self.lead), set())
+            memory.close()
 
     def test_count_before_generation(self):
         backend = AnthropicBackend(api_key="test-only")

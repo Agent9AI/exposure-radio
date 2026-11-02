@@ -105,6 +105,11 @@ class Memory:
             self.db.execute("INSERT OR IGNORE INTO episodes VALUES (?,?,?,?,?,?,?)",
                             (decision.episode, now, delta.prev.digest, delta.curr.digest, kev.version,
                              decision.kind, decision.lead))
+            # A verified closure ends the announced exposure for that asset.
+            # Reopening the same CVE later is a new event and must alert again.
+            for roll in delta.cves.values():
+                self.db.executemany("DELETE FROM alert_assets WHERE cve = ? AND asset = ?",
+                                    [(roll.cve, asset) for asset in roll.fixed_assets])
             for alert in decision.fresh_alerts:
                 self.db.execute("INSERT OR IGNORE INTO alerts VALUES (?,?,?,?)",
                                 (alert.key, alert.cve, decision.episode, now))
@@ -141,7 +146,7 @@ def decide(delta: Delta, kev: KevCatalog, memory: Memory) -> Decision:
         if reasons:
             key = alert_key(r)
             assets = frozenset(r.open_assets - r.unverified_assets)
-            alerts.append(Alert(r.cve, key, reasons, duplicate=not bool(assets - memory.seen_assets(r.cve)) or memory.seen_alert(key), assets=assets))
+            alerts.append(Alert(r.cve, key, reasons, duplicate=not bool(assets - memory.seen_assets(r.cve)), assets=assets))
 
     log = [f"{a.cve}: {'; '.join(a.reasons)}" + (" (already announced for these assets)" if a.duplicate else "")
            for a in alerts]

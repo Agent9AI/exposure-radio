@@ -82,6 +82,9 @@ class Ledger:
     def __post_init__(self) -> None:
         self._by_id = {f.id: f for f in self.facts}
         self._by_key = {(f.subject, f.predicate): f for f in self.facts}
+        terms = sorted((re.escape(t) for t in self.sensitive_terms if t), key=len, reverse=True)
+        self._sensitive_pattern = re.compile(r"(?<![A-Za-z0-9])(?:" + "|".join(terms) +
+                                             r")(?![A-Za-z0-9])", re.I) if terms else None
 
     def get(self, fact_id: str) -> Fact | None:
         return self._by_id.get(fact_id)
@@ -113,8 +116,7 @@ class Ledger:
                 if f.predicate not in SENSITIVE
                 and not (f.predicate == "cve.name" and not f.source.startswith("CISA KEV"))
                 and (subjects is None or f.subject in subjects)
-                and not any(re.search(rf"(?<![A-Za-z0-9]){re.escape(term)}(?![A-Za-z0-9])",
-                                      json.dumps(f.as_dict()), re.I) for term in self.sensitive_terms)]
+                and not (self._sensitive_pattern and self._sensitive_pattern.search(json.dumps(f.as_dict())))]
 
 
 def _days(a: datetime, b: datetime) -> int:

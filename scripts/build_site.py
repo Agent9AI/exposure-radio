@@ -29,6 +29,7 @@ the page knows the audio exists; without it the page offers the transcript only.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -156,6 +157,17 @@ def build(web: Path) -> dict[str, object]:
     # --- media manifest -------------------------------------------------------------------------
     audio = web / "assets" / "briefing.mp3"
     cues = _load_cues(web / "assets" / "cues.json", ep.lines)
+    if audio.is_file():
+        metadata = web / "assets" / "audio.json"
+        if not metadata.is_file():
+            raise BuildError("audio requires its receipt and measurement manifest")
+        manifest = json.loads(metadata.read_text())
+        if manifest.get("receipt") != ep.gate.receipt():
+            raise BuildError("audio receipt does not match the current script and ledger")
+        if manifest.get("audio_sha256") != hashlib.sha256(audio.read_bytes()).hexdigest():
+            raise BuildError("audio file does not match its integrity manifest")
+        if cues is None or manifest.get("cues") != cues:
+            raise BuildError("audio requires the matching caption cues")
     media = {"audio": "assets/briefing.mp3" if audio.is_file() and audio.stat().st_size > 0 else None,
              "cues": "assets/cues.json" if cues is not None else None}
 

@@ -23,6 +23,9 @@ from __future__ import annotations
 import json
 import os
 import re
+import selectors
+import signal
+import tempfile
 import subprocess
 import time
 import urllib.error
@@ -134,7 +137,12 @@ class Tools:
 
     def check_claims(self, claims: list) -> dict:
         out = []
-        for raw in (claims or [])[:10]:
+        if not isinstance(claims, list):
+            return {"error": "claims must be an array"}
+        for raw in claims[:10]:
+            if not isinstance(raw, dict) or raw.get("cite") not in self.disclosed:
+                out.append({"ok": False, "reason": "claim must cite a fact returned by an allowlisted tool"})
+                continue
             v = validate_claim(Claim.from_dict(raw if isinstance(raw, dict) else {}), self.ledger)
             out.append({"ok": v.ok, "reason": v.reason})
         return {"results": out}
@@ -242,13 +250,40 @@ class CommandBackend:
         prompt = "\n".join(self.transcript)
         if len(prompt.encode()) + limits.max_output_tokens > limits.max_total_tokens:
             raise BudgetExceeded("command context exceeds conservative byte/token budget")
-        proc = subprocess.run(self.argv, input=prompt, capture_output=True, text=True,
-                              timeout=min(self.timeout, limits.max_seconds))
-        if proc.returncode != 0:
-            raise RuntimeError(f"analyst command failed ({proc.returncode})")
-        text = proc.stdout
-        if len(text.encode()) > min(64_000, limits.max_output_tokens * 4):
-            raise BudgetExceeded("command response exceeds output byte budget")
+        deadline = time.monotonic() + min(self.timeout, limits.max_seconds)
+        cap = min(64_000, limits.max_output_tokens * 4)
+        with tempfile.TemporaryFile() as prompt_file:
+            prompt_file.write(prompt.encode())
+            prompt_file.seek(0)
+            proc = subprocess.Popen(self.argv, stdin=prompt_file, stdout=subprocess.PIPE,
+                                    stderr=subprocess.PIPE, start_new_session=True)
+            buffers = {proc.stdout: bytearray(), proc.stderr: bytearray()}
+            try:
+                with selectors.DefaultSelector() as poll:
+                    for stream in buffers:
+                        poll.register(stream, selectors.EVENT_READ)
+                    while poll.get_map():
+                        remaining = deadline - time.monotonic()
+                        if remaining <= 0:
+                            raise BudgetExceeded("command time budget exceeded")
+                        for key, _ in poll.select(min(remaining, .1)):
+                            chunk = os.read(key.fileobj.fileno(), 8192)
+                            if not chunk:
+                                poll.unregister(key.fileobj)
+                                continue
+                            buffers[key.fileobj].extend(chunk)
+                            if sum(len(v) for v in buffers.values()) > cap:
+                                raise BudgetExceeded("command response exceeds output byte budget")
+                    code = proc.wait(timeout=max(.01, deadline - time.monotonic()))
+                    if code:
+                        raise RuntimeError("analyst command failed")
+                    text = buffers[proc.stdout].decode("utf-8", "replace")
+            finally:
+                if proc.poll() is None:
+                    os.killpg(proc.pid, signal.SIGKILL)
+                    proc.wait()
+                proc.stdout.close()
+                proc.stderr.close()
         match = re.search(r"\{.*\}", text, re.S)
         if not match:
             raise RuntimeError("analyst command returned no JSON action")
@@ -357,6 +392,10 @@ def run_analyst(ledger: Ledger, decision: Decision, delta, backend=None, limits:
                       "output_tokens": step.output_tokens}
             if step.tool == "submit_rundown":
                 verdict = _check_submission(step.args, ledger, candidates, tools.disclosed)
+                if (decision.kind == "BREAK_IN" and verdict.get("order") and
+                        verdict["order"][0] != decision.lead):
+                    verdict["ok"] = False
+                    verdict["problems"].append("the interruption must retain the policy lead")
                 record["result"] = verdict
                 trace["steps"].append(record)
                 if verdict["ok"]:
@@ -383,8 +422,10 @@ def run_analyst(ledger: Ledger, decision: Decision, delta, backend=None, limits:
             trace["steps"].append(record)
             backend.result(step, payload, is_error="error" in payload)
     except Exception as e:  # noqa: BLE001 - every failure falls back, with the reason logged
-        fallback = deterministic(ledger, decision, candidates, f"analyst fell back to template order: {e}")
-        trace.update(calls=calls, tool_calls=tool_calls, tokens=tokens, failed=str(e),
+        category = str(e) if isinstance(e, BudgetExceeded) else type(e).__name__
+        # Provider errors and model fields can contain credentials or tenant identifiers.
+        fallback = deterministic(ledger, decision, candidates, f"analyst fell back to template order: {category}")
+        trace.update(calls=calls, tool_calls=tool_calls, tokens=tokens, failed=category,
                      seconds=round(time.monotonic() - started, 2))
         fallback.trace = trace
         return fallback

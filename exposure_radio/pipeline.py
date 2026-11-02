@@ -11,7 +11,7 @@ from .feeds import DATA, DEFAULT_KEV, EpssScores, KevCatalog, load_epss, load_ke
 from .gate import gate_script
 from .ledger import Ledger, build_ledger
 from .policy import Decision, Memory, decide, ranked
-from .rundown import Episode, build_card, build_script
+from .rundown import Episode, RedactionError, build_card, build_script, find_leaks
 from .snapshot import load_snapshot
 
 DEMO = DATA / "demo"
@@ -66,6 +66,7 @@ def run_cycle(prev_dir: str | Path = DEMO_PREV, curr_dir: str | Path = DEMO_CURR
             decision.lead = order[0]
             ledger = build_ledger(delta, kev_curr, epss, decision.kind, decision.lead)
     if order:
+        order = list(order) + [a.cve for a in decision.fresh_alerts if a.cve not in order]
         known = {r.cve for r in ranked(delta)}
         order = list(dict.fromkeys(c for c in order if c in known))
         if decision.kind == "BREAK_IN" and decision.lead:
@@ -77,9 +78,11 @@ def run_cycle(prev_dir: str | Path = DEMO_PREV, curr_dir: str | Path = DEMO_CURR
     gate = gate_script(lines, ledger) if lines else None
     card = build_card(delta, decision, ledger, kev_curr, edition)
     if rundown is not None:
-        card["analyst"] = {"source": rundown.source, "model": rundown.trace.get("model"), "angle": rundown.angle,
+        card["analyst"] = {"source": rundown.source, "angle": rundown.angle,
                            "order": rundown.order, "lead_claims": [c.as_dict() for c in rundown.lead_claims],
-                           "log": rundown.log}
+                           "status": "validated" if rundown.source == "analyst" else "template fallback"}
+    if edition == "executive" and find_leaks(__import__("json").dumps(card), ledger):
+        raise RedactionError("executive output failed the final identifier check")
     episode = Episode(decision, ledger, lines, gate, card, edition)
     if commit and (gate is None or gate.passed):
         memory.commit(decision, delta, kev_curr)

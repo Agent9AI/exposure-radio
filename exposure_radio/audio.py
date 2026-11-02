@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import html
+import hashlib
 import json
 import math
 import subprocess
@@ -90,7 +91,7 @@ def render(lines, receipt, ledger, output, model, voices):
             vtt.extend([f'{_stamp(start)} --> {_stamp(end)}', f'<v {voice}>{html.escape(text)}', ''])
         (output / 'episode.mp3').write_bytes(mp3.read_bytes())
         (output / 'episode.vtt').write_text('\n'.join(vtt), encoding='utf-8')
-        result = {'receipt': report.receipt(), 'integrated_lufs': loudness, 'true_peak_dbtp': peak,
+        result = {'receipt': report.receipt(), 'audio_sha256': hashlib.sha256(mp3.read_bytes()).hexdigest(), 'integrated_lufs': loudness, 'true_peak_dbtp': peak,
                   'duration_seconds': round(elapsed, 3), 'sample_rate_hz': rate,
                   'codec': 'mp3', 'voices': {'ANCHOR': 'am_michael', 'ANALYST': 'af_heart'},
                   'cues': [{'start': round(a, 3), 'end': round(b, 3), 'voice': v, 'text': t} for a, b, v, t in cues]}

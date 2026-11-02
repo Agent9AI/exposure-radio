@@ -182,6 +182,12 @@ def audit_sentence(sentence: str, ledger: Ledger, strict: bool = True, allow_hos
 
     parsed = parse_sentence(s)
     if parsed:
+        for claim in parsed.claims:
+            if claim.predicate == "cve.name":
+                fact = ledger.find(claim.subject, claim.predicate)
+                if not fact or not fact.source.startswith("CISA KEV"):
+                    return SentenceVerdict(s, BLOCKED, ["scanner name is untrusted and cannot be spoken"],
+                                           [], parsed.template.id)
         verdicts = [validate_claim(c, ledger) for c in parsed.claims]
         reasons += [v.reason for v in verdicts if not v.ok]
         for claim in parsed.claims:
@@ -241,7 +247,7 @@ class GateReport:
 def gate_script(lines: list[dict], ledger: Ledger) -> GateReport:
     """Strict check of a spoken script: every sentence must be supported."""
     verdicts = [audit_text(line["text"], ledger, strict=True, allow_hosts=False) for line in lines]
-    passed = bool(lines) and all(v.ok for line in verdicts for v in line)
+    passed = bool(lines) and all(line and all(v.ok for v in line) for line in verdicts)
     return GateReport(passed, ledger.id, script_sha256(lines), verdicts)
 
 

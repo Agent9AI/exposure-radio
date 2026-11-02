@@ -1,0 +1,21 @@
+{
+  "measure": "initial briefing plus unchanged rerun, seconds",
+  "runs": 5,
+  "seconds": [
+    2.2195,
+    1.7493,
+    2.1809,
+    1.8994,
+    2.0607
+  ],
+  "median_seconds": 2.0607,
+  "threshold_seconds": 10,
+  "passed": true,
+  "findings_previous": 455,
+  "findings_current": 545,
+  "facts": 304,
+  "spoken_sentences": 54,
+  "unchanged_rerun": "SILENT",
+  "python": "3.13.5",
+  "architecture": "aarch64"
+}

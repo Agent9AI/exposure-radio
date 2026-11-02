@@ -40,3 +40,15 @@ Measured:
 | Hostname audit | 0 of 304 tenant identifiers in executive card, script, push payload or model view |
 | Demo wall time | 1.42 s median of 5 runs; 32 MB peak RSS |
 | Rerun with unchanged evidence | SILENT; no duplicate alert |
+
+## Integration and adversarial hardening — 2026-11-02
+
+The evidence gate, bounded analyst, four read-only MCP tools, listener and local audio renderer are integrated on the project branch. The independent Argon review drove regression coverage for false claims, scanner-text disclosure, incomplete exports, lost authenticated coverage and missing/duplicate alerts. A second review of the model and output boundaries drove additional tests for private-fact probes, provider-error disclosure, output failure and omitted alerts.
+
+The analyst demonstration records a real GPT-6.1 Terra tool session on synthetic evidence. A false fixed count is rejected, corrected cited claims pass, and replay recomputes every tool result without a model key. Five model-step decisions and four read-only tool calls complete; provider token usage was not measured.
+
+The reproducible preparation benchmark compares 455 and 545 findings, builds 304 facts and 54 narration lines, and confirms silence on unchanged evidence. Five runs measure 2.0607 seconds median; every run finishes below ten seconds. This measures software preparation, not a human-time or remediation-speed multiplier.
+
+The runtime API adapter counts input before generation, reserves output, and disables parallel model tool calls. The command adapter caps captured output while reading, terminates its own process on budget exhaustion and exposes only generic failure categories. Private scanner fact values cannot be retrieved through claim-verdict error messages.
+
+Final acceptance evidence is recorded in `docs/qa/` and the audio manifest. No repository CI workflow is used.

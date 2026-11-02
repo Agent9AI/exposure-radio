@@ -1,123 +1,111 @@
 # Exposure Radio
 
-**Two Tenable exports in, one verified priority briefing out: what changed, what to act on
-today, and a ticket-ready action card. It can read the briefing aloud, and every factual
-sentence is checked against the evidence before any audio is made.**
+**Turn two Tenable exports into a cited priority briefing and a remediation handoff.**
+Hear what changed, distinguish new exposure from new visibility, and act on a checked action card.
+
+[Listen to the synthetic sample](web/assets/briefing.mp3) · [Read the transcript](web/assets/briefing.vtt) · [Inspect the evidence](web/data/facts.json)
+
+![Exposure Radio listener](docs/qa/desktop.png)
+
+## Run in two minutes
+
+Python 3.10+ is sufficient. The core, demo, replay and MCP server use only the standard library.
 
 ```bash
-git clone https://github.com/Agent9AI/exposure-radio && cd exposure-radio
-python3 -m exposure_radio demo      # Python 3.10+, standard library only, no network
-make check                          # tests + false-claim gate demo + hostname audit
+git clone https://github.com/Agent9AI/exposure-radio
+cd exposure-radio
+python3 -m exposure_radio demo
+python3 -m exposure_radio demo --analyst replay
+make check
+python3 -m http.server 8080 --bind 127.0.0.1 --directory web
 ```
 
-## What a vulnerability manager gets
+Open **http://127.0.0.1:8080** for the listener, transcript, evidence drawer, action-card download and claim-gate demonstration. The included MP3 plays without a model key, network feed or TTS installation.
 
-The demo compares two daily exports from a synthetic 76-asset tenant (455 and 545 findings)
-against the real CISA KEV catalog (version 2026.10.30) and real FIRST EPSS scores:
+## The decision, then the evidence
 
-```
-Decision: BREAK_IN  lead CVE-2026-118527
-  policy: CVE-2026-118527: newly listed by CISA
-  policy: CVE-2026-41709: newly appeared on scanned assets
-  policy: CVE-2021-44228: found on newly scanned assets
-  health: 11 of 64 previously scanned assets were not rescanned
+The synthetic scenario compares **455 findings with 545 findings across 76 assets**. It uses a pinned CISA KEV catalog and FIRST EPSS snapshot dated 30 October 2026.
 
- ✓ ANCHOR  Priority bulletin: CVE-2026-118527 needs action today.  [F013, F012]
- ✓ ANALYST CISA listed CVE-2026-118527 as exploited since the last briefing.  [F230]
- ✓ ANALYST CVE-2026-118527 is open on 1 asset.  [F223]
- ✓ ANALYST Your internal deadline for CVE-2026-118527 is 2026-11-06.  [F235]
- ✓ ANCHOR  Next step: follow CISA's required action for CVE-2026-118527, then rescan to confirm.
- ...
- ✓ ANALYST Exposure grew by 4 priority findings on assets that were already being scanned.
- ✓ ANALYST Visibility grew: 2 priority findings came from 12 newly scanned assets.
- ✓ ANALYST 3 open priority findings on missed assets are unverified, not fixed.
-
-Gate: PASSED  23 sentences checked, 0 blocked
-Push payload: {"title": "Exposure Radio", "body": "Priority bulletin ready.", "ref": "21b83de056a4"}
-
-Same evidence again:
-Decision: SILENT
-  policy: episode 21b83de056a4 was already briefed; evidence unchanged, nothing repeated
-```
-
-Three things a plain diff gets wrong, and this does not:
-
-| Situation | Naive diff says | Exposure Radio says |
-|---|---|---|
-| A lab segment is scanned for the first time | "Exposure up 86 findings" | New **visibility**: 2 priority findings from 12 newly scanned assets |
-| A branch scanner misses its window | "BlueKeep gone from 3 hosts" | **Unverified**, not fixed: 11 assets missed the cycle |
-| CISA lists a CVE you already had | Nothing changed | **Break in**: newly exploited, open on the VPN gateway since 21 Oct |
-
-The action card (`--out DIR` writes `card.md` and `card.json`) gives each item its affected
-assets, owners, internal deadline, CISA's required action, the next steps as a checklist,
-and the fact IDs that back every line.
-
-## The claim gate
-
-Matching CVE IDs and numbers in generated text is not verification. "CVE-2024-3400 is fixed
-on 20 assets" contains a real CVE and a number, and it is false when the evidence says the
-finding is open on 2 assets and fixed on none.
-
-1. **Typed facts.** Exports and feeds become `(subject, predicate, value, source)` facts.
-2. **Typed claims.** Anything that wants to state a fact emits `(subject, predicate, value,
-   cite)`. A claim passes only if the cited fact exists, is about the same subject and
-   predicate, and holds the same value.
-3. **Controlled narration.** Speech is rendered from validated claims through fixed
-   templates, then parsed back into claims and checked again as text.
-4. **Receipts.** A passing script gets a receipt bound to the ledger and the exact text;
-   audio is rendered only for a matching receipt.
-
-`make gate-demo` runs 22 adversarial cases against the demo evidence:
-
-| Case | Result |
+| Situation | Result |
 |---|---|
-| "CVE-2024-3400 is fixed on 20 assets." | blocked: evidence says 0 fixed, open on 2 |
-| "CVE-2024-3400 is not on CISA's KEV list." | blocked: evidence says listed |
-| "Everything is safe." / "Disable your monitoring." | blocked: all-clear / directive |
-| "CVE-2019-0708 has been fixed." | blocked: still open on 3 (not rescanned) |
-| "...newly appeared on two assets..." | blocked: evidence says 3 |
-| Real fact cited for the wrong CVE | blocked: citation mismatch |
-| Instruction planted in a scanner plugin name | blocked, and never shown to a model |
-| 5 true controls, including number words | supported |
+| A previously unscanned segment enters coverage | New visibility, distinct from a regression |
+| An asset misses its scan or loses authenticated coverage | Unverified exposure; no confirmed fix |
+| An exploited vulnerability is newly discovered or reopens | A priority interruption with cited next steps |
+| Identical evidence is processed again | Silence; no duplicate alert |
+| A verified fix closes an announced exposure | The same exposure can alert again if it reopens |
 
-Result: 17 of 17 false statements blocked, 5 of 5 controls supported, and a script with
-one false line inserted is refused.
+The private analyst card includes affected assets and owners. The executive card and public sample exclude tenant identifiers. Notification previews use generic text and an opaque reference.
 
-## Data boundary
+## A bounded analyst, a deterministic producer
 
-- Plugin output, synopsis, description and solution text are never read.
-- Kept names are length-capped and reduced to a safe character set; invalid hostnames are
-  dropped.
-- Executive editions, the spoken script and push payloads are checked fail-closed for every
-  tenant hostname, FQDN, IP address and asset ID (`make audit`: 0 of 304 leaked).
-- Push payloads carry generic text and an opaque reference only.
-- The core makes no network calls. The bundled KEV and EPSS snapshots keep your CVE list
-  on your machine.
+The optional analyst reads allowlisted facts through `list_candidates`, `get_facts` and `check_claims`, then submits a ranked rundown. Code retains the interruption decision and policy lead. The model cannot write remediation state, execute scanner instructions or put free text into speech.
 
-## Use your own exports
+The recorded demonstration contains a model's actual tool decisions on synthetic evidence, including a rejected false count and corrected cited claims. Replay recomputes tool results and fails over to the template edition if evidence differs. Its model and transport are recorded in [the trace](exposure_radio/data/demo/analyst-trace.json); provider token usage was not measured.
 
-Export with the Tenable VM API (`POST /vulns/export` with states OPEN, REOPENED and FIXED,
-plus `POST /assets/export`) into a directory per cycle:
-
-```
-2026-11-02/export-status.json   vulns/chunk-1.json ...   assets.json
-```
+For a live API-backed analyst, explicitly opt in with your own Anthropic key:
 
 ```bash
-python3 -m exposure_radio brief --prev exports/2026-11-01 --curr exports/2026-11-02 \
-    --epss epss_scores-2026-11-02.csv.gz --out out/ --edition analyst
-python3 -m exposure_radio check --text "CVE-2024-3400 is fixed on 20 assets."
+export EXPOSURE_RADIO_MODEL=claude-sonnet-5-5
+# Set ANTHROPIC_API_KEY in your environment; never put it in a file in this repository.
+python3 -m exposure_radio demo --analyst anthropic
 ```
 
-An incomplete export (failed chunks, missing files) fails closed: no fix is confirmed.
+The API adapter counts input before dispatch and reserves output within its configured budget. The default loop permits six model steps, eight read-only tool calls, one revision and 90 seconds. Provider failure or invalid output selects the checked template edition. The optional command adapter is an operator-trusted process; configure its own native tools and provider spending controls separately.
 
-## Measured
+## Facts must pass before speech
 
-| Check | Result |
-|---|---|
-| `make test` | 49 tests pass |
-| `make gate-demo` | 17/17 false statements blocked, 5/5 controls supported |
-| `make audit` | 0 tenant identifiers in executive outputs, script, push or model view |
-| Demo wall time, Raspberry Pi 4 | 1.42 s median of 5 runs, 32 MB peak memory |
+1. Exports and public feeds produce typed `(subject, predicate, value, source)` facts.
+2. Model submissions require exact public fact citations already returned by a tool.
+3. Controlled templates render narration; the entire sentence is parsed and checked again.
+4. A receipt binds the script, voices and ledger. The audio renderer rechecks it before loading TTS.
+5. The site builder verifies the audio hash, receipt and exact caption text before publishing data.
 
-MIT licensed. See [SECURITY.md](SECURITY.md) and [docs/adr](docs/adr).
+`make gate-demo` rejects **27 of 27 adversarial statements**, accepts **five true controls**, and refuses a script with a false line inserted. Cases include wrong fixed counts, negation, phonetic number tricks, multiple-CVE claims, scanner instructions and unsupported all-clears. Free text outside the controlled grammar cannot authorize speech.
+
+## Use your own Tenable VM exports
+
+Place each complete export in its own directory:
+
+```text
+export-status.json   assets.json   vulns/chunk-1.json   vulns/chunk-2.json ...
+```
+
+Include OPEN, REOPENED and FIXED states. The loader validates completion metadata, chunks and asset scan timestamps. Incomplete evidence confirms no fixes.
+
+```bash
+python3 -m exposure_radio brief --prev exports/day1 --curr exports/day2 \
+  --kev feeds/kev-current.json --prev-kev feeds/kev-previous.json \
+  --epss feeds/epss.csv.gz --state private-state.sqlite3 --out private-brief
+python3 -m exposure_radio check --strict --text "CVE-2024-3400 is fixed on 20 assets."
+```
+
+The last command is an intentional negative control and exits with status 1. An actual previous KEV catalog establishes changes in membership; export dates alone cannot establish when a same-day feed changed. Internal remediation deadlines and CISA catalog dates are separate fields.
+
+## Use as MCP tools
+
+```bash
+python3 -m exposure_radio mcp
+```
+
+Configure that command in an MCP client with this repository as its working directory. The four read-only tools are `exposure_briefing`, `check_claims`, `remediation_packet` and `explain_priority`. Custom export directories must remain within `EXPOSURE_RADIO_DATA_ROOT`; symbolic-link exports are refused. Use executive editions for model-safe results, and request private analyst packets only within your own data boundary.
+
+## Verification and audio
+
+```bash
+make check
+python3 scripts/build_site.py
+python3 scripts/benchmark.py --runs 5
+```
+
+The [recorded preparation benchmark](docs/benchmark.json) measures a complete briefing plus an unchanged rerun: **2.06 seconds median across five runs** on an ARM64 Raspberry Pi. It measures software preparation, with no claimed human-time multiplier.
+
+Audio uses local Kokoro voices and two-pass normalization. [The manifest](web/assets/audio.json) records the exact script receipt, audio hash, duration, loudness and true peak. To render your own sample, install `kokoro-onnx`, `numpy`, `soundfile` and FFmpeg in a separate environment, supply the model and voice files, then run:
+
+```bash
+python3 scripts/render_audio.py --model /path/to/kokoro.onnx \
+  --voices /path/to/voices.bin --output rendered-audio
+```
+
+The core does not install or download those dependencies. See [security boundaries](SECURITY.md), [build evidence](docs/BUILDLOG.md) and [third-party notices](THIRD_PARTY_NOTICES.md).
+
+MIT licensed.

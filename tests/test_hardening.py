@@ -135,3 +135,23 @@ class CoverageAndPolicy(unittest.TestCase):
         decision = decide(d, self.kev, Memory())
         self.assertEqual(decision.kind, 'BREAK_IN')
         self.assertEqual(decision.lead, 'CVE-2024-3400')
+
+
+class ReopenedLifecycleTests(unittest.TestCase):
+    def test_confirmed_fix_rearms_same_asset(self):
+        from exposure_radio.pipeline import run_cycle
+        from exposure_radio.policy import Memory, decide
+        from exposure_radio.delta import CveRollup
+        c = run_cycle(commit=False)
+        d, memory = c.delta, Memory()
+        def cycle(marker, **fields):
+            d.curr.sources['lifecycle-test'] = marker
+            d.cves = {'CVE-2024-3400': CveRollup('CVE-2024-3400', in_kev=True, severity='high', **fields)}
+            decision = decide(d, c.kev, memory)
+            memory.commit(decision, d, c.kev)
+            return decision
+        self.assertEqual(cycle('open', open_assets={'a'}).kind, 'BREAK_IN')
+        cycle('fixed', fixed_assets={'a'})
+        self.assertEqual(cycle('reopened', open_assets={'a'}, reopened_assets={'a'}).kind, 'BREAK_IN')
+        self.assertNotEqual(cycle('unchanged-exposure', open_assets={'a'}).kind, 'BREAK_IN')
+        memory.close()
