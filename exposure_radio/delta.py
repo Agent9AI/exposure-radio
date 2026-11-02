@@ -74,8 +74,7 @@ class Delta:
         return sum(1 for c in self.changes if c.kind is kind and c.finding.severity in severities)
 
     def open_priority(self) -> int:
-        return sum(1 for f in self.curr.findings.values()
-                   if f.severity in PRIORITY and f.state in ("OPEN", "REOPENED"))
+        return sum(1 for c in self.changes if c.finding.severity in PRIORITY and c.kind not in (Kind.FIXED, Kind.NOT_DETECTED))
 
     @property
     def unchanged(self) -> bool:
@@ -96,7 +95,8 @@ def compute_delta(prev: Snapshot, curr: Snapshot, kev_prev: KevCatalog, kev_curr
             if before is None:
                 newly_scanned = not prev.covered(f.asset_id)
                 newly_credentialed = curr.authenticated(f.asset_id) and not prev.authenticated(f.asset_id)
-                kind = Kind.NEW_VISIBILITY if (newly_scanned or newly_credentialed) else Kind.NEW_EXPOSURE
+                kind = (Kind.PERSISTING if not prev.complete else
+                        Kind.NEW_VISIBILITY if (newly_scanned or newly_credentialed) else Kind.NEW_EXPOSURE)
             elif before.state == "FIXED" or (f.state == "REOPENED" and before.state != "REOPENED"):
                 kind = Kind.REOPENED
             else:
@@ -105,14 +105,15 @@ def compute_delta(prev: Snapshot, curr: Snapshot, kev_prev: KevCatalog, kev_curr
         elif curr.carried_open(f):
             changes.append(Change(Kind.UNVERIFIED, f))
         elif curr.fixed_in_cycle(f) and before is not None and before.state in ("OPEN", "REOPENED"):
-            changes.append(Change(Kind.FIXED, f))
+            reliable = curr.covered(f.asset_id) and not (prev.authenticated(f.asset_id) and not curr.authenticated(f.asset_id))
+            changes.append(Change(Kind.FIXED if reliable else Kind.UNVERIFIED, f if reliable else before))
 
     for key, f in prev.findings.items():
         if key in curr.findings or f.state not in ("OPEN", "REOPENED"):
             continue
         if f.asset_id not in curr.assets:
             changes.append(Change(Kind.ASSET_GONE, f))
-        elif curr.covered(f.asset_id):
+        elif curr.covered(f.asset_id) and not (prev.authenticated(f.asset_id) and not curr.authenticated(f.asset_id)):
             changes.append(Change(Kind.NOT_DETECTED, f))
         else:
             changes.append(Change(Kind.UNVERIFIED, f))
@@ -145,16 +146,19 @@ def compute_delta(prev: Snapshot, curr: Snapshot, kev_prev: KevCatalog, kev_curr
             elif k is Kind.NOT_DETECTED:
                 roll.not_detected_assets.add(f.asset_id)
     for roll in cves.values():
+        roll.fixed_assets -= roll.open_assets
         roll.in_kev = roll.cve in kev_curr.entries
         roll.newly_listed = roll.in_kev and roll.cve not in kev_prev.entries and bool(roll.open_assets)
 
     prev_scanned = {a for a in prev.assets if prev.covered(a)}
     curr_scanned = {a for a in curr.assets if curr.covered(a)}
-    new_assets = curr_scanned - prev_scanned
-    missed = {a for a in prev_scanned if a in curr.assets and a not in curr_scanned}
+    new_assets = (curr_scanned - prev_scanned) | {a for a in curr_scanned if curr.authenticated(a) and not prev.authenticated(a)}
+    missed = {a for a in prev_scanned if a in curr.assets and (a not in curr_scanned or (prev.authenticated(a) and not curr.authenticated(a)))}
     gone = {a for a in prev.assets if a not in curr.assets}
 
-    health = list(curr.problems)
+    health = list(curr.problems) + ["previous export: " + problem for problem in prev.problems]
+    if not prev.complete:
+        health.append("the previous export is incomplete; changes cannot be reliably classified")
     if not curr.complete:
         health.append("the latest export is incomplete, so fixes cannot be confirmed")
     if prev_scanned and len(missed) / len(prev_scanned) >= coverage_drop_alert:

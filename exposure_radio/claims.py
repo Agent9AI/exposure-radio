@@ -10,6 +10,7 @@ so the final script is checked a second time as text.
 from __future__ import annotations
 
 import re
+import unicodedata
 from dataclasses import dataclass, field
 
 from .ledger import PREDICATES, Fact, Ledger
@@ -118,6 +119,8 @@ def validate_claim(claim: Claim, ledger: Ledger) -> Verdict:
         return Verdict(claim, False, f"value {claim.value!r} is not a valid {PREDICATES[pred].__name__}", fact)
 
     if PREDICATES[pred] is tuple:
+        if not value:
+            return Verdict(claim, False, "empty collection is not a supported claim", fact)
         missing = [v for v in value if v not in fact.value]
         if missing:
             return Verdict(claim, False, f"{', '.join(missing)} not in evidence {fact.id}", fact)
@@ -185,23 +188,23 @@ TEMPLATES: list[Template] = [
     _t("C_RANSOMWARE", "CISA reports known ransomware use of {cve}.", {}, [("cve.kev_ransomware", True)]),
     _t("C_OPEN", "{cve} is open on {n} {assets}.", {"n": "cve.open_assets"}),
     _t("C_NEW_EXPOSURE", "{cve} newly appeared on {n} {assets} that were already being scanned.",
-       {"n": "cve.new_exposure_assets"}),
-    _t("C_NEW_VISIBILITY", "{cve} was found on {n} {assets} scanned for the first time.",
-       {"n": "cve.new_visibility_assets"}),
-    _t("C_FIXED", "{cve} was verified fixed on {n} {assets} by a rescan.", {"n": "cve.fixed_assets"}),
+       {"n": "cve.new_exposure_assets"}, requires=[("cve.new_exposure_assets", ">", 0)]),
+    _t("C_NEW_VISIBILITY", "{cve} was found on {n} {assets} newly scanned or newly credentialed.",
+       {"n": "cve.new_visibility_assets"}, requires=[("cve.new_visibility_assets", ">", 0)]),
+    _t("C_FIXED", "{cve} was verified fixed on {n} {assets} by a rescan.", {"n": "cve.fixed_assets"}, requires=[("cve.fixed_assets", ">", 0)]),
     _t("C_UNVERIFIED", "{cve} was not re-checked on {n} {assets}; treat {them} as unverified, not fixed.",
-       {"n": "cve.unverified_assets"}),
+       {"n": "cve.unverified_assets"}, requires=[("cve.unverified_assets", ">", 0)]),
     _t("C_EPSS", "FIRST's EPSS model puts the chance of exploitation activity for {cve} in the next 30 days "
                  "at {n} percent.", {"n": "cve.epss_percent"}),
     _t("C_AGE", "{cve} has been open for {n} {days} on the longest-exposed asset.", {"n": "cve.oldest_open_days"}),
-    _t("C_OVERDUE", "{cve} is past your internal deadline on {n} {assets}.", {"n": "cve.overdue_assets"}),
+    _t("C_OVERDUE", "{cve} is past your internal deadline on {n} {assets}.", {"n": "cve.overdue_assets"}, requires=[("cve.overdue_assets", ">", 0)]),
     _t("C_DUE", "Your internal deadline for {cve} is {date}.", {"date": "cve.internal_due"}),
     # what changed (analyst)
     _t("T_EXPOSURE_GREW", "Exposure grew by {n} priority {findings} on assets that were already being scanned.",
        {"n": "tenant.new_exposure_findings"}, subject="tenant"),
     _t("T_EXPOSURE_FLAT", "No new priority findings appeared on assets that were already being scanned.", {},
        [("tenant.new_exposure_findings", 0)], subject="tenant"),
-    _t("T_VISIBILITY", "Visibility grew: {n} priority {findings} came from {m} newly scanned {massets}.",
+    _t("T_VISIBILITY", "Visibility grew: {n} priority {findings} came from {m} newly scanned or newly credentialed {massets}.",
        {"n": "tenant.new_visibility_findings", "m": "tenant.new_visibility_assets"}, subject="tenant"),
     _t("T_FIXED", "{n} priority {findings} {were} verified fixed by a rescan.", {"n": "tenant.fixed_findings"},
        subject="tenant"),
@@ -238,7 +241,7 @@ FIXED_LINES = {
     "That is the bulletin.",
 }
 
-_NUM = r"[0-9]+|[a-z]+(?:-[a-z]+)?(?: [a-z]+(?:-[a-z]+)?)?"
+_NUM = r"[0-9]+|[a-z]+(?:[ -]+[a-z]+)*"
 
 
 def _compile(t: Template) -> re.Pattern:
@@ -256,7 +259,7 @@ def _compile(t: Template) -> re.Pattern:
             out.append(r"(?P<name>.+?)")
         elif name in PLURALS:
             one, many = PLURALS[name]
-            out.append(f"(?:{re.escape(one)}|{re.escape(many)})")
+            out.append(f"(?P<{name}>{re.escape(one)}|{re.escape(many)})")
         pos = m.end()
     out.append(re.escape(t.text[pos:]))
     return re.compile("".join(out), re.IGNORECASE)
@@ -266,6 +269,7 @@ _PATTERNS = [(t, _compile(t)) for t in TEMPLATES]
 
 
 def normalize_sentence(text: str) -> str:
+    text = "".join(c for c in unicodedata.normalize("NFKC", text) if unicodedata.category(c) != "Cf")
     text = text.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
     return re.sub(r"\s+", " ", text).strip()
 
@@ -299,6 +303,15 @@ def parse_sentence(sentence: str) -> Parsed | None:
             continue
         groups = m.groupdict()
         subject = groups.get("cve", "").upper() if t.subject == "cve" else t.subject
+        agreement_ok = True
+        for placeholder in PLURALS:
+            if groups.get(placeholder):
+                count = to_int(groups.get(t.count_field(placeholder), ""))
+                if count is None or groups[placeholder].lower() != PLURALS[placeholder][count != 1].lower():
+                    agreement_ok = False
+                    break
+        if not agreement_ok:
+            continue
         claims = []
         for placeholder, predicate in t.fields.items():
             raw = groups.get(placeholder)

@@ -19,6 +19,15 @@ def to_int(text: str) -> int | None:
     if s in _ALIASES:
         return _ALIASES[s]
     words = re.split(r"[\s-]+(?:and[\s-]+)?", s)
+    # Only accept canonical cardinal words, never digit-by-digit radio counts.
+    small = r"(?:one|two|three|four|five|six|seven|eight|nine)"
+    teen = r"(?:ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen)"
+    tens = r"(?:twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)"
+    under100 = rf"(?:{small}|{teen}|{tens}(?: {small})?)"
+    under1000 = rf"(?:{small} hundred(?: {under100})?|{under100})"
+    canonical = " ".join(words)
+    if canonical != "zero" and not re.fullmatch(rf"(?:{under1000} thousand(?: {under1000})?|{under1000})", canonical):
+        return None
     total, current = 0, 0
     seen = False
     for w in words:

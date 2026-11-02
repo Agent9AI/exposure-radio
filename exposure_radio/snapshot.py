@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import ipaddress
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -78,6 +79,7 @@ class Snapshot:
     findings: dict[tuple, Finding] = field(default_factory=dict)
     complete: bool = True
     problems: list[str] = field(default_factory=list)
+    identifiers: set[str] = field(default_factory=set)
     sources: dict[str, str] = field(default_factory=dict)   # file -> sha256
 
     def covered(self, asset_id: str) -> bool:
@@ -117,7 +119,14 @@ def _read_json(root: Path, name: str, snapshot: Snapshot):
         snapshot.complete = False
         snapshot.problems.append(f"missing {name}")
         return None
-    snapshot.sources[name] = hashlib.sha256(raw).hexdigest()
+    digest_raw = raw
+    if name == "export-status.json":
+        try:
+            status = json.loads(raw)
+            digest_raw = json.dumps({k: status.get(k) for k in ("status", "chunks_available", "chunks_failed", "chunks_cancelled", "total_chunks", "finished_chunks", "filters")}, sort_keys=True).encode()
+        except (ValueError, AttributeError):
+            pass
+    snapshot.sources[name] = hashlib.sha256(digest_raw).hexdigest()
     try:
         return json.loads(raw)
     except ValueError:
@@ -139,6 +148,12 @@ def _asset(raw: dict) -> Asset | None:
         return None
     names = [h for h in (clean_host(x) for x in (raw.get("hostnames") or []) + (raw.get("fqdns") or [])) if h]
     ips = [ip for ip in (clean_ipv4(x) for x in raw.get("ipv4s") or []) if ip]
+    names += [str(x) for x in (raw.get("netbios_names") or []) if clean_host(x)]
+    for value in raw.get("ipv6s") or []:
+        try:
+            ips.append(str(ipaddress.IPv6Address(value)))
+        except ValueError:
+            pass
     short = [n for n in names if "." not in n]
     label = (short or names or [f"asset-{asset_id[:8]}"])[0]
     return Asset(
@@ -199,7 +214,7 @@ def load_snapshot(directory: str | Path, window_hours: float = 24.0, label: str 
                     complete=probe.complete, problems=list(probe.problems), sources=dict(probe.sources))
 
     state = str(status.get("status", "")).upper()
-    if status and state != "FINISHED":
+    if state != "FINISHED":
         snap.complete = False
         snap.problems.append(f"export status {clean_tag(state, 20) or 'unknown'}")
     for bucket in ("chunks_failed", "chunks_cancelled"):
@@ -209,19 +224,43 @@ def load_snapshot(directory: str | Path, window_hours: float = 24.0, label: str 
             snap.problems.append(f"{len(bad)} export chunk(s) {bucket.split('_')[1]}")
 
     chunk_ids = status.get("chunks_available") or []
+    total, finished = status.get("total_chunks"), status.get("finished_chunks")
+    if not isinstance(chunk_ids, list) or not isinstance(total, int) or not isinstance(finished, int) or total != finished or len(set(chunk_ids)) != total:
+        snap.complete = False
+        snap.problems.append("export chunk counts are incomplete or invalid")
+        chunk_ids = chunk_ids if isinstance(chunk_ids, list) else []
+    if set((status.get("filters") or {}).get("state") or []) != {"OPEN", "REOPENED", "FIXED"}:
+        snap.complete = False
+        snap.problems.append("export does not include all finding states")
     if not chunk_ids:
         chunk_ids = sorted(int(p.stem.split("-")[1]) for p in (root / "vulns").glob("chunk-*.json")
                            if p.stem.split("-")[1].isdigit())
     for chunk in chunk_ids:
         rows = _read_json(root, f"vulns/chunk-{int(chunk)}.json", snap)
-        for raw in rows or []:
+        if not isinstance(rows, list):
+            snap.complete = False
+            snap.problems.append("invalid vulnerability chunk")
+            continue
+        for raw in rows:
             if isinstance(raw, dict):
                 finding = _finding(raw)
                 if finding:
                     snap.findings[finding.key] = finding
+                    asset_data = raw.get("asset") or {}
+                    identifiers = [asset_data.get(k) for k in ("hostname", "fqdn", "ipv4", "ipv6")]
+                    # Retain identifiers even when the inventory export omits the asset.
+                    snap.identifiers.update(str(x) for x in identifiers if x and isinstance(x, str))
+                    existing = snap.assets.get(finding.asset_id)
+                    names = tuple(str(x) for x in identifiers if x and isinstance(x, str))
+                    if names and not existing:
+                        snap.assets[finding.asset_id] = Asset(finding.asset_id, names[0], names, (), "", "", None, None, None)
 
     rows = _read_json(root, "assets.json", snap)
-    for raw in rows or []:
+    if not isinstance(rows, list):
+        snap.complete = False
+        snap.problems.append("invalid asset export")
+        rows = []
+    for raw in rows:
         if isinstance(raw, dict):
             asset = _asset(raw)
             if asset:
