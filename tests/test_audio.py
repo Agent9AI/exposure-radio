@@ -36,3 +36,9 @@ class AudioGateTests(unittest.TestCase):
         self.receipt['script_sha256'] = script_sha256(self.lines)
         with self.assertRaises(AudioError):
             verify_speech(self.lines, self.receipt, self.ledger)
+
+
+    def test_changed_citation_cannot_reuse_speech_receipt(self):
+        self.lines[0]['cites'] = ['F999']
+        with self.assertRaises(AudioError):
+            verify_speech(self.lines, self.receipt, self.ledger)

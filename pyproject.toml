@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "exposure-radio"
-version = "0.1.0"
+version = "0.5.0"
 description = "Turns two Tenable exports into a verified, spoken priority briefing and a ticket-ready action card."
 readme = "README.md"
 license = { text = "MIT" }

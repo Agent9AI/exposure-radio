@@ -247,6 +247,23 @@ class GateReport:
 def gate_script(lines: list[dict], ledger: Ledger) -> GateReport:
     """Strict check of a spoken script: every sentence must be supported."""
     verdicts = [audit_text(line["text"], ledger, strict=True, allow_hosts=False) for line in lines]
+    for raw_line, checked in zip(lines, verdicts):
+        if "cites" not in raw_line:
+            continue
+        expected = set()
+        for sentence in checked:
+            for verdict in sentence.claims:
+                if verdict.fact:
+                    expected.add(verdict.fact.id)
+            parsed = parse_sentence(sentence.text)
+            if parsed:
+                for predicate, _, _ in parsed.template.requires:
+                    fact = ledger.find(parsed.subject, predicate)
+                    if fact:
+                        expected.add(fact.id)
+        provided = raw_line["cites"]
+        if not isinstance(provided, list) or any(not isinstance(v, str) for v in provided) or set(provided) != expected:
+            checked.append(SentenceVerdict("", BLOCKED, ["line citations do not match its exact claims"]))
     passed = bool(lines) and all(line and all(v.ok for v in line) for line in verdicts)
     return GateReport(passed, ledger.id, script_sha256(lines), verdicts)
 
