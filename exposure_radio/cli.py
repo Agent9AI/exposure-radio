@@ -10,10 +10,11 @@ from pathlib import Path
 
 from . import __version__
 from .adversarial import run_all
+from .analyst import make_backend
 from .claims import Claim, validate_claim
 from .feeds import DEFAULT_KEV
 from .gate import audit_text
-from .pipeline import DEMO_CURR, DEMO_EPSS, DEMO_PREV, Cycle, run_cycle
+from .pipeline import DEMO, DEMO_CURR, DEMO_EPSS, DEMO_PREV, Cycle, run_cycle
 from .policy import Memory
 from .rundown import build_card, card_markdown, find_leaks
 
@@ -24,6 +25,32 @@ def _color(enabled: bool):
     def paint(code: str, text: str) -> str:
         return f"{code}{text}{RESET}" if enabled else text
     return paint
+
+
+def _analyst(name: str | None):
+    if name == "replay":
+        name = f"replay:{DEMO / 'analyst-trace.json'}"
+    return make_backend(name)
+
+
+def _print_analyst(cycle: Cycle, paint) -> None:
+    r = cycle.rundown
+    if r is None:
+        return
+    t = r.trace
+    print(paint(BOLD, "Analyst: ") + f"{r.source} ({t.get('model', 'n/a')}), angle {r.angle}, "
+          f"order {', '.join(r.order[:3])}")
+    for step in t.get("steps", []):
+        args = json.dumps(step.get("args", {}))
+        print(paint(DIM, f"  -> {step['tool']} {args[:110]}"))
+    for c in r.lead_claims:
+        print(paint(DIM, f"  claim {c.subject} {c.predicate} = {c.value} [{c.cite}] validated"))
+    for entry in r.log:
+        print(paint(DIM, f"  {entry}"))
+    if t.get("calls") is not None:
+        print(paint(DIM, f"  budget used: {t.get('calls')} model calls, {t.get('tool_calls')} tool calls, "
+                         f"~{t.get('tokens')} tokens"))
+    print()
 
 
 def _write_outputs(cycle: Cycle, out: Path) -> None:
@@ -79,7 +106,7 @@ def cmd_demo(args) -> int:
     paint = _color(sys.stdout.isatty() and not args.json)
     start = time.perf_counter()
     memory = Memory(args.state) if args.state else Memory()
-    first = run_cycle(memory=memory, edition=args.edition)
+    first = run_cycle(memory=memory, edition=args.edition, analyst=_analyst(args.analyst))
     t1 = time.perf_counter() - start
     second = run_cycle(memory=memory, edition=args.edition)
     t2 = time.perf_counter() - start - t1
@@ -96,6 +123,7 @@ def cmd_demo(args) -> int:
                      f"{d.curr.label} ({len(d.curr.findings)} findings); {first.ledger.sources['kev']}; "
                      f"{first.ledger.sources.get('epss', 'no EPSS')}"))
     print()
+    _print_analyst(first, paint)
     _print_cycle(first, paint)
     print()
     print(paint(BOLD, "Same evidence again:"))
@@ -111,13 +139,15 @@ def cmd_demo(args) -> int:
 def cmd_brief(args) -> int:
     paint = _color(sys.stdout.isatty() and not args.json)
     memory = Memory(args.state) if args.state else Memory()
-    cycle = run_cycle(args.prev, args.curr, args.kev, args.epss, memory, args.edition, args.window_hours)
+    cycle = run_cycle(args.prev, args.curr, args.kev, args.epss, memory, args.edition, args.window_hours,
+                      analyst=_analyst(args.analyst))
     if args.out:
         _write_outputs(cycle, Path(args.out))
     if args.json:
         print(json.dumps({"card": cycle.episode.card, "lines": cycle.episode.lines,
                           "gate": cycle.episode.gate.receipt() if cycle.episode.gate else None}, indent=2))
     else:
+        _print_analyst(cycle, paint)
         _print_cycle(cycle, paint)
     return 0 if cycle.episode.gate is None or cycle.episode.gate.passed else 1
 
@@ -187,6 +217,12 @@ def cmd_audit(args) -> int:
     return 0 if ok else 1
 
 
+def cmd_mcp(args) -> int:
+    from .mcp_server import serve
+    serve()
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="exposure_radio", description="Verified, spoken priority briefings from "
                                                                    "Tenable exports.")
@@ -207,6 +243,7 @@ def main(argv: list[str] | None = None) -> int:
     d.add_argument("--state", help="SQLite memory file (default: in-memory)")
     d.add_argument("--out", help="write card.md, card.json and episode.json here")
     d.add_argument("--json", action="store_true")
+    d.add_argument("--analyst", default=None, help="analyst model: none (template order), anthropic (ANTHROPIC_API_KEY), command (EXPOSURE_RADIO_ANALYST_CMD), replay (bundled recorded run) or replay:PATH")
     d.set_defaults(fn=cmd_demo)
 
     b = sub.add_parser("brief", help="brief on two of your own exports")
@@ -216,6 +253,7 @@ def main(argv: list[str] | None = None) -> int:
     b.add_argument("--window-hours", type=float, default=24.0, help="scan cycle length")
     b.add_argument("--out")
     b.add_argument("--json", action="store_true")
+    b.add_argument("--analyst", default=None, help="analyst model: none (template order), anthropic (ANTHROPIC_API_KEY), command (EXPOSURE_RADIO_ANALYST_CMD), replay (bundled recorded run) or replay:PATH")
     b.set_defaults(fn=cmd_brief)
 
     c = sub.add_parser("check", help="check text or structured claims against the evidence")
@@ -230,6 +268,9 @@ def main(argv: list[str] | None = None) -> int:
 
     a = sub.add_parser("audit", help="no tenant identifiers in executive outputs")
     a.set_defaults(fn=cmd_audit)
+
+    m = sub.add_parser("mcp", help="run the read-only MCP server on stdio")
+    m.set_defaults(fn=cmd_mcp)
 
     args = p.parse_args(argv)
     return args.fn(args)
