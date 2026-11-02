@@ -1,0 +1,59 @@
+{
+  "fixture": {
+    "current": "/tmp/claude-0/-home-user-exposure-radio/300f87e1-b2a4-54c1-af07-ff6b381724ea/scratchpad/fresh/data/fixtures/bench/current_500.json",
+    "previous": "/tmp/claude-0/-home-user-exposure-radio/300f87e1-b2a4-54c1-af07-ff6b381724ea/scratchpad/fresh/data/fixtures/bench/previous_500.json"
+  },
+  "runs": 5,
+  "pipeline_seconds": {
+    "median": 0.316,
+    "min": 0.308,
+    "max": 0.36,
+    "all": [
+      0.342,
+      0.36,
+      0.316,
+      0.308,
+      0.31
+    ]
+  },
+  "counts": {
+    "raw_rows_both_exports": 1459,
+    "deduped_pairs_compared": 510,
+    "unique_cves": 10,
+    "assets_not_rescanned": 17,
+    "priority_tickets": 3,
+    "tenant_identifiers_scrubbed": 960,
+    "assets_current": 223,
+    "open_findings_current": 357
+  },
+  "manual_unit_seconds": {
+    "open_exports_fixed": 300.0,
+    "dedupe_per_raw_row": 2.0,
+    "delta_per_pair": 10.0,
+    "coverage_per_missing_asset": 60.0,
+    "kev_lookup_per_cve": 30.0,
+    "epss_lookup_per_cve": 20.0,
+    "summary_fixed": 900.0,
+    "ticket_per_item": 600.0,
+    "executive_scrub_fixed": 300.0
+  },
+  "manual_step_seconds": {
+    "open_exports": 300.0,
+    "dedupe": 2918.0,
+    "delta": 5100.0,
+    "coverage_check": 1020.0,
+    "kev_lookups": 300.0,
+    "epss_lookups": 200.0,
+    "summary": 900.0,
+    "tickets": 1800.0,
+    "executive_scrub": 300.0
+  },
+  "manual_total_seconds": 12838.0,
+  "tool_review_seconds": 180.0,
+  "tool_total_seconds": 180.3,
+  "prep_time_saved_seconds": 12657.7,
+  "prep_time_ratio": 71.2,
+  "gate_passed": true,
+  "claims_checked": 63,
+  "note": "Manual times are modelled from documented unit costs applied to measured operation counts; see docs/MANUAL_TRIAGE.md."
+}

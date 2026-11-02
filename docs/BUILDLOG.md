@@ -159,3 +159,33 @@ client in tests, not against the API; the build host could not reach
 cisa.gov, first.org or tenable.com, so the KEV entries used by the demo were
 cross-checked against public mirrors before the full catalogue arrived from
 `main`.
+
+## Mon 2 Nov, 21:55 — S8: merge of `main` (v0.5) and the QA record
+
+- Merged `origin/main` at `a85ab8c` (pull request #2). Twenty-two files
+  conflicted. Resolution rule, as before: the implementation with the tests
+  behind it wins. The package, tests, scripts, README, security policy,
+  Makefile, packaging and this log are this branch's; the suite, gate demo,
+  audit and replay were re-run on the merged tree before the commit
+  (195 pass, 16/16 blocked, audit clean, replay accepted).
+- Carried from `main`: the Exchange listing draft and the publication
+  checkpoint under `submission/`, both rewritten to describe the surfaces in
+  this tree (three read-only MCP tools, full and CISO editions, JSON,
+  directory, `.nessus` and CSV inputs) and to say plainly that nothing
+  publishes itself; `THIRD_PARTY_NOTICES.md`, rewritten for the components
+  this tree uses.
+- Not carried: `main`'s `web/` listener and its audio (rendered from a
+  different script, so not bound to the receipt the gate issues here;
+  `site/` is generated from the gated episode instead), `docs/DEMO.md` and
+  the architecture files (the README carries the diagram and the commands),
+  `main`'s QA files and benchmark output (replaced with this tree's own
+  measurements), the stand-alone benchmark, trace, audio and excerpt scripts
+  (the same functions are CLI subcommands here: `bench`, `agent --record`,
+  `audio`), and a second copy of the data directory inside the package.
+- Added the machine-readable QA record: `docs/qa/verification.json` (the
+  fresh-clone run above), `docs/qa/listen-page-desktop.png` and
+  `listen-page-mobile.png` (the headless Chromium checks) and
+  `docs/benchmark.json` (the `make bench` output quoted above). The
+  full-history secret scan after the merge is saved as
+  `docs/qa/history-secret-scan.txt`; its figures replace the secret-scan row
+  above.

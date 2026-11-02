@@ -1,0 +1,46 @@
+{
+  "what": "Fresh clone of the branch into an empty directory; every README command run verbatim; wall-clock seconds including interpreter start-up",
+  "commit": "9ecc55f",
+  "date": "2026-11-02",
+  "host": "4-vCPU x86-64 cloud container, 15 GB RAM, Python 3.13.18 and 3.10 (conda-forge), ffmpeg 6, no GPU",
+  "commands": [
+    {"command": "python3 -m exposure_radio demo", "seconds": 0.35, "exit": 0, "note": "pipeline itself 0.20 s"},
+    {"command": "make check", "seconds": 5.85, "exit": 0, "note": "195 tests, 16/16 planted cases blocked, audit clean, agent replay accepted"},
+    {"command": "make gate-demo", "seconds": 0.30, "exit": 0},
+    {"command": "make audit", "seconds": 0.29, "exit": 0},
+    {"command": "make agent-replay", "seconds": 0.35, "exit": 0},
+    {"command": "make bench", "seconds": 1.75, "exit": 0, "note": "pipeline 0.316 s median of 5 on the 500-finding pair; see docs/benchmark.json"},
+    {"command": "python3 -m exposure_radio briefing --previous data/fixtures/tenant-b/2026-10-29 --current data/fixtures/tenant-b/2026-10-30", "seconds": 0.36, "exit": 0},
+    {"command": "python3 -m exposure_radio packet --edition ciso", "seconds": 0.30, "exit": 0},
+    {"command": "python3 -m exposure_radio feeds status", "seconds": 0.25, "exit": 0},
+    {"command": "python3 -m exposure_radio briefing --current data/fixtures/current.nessus", "seconds": 0.27, "exit": 0},
+    {"command": "python3 -m exposure_radio briefing --current data/fixtures/current.csv", "seconds": 0.26, "exit": 0},
+    {"command": "python3 -m exposure_radio briefing --current data/fixtures/current_partial.json", "seconds": 0.25, "exit": 0, "note": "held edition"},
+    {"command": "python3 -m exposure_radio mcp (initialize, tools/list, exposure_briefing, remediation_packet over stdio)", "seconds": 0.30, "exit": 0},
+    {"command": "make check PY=python3.10", "seconds": 6.33, "exit": 0},
+    {"command": "python3 scripts/build_site.py", "seconds": 0.30, "exit": 0, "note": "audio receipt matches script"},
+    {"command": "python3.10 -m pip install . && exposure-radio --version", "seconds": 2.59, "exit": 0}
+  ],
+  "listen_page": {
+    "tool": "Playwright, headless Chromium, file:// URL",
+    "viewports": ["1280x900", "390x844"],
+    "script_errors": 0,
+    "horizontal_scroll": false,
+    "ciso_toggle_withholds_identifiers": true,
+    "screenshots": ["listen-page-desktop.png", "listen-page-mobile.png"]
+  },
+  "audio": {
+    "engine": "Kokoro-82M ONNX q8, voice af_heart, onnxruntime 1.20.1",
+    "cues": 33,
+    "duration_seconds": 245.23,
+    "mp3_integrated_lufs": -16.4,
+    "mp3_true_peak_dbtp": -1.1,
+    "mp3_lra_lu": 2.5,
+    "raw_integrated_lufs": -22.7,
+    "raw_true_peak_dbtp": 0.3,
+    "receipt_matches_script": true,
+    "pocketsphinx_word_error_rate": 0.214
+  },
+  "secret_scan": "see history-secret-scan.txt",
+  "python_minimum": "vermin -t=3.10- reports 3.10"
+}

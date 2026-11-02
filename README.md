@@ -257,7 +257,13 @@ remediation-speed claim.
   `loudnorm` and measured with `ffmpeg ebur128`: integrated -16.4 LUFS, true peak -1.1 dBTP
   (`site/measurements.json`).
 - Fresh-clone timings, the gitleaks history scan and every measurement quoted here are recorded
-  in [docs/BUILDLOG.md](docs/BUILDLOG.md).
+  in [docs/BUILDLOG.md](docs/BUILDLOG.md). The machine-readable copies live in
+  [docs/qa/](docs/qa/) (verification run, listen-page screenshots at desktop and phone width,
+  full-history secret scan) and [docs/benchmark.json](docs/benchmark.json).
+- Licences of the data snapshots and optional components are listed in
+  [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The draft Exchange listing and the
+  publication checkpoint are in [submission/](submission/); nothing in this repository publishes
+  itself.
 
 ## Limits
 
