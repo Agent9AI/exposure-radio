@@ -1,5 +1,4 @@
 PY ?= python3
-export PYTHONPATH := src
 
 .PHONY: check test gate-demo audit demo fixtures
 
