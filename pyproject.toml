@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "exposure-radio"
+version = "0.1.0"
+description = "Turns two Tenable exports into a verified, spoken priority briefing and a ticket-ready action card."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Agent9", email = "terry@agent9.dev" }]
+requires-python = ">=3.10"
+dependencies = []
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security",
+]
+
+[project.scripts]
+exposure-radio = "exposure_radio.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
