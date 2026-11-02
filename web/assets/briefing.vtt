@@ -1,0 +1,43 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.899
+<v ANCHOR>This is Exposure Radio.
+
+00:00:02.149 --> 00:00:11.514
+<v ANCHOR>Priority bulletin: CVE-2026-118527 needs action today.
+
+00:00:11.764 --> 00:00:25.183
+<v ANALYST>CVE-2026-118527 is listed as Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability.
+
+00:00:25.433 --> 00:00:34.563
+<v ANALYST>CISA listed CVE-2026-118527 as exploited since the last briefing.
+
+00:00:34.813 --> 00:00:42.472
+<v ANALYST>CVE-2026-118527 is open on 1 asset.
+
+00:00:42.722 --> 00:00:54.434
+<v ANCHOR>Next step: follow CISA&#x27;s required action for CVE-2026-118527, then rescan to confirm.
+
+00:00:54.684 --> 00:00:57.586
+<v ANCHOR>Here is what changed since the last briefing.
+
+00:00:57.836 --> 00:01:02.828
+<v ANALYST>Exposure grew by 4 priority findings on assets that were already being scanned.
+
+00:01:03.078 --> 00:01:09.478
+<v ANALYST>Visibility grew: 2 priority findings came from 12 newly scanned or newly credentialed assets.
+
+00:01:09.728 --> 00:01:13.632
+<v ANALYST>14 priority findings were verified fixed by a rescan.
+
+00:01:13.882 --> 00:01:15.994
+<v ANALYST>11 assets missed this scan cycle.
+
+00:01:16.244 --> 00:01:21.044
+<v ANALYST>3 open priority findings on missed assets are unverified, not fixed.
+
+00:01:21.294 --> 00:01:24.600
+<v ANALYST>This cycle scanned 65 of 76 known assets.
+
+00:01:24.850 --> 00:01:28.903
+<v ANCHOR>The action card has the affected assets, owners and evidence.

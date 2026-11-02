@@ -1,0 +1,346 @@
+{
+  "receipt": {
+    "passed": true,
+    "ledger": "8ca3e21fddba6eb7",
+    "script_sha256": "2feb264e686c159bd6a7855ed8661f4914258b55a3a93b997305f9bc5abfe9ea",
+    "sentences_checked": 54,
+    "sentences_blocked": 0
+  },
+  "integrated_lufs": -16.59,
+  "true_peak_dbtp": -1.7,
+  "duration_seconds": 419.784,
+  "sample_rate_hz": 48000,
+  "codec": "mp3",
+  "voices": {
+    "ANCHOR": "am_michael",
+    "ANALYST": "af_heart"
+  },
+  "cues": [
+    {
+      "start": 0.0,
+      "end": 1.899,
+      "voice": "ANCHOR",
+      "text": "This is Exposure Radio."
+    },
+    {
+      "start": 2.149,
+      "end": 11.514,
+      "voice": "ANCHOR",
+      "text": "Priority bulletin: CVE-2026-118527 needs action today."
+    },
+    {
+      "start": 11.764,
+      "end": 25.183,
+      "voice": "ANALYST",
+      "text": "CVE-2026-118527 is listed as Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability."
+    },
+    {
+      "start": 25.433,
+      "end": 34.563,
+      "voice": "ANALYST",
+      "text": "CISA listed CVE-2026-118527 as exploited since the last briefing."
+    },
+    {
+      "start": 34.813,
+      "end": 42.472,
+      "voice": "ANALYST",
+      "text": "CVE-2026-118527 is open on 1 asset."
+    },
+    {
+      "start": 42.722,
+      "end": 54.413,
+      "voice": "ANALYST",
+      "text": "Your internal deadline for CVE-2026-118527 is 2026-11-06."
+    },
+    {
+      "start": 54.663,
+      "end": 66.375,
+      "voice": "ANCHOR",
+      "text": "Next step: follow CISA's required action for CVE-2026-118527, then rescan to confirm."
+    },
+    {
+      "start": 66.625,
+      "end": 67.841,
+      "voice": "ANCHOR",
+      "text": "Second item."
+    },
+    {
+      "start": 68.091,
+      "end": 78.416,
+      "voice": "ANALYST",
+      "text": "CVE-2026-41709 is listed as Broadcom VMWare ESX Insufficient Logging Vulnerability."
+    },
+    {
+      "start": 78.666,
+      "end": 91.338,
+      "voice": "ANALYST",
+      "text": "CISA added CVE-2026-41709 to its Known Exploited Vulnerabilities catalog on 2026-10-28."
+    },
+    {
+      "start": 91.588,
+      "end": 100.441,
+      "voice": "ANALYST",
+      "text": "CVE-2026-41709 newly appeared on 3 assets that were already being scanned."
+    },
+    {
+      "start": 100.691,
+      "end": 107.411,
+      "voice": "ANALYST",
+      "text": "CVE-2026-41709 is open on 3 assets."
+    },
+    {
+      "start": 107.661,
+      "end": 118.371,
+      "voice": "ANCHOR",
+      "text": "Next step: follow CISA's required action for CVE-2026-41709, then rescan to confirm."
+    },
+    {
+      "start": 118.621,
+      "end": 119.837,
+      "voice": "ANCHOR",
+      "text": "Second item."
+    },
+    {
+      "start": 120.087,
+      "end": 130.711,
+      "voice": "ANALYST",
+      "text": "CVE-2021-44228 is listed as Apache Log4j2 Remote Code Execution Vulnerability."
+    },
+    {
+      "start": 130.961,
+      "end": 143.398,
+      "voice": "ANALYST",
+      "text": "CISA added CVE-2021-44228 to its Known Exploited Vulnerabilities catalog on 2021-12-10."
+    },
+    {
+      "start": 143.648,
+      "end": 152.8,
+      "voice": "ANALYST",
+      "text": "CVE-2021-44228 was found on 2 assets newly scanned or newly credentialed."
+    },
+    {
+      "start": 153.05,
+      "end": 159.877,
+      "voice": "ANALYST",
+      "text": "CVE-2021-44228 is open on 2 assets."
+    },
+    {
+      "start": 160.127,
+      "end": 171.071,
+      "voice": "ANCHOR",
+      "text": "Next step: follow CISA's required action for CVE-2021-44228, then rescan to confirm."
+    },
+    {
+      "start": 171.321,
+      "end": 172.537,
+      "voice": "ANCHOR",
+      "text": "Second item."
+    },
+    {
+      "start": 172.787,
+      "end": 182.643,
+      "voice": "ANALYST",
+      "text": "CVE-2024-3400 is listed as Palo Alto Networks PAN-OS Command Injection Vulnerability."
+    },
+    {
+      "start": 182.893,
+      "end": 194.583,
+      "voice": "ANALYST",
+      "text": "CISA added CVE-2024-3400 to its Known Exploited Vulnerabilities catalog on 2024-04-12."
+    },
+    {
+      "start": 194.833,
+      "end": 200.743,
+      "voice": "ANALYST",
+      "text": "CVE-2024-3400 is open on 2 assets."
+    },
+    {
+      "start": 200.993,
+      "end": 210.678,
+      "voice": "ANCHOR",
+      "text": "Next step: follow CISA's required action for CVE-2024-3400, then rescan to confirm."
+    },
+    {
+      "start": 210.928,
+      "end": 212.144,
+      "voice": "ANCHOR",
+      "text": "Second item."
+    },
+    {
+      "start": 212.394,
+      "end": 223.53,
+      "voice": "ANALYST",
+      "text": "CVE-2023-46604 is listed as Apache ActiveMQ Deserialization of Untrusted Data Vulnerability."
+    },
+    {
+      "start": 223.78,
+      "end": 236.431,
+      "voice": "ANALYST",
+      "text": "CISA added CVE-2023-46604 to its Known Exploited Vulnerabilities catalog on 2023-11-02."
+    },
+    {
+      "start": 236.681,
+      "end": 243.251,
+      "voice": "ANALYST",
+      "text": "CVE-2023-46604 is open on 2 assets."
+    },
+    {
+      "start": 243.501,
+      "end": 254.168,
+      "voice": "ANCHOR",
+      "text": "Next step: follow CISA's required action for CVE-2023-46604, then rescan to confirm."
+    },
+    {
+      "start": 254.418,
+      "end": 255.634,
+      "voice": "ANCHOR",
+      "text": "Second item."
+    },
+    {
+      "start": 255.884,
+      "end": 266.7,
+      "voice": "ANALYST",
+      "text": "CVE-2023-20198 is listed as Cisco IOS XE Web UI Privilege Escalation Vulnerability."
+    },
+    {
+      "start": 266.95,
+      "end": 279.046,
+      "voice": "ANALYST",
+      "text": "CISA added CVE-2023-20198 to its Known Exploited Vulnerabilities catalog on 2023-10-16."
+    },
+    {
+      "start": 279.296,
+      "end": 285.76,
+      "voice": "ANALYST",
+      "text": "CVE-2023-20198 is open on 1 asset."
+    },
+    {
+      "start": 286.01,
+      "end": 296.207,
+      "voice": "ANCHOR",
+      "text": "Next step: follow CISA's required action for CVE-2023-20198, then rescan to confirm."
+    },
+    {
+      "start": 296.457,
+      "end": 297.673,
+      "voice": "ANCHOR",
+      "text": "Second item."
+    },
+    {
+      "start": 297.923,
+      "end": 309.187,
+      "voice": "ANALYST",
+      "text": "CVE-2022-22965 is listed as Spring Framework JDK 9+ Remote Code Execution Vulnerability."
+    },
+    {
+      "start": 309.437,
+      "end": 322.92,
+      "voice": "ANALYST",
+      "text": "CISA added CVE-2022-22965 to its Known Exploited Vulnerabilities catalog on 2022-04-04."
+    },
+    {
+      "start": 323.17,
+      "end": 330.039,
+      "voice": "ANALYST",
+      "text": "CVE-2022-22965 is open on 1 asset."
+    },
+    {
+      "start": 330.289,
+      "end": 341.404,
+      "voice": "ANCHOR",
+      "text": "Next step: follow CISA's required action for CVE-2022-22965, then rescan to confirm."
+    },
+    {
+      "start": 341.654,
+      "end": 342.87,
+      "voice": "ANCHOR",
+      "text": "Second item."
+    },
+    {
+      "start": 343.12,
+      "end": 352.635,
+      "voice": "ANALYST",
+      "text": "CVE-2017-0144 is listed as Microsoft SMBv1 Remote Code Execution Vulnerability."
+    },
+    {
+      "start": 352.885,
+      "end": 363.893,
+      "voice": "ANALYST",
+      "text": "CISA added CVE-2017-0144 to its Known Exploited Vulnerabilities catalog on 2022-02-10."
+    },
+    {
+      "start": 364.143,
+      "end": 369.668,
+      "voice": "ANALYST",
+      "text": "CVE-2017-0144 is open on 1 asset."
+    },
+    {
+      "start": 369.918,
+      "end": 379.155,
+      "voice": "ANCHOR",
+      "text": "Next step: follow CISA's required action for CVE-2017-0144, then rescan to confirm."
+    },
+    {
+      "start": 379.405,
+      "end": 382.307,
+      "voice": "ANCHOR",
+      "text": "Here is what changed since the last briefing."
+    },
+    {
+      "start": 382.557,
+      "end": 387.549,
+      "voice": "ANALYST",
+      "text": "Exposure grew by 4 priority findings on assets that were already being scanned."
+    },
+    {
+      "start": 387.799,
+      "end": 394.199,
+      "voice": "ANALYST",
+      "text": "Visibility grew: 2 priority findings came from 12 newly scanned or newly credentialed assets."
+    },
+    {
+      "start": 394.449,
+      "end": 398.353,
+      "voice": "ANALYST",
+      "text": "14 priority findings were verified fixed by a rescan."
+    },
+    {
+      "start": 398.603,
+      "end": 400.715,
+      "voice": "ANALYST",
+      "text": "11 assets missed this scan cycle."
+    },
+    {
+      "start": 400.965,
+      "end": 405.765,
+      "voice": "ANALYST",
+      "text": "3 open priority findings on missed assets are unverified, not fixed."
+    },
+    {
+      "start": 406.015,
+      "end": 409.321,
+      "voice": "ANALYST",
+      "text": "This cycle scanned 65 of 76 known assets."
+    },
+    {
+      "start": 409.571,
+      "end": 413.518,
+      "voice": "ANCHOR",
+      "text": "Review the 12 newly scanned assets before the next cycle."
+    },
+    {
+      "start": 413.768,
+      "end": 417.821,
+      "voice": "ANCHOR",
+      "text": "The action card has the affected assets, owners and evidence."
+    },
+    {
+      "start": 418.071,
+      "end": 419.501,
+      "voice": "ANCHOR",
+      "text": "That is the bulletin."
+    }
+  ],
+  "synthesis_sample_rate_hz": 24000,
+  "audio_sha256": "d56bbb3b99bee853902dfb6b004e0ea2fa5b7560c6eb4129078b3b56d3c9638a"
+}

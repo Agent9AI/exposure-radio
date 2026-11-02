@@ -52,3 +52,11 @@ The reproducible preparation benchmark compares 455 and 545 findings, builds 304
 The runtime API adapter counts input before generation, reserves output, and disables parallel model tool calls. The command adapter caps captured output while reading, terminates its own process on budget exhaustion and exposes only generic failure categories. Private scanner fact values cannot be retrieved through claim-verdict error messages.
 
 Final acceptance evidence is recorded in `docs/qa/` and the audio manifest. No repository CI workflow is used.
+
+## Media and listener acceptance — 2026-11-02
+
+The first-play priority break is 89.184 seconds by FFprobe (89.153 seconds after browser gapless decoding). It retains 14 complete, freshly validated narration lines from the full 54-line episode. The full episode remains available separately. No source sentence was rewritten during the edit. The priority manifest records the selected indices, source hash, fresh script receipt, exact caption cues and output hash.
+
+The encoded priority break measures -16.53 LUFS and -1.83 dBTP at 48 kHz; the Kokoro synthesis rate is 24 kHz. Desktop playback progressed in 376 ms and mobile playback in 313 ms. Both browser checks passed responsive layout, transcript/citation expansion, clipboard, download, full-episode/caption links, and zero JavaScript or HTTP errors. These figures verify playback and signal levels; no comparative listening score is claimed.
+
+The official Exchange Agent schema validator accepted the listing draft using its current Python 3.14 environment. Agreement acceptance, public visibility, Exchange submission and Discord posting remain the publication checkpoint recorded in `submission/RELEASE-CHECKLIST.md`.

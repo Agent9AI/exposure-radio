@@ -1,0 +1,14 @@
+digraph G {
+ graph [rankdir=LR, bgcolor="#f6f7ef", pad="0.3", nodesep="0.25", ranksep="0.4", fontname="DejaVu Sans", label="EXPOSURE RADIO · Evidence before airtime", labelloc=t, fontsize=18];
+ node [shape=box, style="rounded,filled", fillcolor="#e1ebcf", color="#52735e", fontname="DejaVu Sans", fontsize=12, margin="0.18,0.13"];
+ edge [color="#52735e", arrowsize=0.7];
+ inputs [label="Tenable exports\n+ local KEV / EPSS"];
+ facts [label="Coverage-aware deltas\n+ typed evidence ledger"];
+ policy [label="Deterministic alert policy\n+ bounded analyst proposal"];
+ producer [label="Controlled narration\n+ cited action card"];
+ gate [label="Whole-claim gate\n+ script / ledger receipt", fillcolor="#cde588"];
+ output [label="Local speech + captions\n+ generic alert preview"];
+ inputs -> facts -> policy -> producer -> gate -> output;
+ rejected [label="False / unverified claim\nNo speech", fillcolor="#f0ded6", color="#a06a57"];
+ gate -> rejected [label="reject", color="#a06a57", fontcolor="#a06a57", fontsize=10];
+}

@@ -1,0 +1,163 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.899
+<v ANCHOR>This is Exposure Radio.
+
+00:00:02.149 --> 00:00:11.514
+<v ANCHOR>Priority bulletin: CVE-2026-118527 needs action today.
+
+00:00:11.764 --> 00:00:25.183
+<v ANALYST>CVE-2026-118527 is listed as Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability.
+
+00:00:25.433 --> 00:00:34.563
+<v ANALYST>CISA listed CVE-2026-118527 as exploited since the last briefing.
+
+00:00:34.813 --> 00:00:42.472
+<v ANALYST>CVE-2026-118527 is open on 1 asset.
+
+00:00:42.722 --> 00:00:54.413
+<v ANALYST>Your internal deadline for CVE-2026-118527 is 2026-11-06.
+
+00:00:54.663 --> 00:01:06.375
+<v ANCHOR>Next step: follow CISA&#x27;s required action for CVE-2026-118527, then rescan to confirm.
+
+00:01:06.625 --> 00:01:07.841
+<v ANCHOR>Second item.
+
+00:01:08.091 --> 00:01:18.416
+<v ANALYST>CVE-2026-41709 is listed as Broadcom VMWare ESX Insufficient Logging Vulnerability.
+
+00:01:18.666 --> 00:01:31.338
+<v ANALYST>CISA added CVE-2026-41709 to its Known Exploited Vulnerabilities catalog on 2026-10-28.
+
+00:01:31.588 --> 00:01:40.441
+<v ANALYST>CVE-2026-41709 newly appeared on 3 assets that were already being scanned.
+
+00:01:40.691 --> 00:01:47.411
+<v ANALYST>CVE-2026-41709 is open on 3 assets.
+
+00:01:47.661 --> 00:01:58.371
+<v ANCHOR>Next step: follow CISA&#x27;s required action for CVE-2026-41709, then rescan to confirm.
+
+00:01:58.621 --> 00:01:59.837
+<v ANCHOR>Second item.
+
+00:02:00.087 --> 00:02:10.711
+<v ANALYST>CVE-2021-44228 is listed as Apache Log4j2 Remote Code Execution Vulnerability.
+
+00:02:10.961 --> 00:02:23.398
+<v ANALYST>CISA added CVE-2021-44228 to its Known Exploited Vulnerabilities catalog on 2021-12-10.
+
+00:02:23.648 --> 00:02:32.800
+<v ANALYST>CVE-2021-44228 was found on 2 assets newly scanned or newly credentialed.
+
+00:02:33.050 --> 00:02:39.877
+<v ANALYST>CVE-2021-44228 is open on 2 assets.
+
+00:02:40.127 --> 00:02:51.071
+<v ANCHOR>Next step: follow CISA&#x27;s required action for CVE-2021-44228, then rescan to confirm.
+
+00:02:51.321 --> 00:02:52.537
+<v ANCHOR>Second item.
+
+00:02:52.787 --> 00:03:02.643
+<v ANALYST>CVE-2024-3400 is listed as Palo Alto Networks PAN-OS Command Injection Vulnerability.
+
+00:03:02.893 --> 00:03:14.583
+<v ANALYST>CISA added CVE-2024-3400 to its Known Exploited Vulnerabilities catalog on 2024-04-12.
+
+00:03:14.833 --> 00:03:20.743
+<v ANALYST>CVE-2024-3400 is open on 2 assets.
+
+00:03:20.993 --> 00:03:30.678
+<v ANCHOR>Next step: follow CISA&#x27;s required action for CVE-2024-3400, then rescan to confirm.
+
+00:03:30.928 --> 00:03:32.144
+<v ANCHOR>Second item.
+
+00:03:32.394 --> 00:03:43.530
+<v ANALYST>CVE-2023-46604 is listed as Apache ActiveMQ Deserialization of Untrusted Data Vulnerability.
+
+00:03:43.780 --> 00:03:56.431
+<v ANALYST>CISA added CVE-2023-46604 to its Known Exploited Vulnerabilities catalog on 2023-11-02.
+
+00:03:56.681 --> 00:04:03.251
+<v ANALYST>CVE-2023-46604 is open on 2 assets.
+
+00:04:03.501 --> 00:04:14.168
+<v ANCHOR>Next step: follow CISA&#x27;s required action for CVE-2023-46604, then rescan to confirm.
+
+00:04:14.418 --> 00:04:15.634
+<v ANCHOR>Second item.
+
+00:04:15.884 --> 00:04:26.700
+<v ANALYST>CVE-2023-20198 is listed as Cisco IOS XE Web UI Privilege Escalation Vulnerability.
+
+00:04:26.950 --> 00:04:39.046
+<v ANALYST>CISA added CVE-2023-20198 to its Known Exploited Vulnerabilities catalog on 2023-10-16.
+
+00:04:39.296 --> 00:04:45.760
+<v ANALYST>CVE-2023-20198 is open on 1 asset.
+
+00:04:46.010 --> 00:04:56.207
+<v ANCHOR>Next step: follow CISA&#x27;s required action for CVE-2023-20198, then rescan to confirm.
+
+00:04:56.457 --> 00:04:57.673
+<v ANCHOR>Second item.
+
+00:04:57.923 --> 00:05:09.187
+<v ANALYST>CVE-2022-22965 is listed as Spring Framework JDK 9+ Remote Code Execution Vulnerability.
+
+00:05:09.437 --> 00:05:22.920
+<v ANALYST>CISA added CVE-2022-22965 to its Known Exploited Vulnerabilities catalog on 2022-04-04.
+
+00:05:23.170 --> 00:05:30.039
+<v ANALYST>CVE-2022-22965 is open on 1 asset.
+
+00:05:30.289 --> 00:05:41.404
+<v ANCHOR>Next step: follow CISA&#x27;s required action for CVE-2022-22965, then rescan to confirm.
+
+00:05:41.654 --> 00:05:42.870
+<v ANCHOR>Second item.
+
+00:05:43.120 --> 00:05:52.635
+<v ANALYST>CVE-2017-0144 is listed as Microsoft SMBv1 Remote Code Execution Vulnerability.
+
+00:05:52.885 --> 00:06:03.893
+<v ANALYST>CISA added CVE-2017-0144 to its Known Exploited Vulnerabilities catalog on 2022-02-10.
+
+00:06:04.143 --> 00:06:09.668
+<v ANALYST>CVE-2017-0144 is open on 1 asset.
+
+00:06:09.918 --> 00:06:19.155
+<v ANCHOR>Next step: follow CISA&#x27;s required action for CVE-2017-0144, then rescan to confirm.
+
+00:06:19.405 --> 00:06:22.307
+<v ANCHOR>Here is what changed since the last briefing.
+
+00:06:22.557 --> 00:06:27.549
+<v ANALYST>Exposure grew by 4 priority findings on assets that were already being scanned.
+
+00:06:27.799 --> 00:06:34.199
+<v ANALYST>Visibility grew: 2 priority findings came from 12 newly scanned or newly credentialed assets.
+
+00:06:34.449 --> 00:06:38.353
+<v ANALYST>14 priority findings were verified fixed by a rescan.
+
+00:06:38.603 --> 00:06:40.715
+<v ANALYST>11 assets missed this scan cycle.
+
+00:06:40.965 --> 00:06:45.765
+<v ANALYST>3 open priority findings on missed assets are unverified, not fixed.
+
+00:06:46.015 --> 00:06:49.321
+<v ANALYST>This cycle scanned 65 of 76 known assets.
+
+00:06:49.571 --> 00:06:53.518
+<v ANCHOR>Review the 12 newly scanned assets before the next cycle.
+
+00:06:53.768 --> 00:06:57.821
+<v ANCHOR>The action card has the affected assets, owners and evidence.
+
+00:06:58.071 --> 00:06:59.501
+<v ANCHOR>That is the bulletin.

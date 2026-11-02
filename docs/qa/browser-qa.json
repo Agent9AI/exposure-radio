@@ -1,0 +1,46 @@
+{
+  "desktop": {
+    "overflow": {
+      "scroll": 1200,
+      "viewport": 1200
+    },
+    "citation": "bulletin · bulletin.lead: CVE-2026-118527",
+    "cases": 2,
+    "copyStatus": "Action card copied.",
+    "clipboardHasCve": true,
+    "downloadName": "exposure-radio-action-card.txt",
+    "audio": {
+      "duration": 89.153,
+      "currentTime": 0.111772,
+      "progressMs": 376,
+      "paused": false,
+      "error": null
+    },
+    "fullAudio": 1,
+    "captions": 2,
+    "errors": [],
+    "http": []
+  },
+  "mobile": {
+    "overflow": {
+      "scroll": 390,
+      "viewport": 390
+    },
+    "citation": "bulletin · bulletin.lead: CVE-2026-118527",
+    "cases": 2,
+    "copyStatus": "Action card copied.",
+    "clipboardHasCve": true,
+    "downloadName": "exposure-radio-action-card.txt",
+    "audio": {
+      "duration": 89.153,
+      "currentTime": 0.137381,
+      "progressMs": 313,
+      "paused": false,
+      "error": null
+    },
+    "fullAudio": 1,
+    "captions": 2,
+    "errors": [],
+    "http": []
+  }
+}

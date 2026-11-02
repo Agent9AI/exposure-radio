@@ -1,0 +1,86 @@
+[
+  {
+    "start": 0.0,
+    "end": 1.899,
+    "voice": "ANCHOR",
+    "text": "This is Exposure Radio."
+  },
+  {
+    "start": 2.149,
+    "end": 11.514,
+    "voice": "ANCHOR",
+    "text": "Priority bulletin: CVE-2026-118527 needs action today."
+  },
+  {
+    "start": 11.764,
+    "end": 25.183,
+    "voice": "ANALYST",
+    "text": "CVE-2026-118527 is listed as Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability."
+  },
+  {
+    "start": 25.433,
+    "end": 34.563,
+    "voice": "ANALYST",
+    "text": "CISA listed CVE-2026-118527 as exploited since the last briefing."
+  },
+  {
+    "start": 34.813,
+    "end": 42.472,
+    "voice": "ANALYST",
+    "text": "CVE-2026-118527 is open on 1 asset."
+  },
+  {
+    "start": 42.722,
+    "end": 54.434,
+    "voice": "ANCHOR",
+    "text": "Next step: follow CISA's required action for CVE-2026-118527, then rescan to confirm."
+  },
+  {
+    "start": 54.684,
+    "end": 57.586,
+    "voice": "ANCHOR",
+    "text": "Here is what changed since the last briefing."
+  },
+  {
+    "start": 57.836,
+    "end": 62.828,
+    "voice": "ANALYST",
+    "text": "Exposure grew by 4 priority findings on assets that were already being scanned."
+  },
+  {
+    "start": 63.078,
+    "end": 69.478,
+    "voice": "ANALYST",
+    "text": "Visibility grew: 2 priority findings came from 12 newly scanned or newly credentialed assets."
+  },
+  {
+    "start": 69.728,
+    "end": 73.632,
+    "voice": "ANALYST",
+    "text": "14 priority findings were verified fixed by a rescan."
+  },
+  {
+    "start": 73.882,
+    "end": 75.994,
+    "voice": "ANALYST",
+    "text": "11 assets missed this scan cycle."
+  },
+  {
+    "start": 76.244,
+    "end": 81.044,
+    "voice": "ANALYST",
+    "text": "3 open priority findings on missed assets are unverified, not fixed."
+  },
+  {
+    "start": 81.294,
+    "end": 84.6,
+    "voice": "ANALYST",
+    "text": "This cycle scanned 65 of 76 known assets."
+  },
+  {
+    "start": 84.85,
+    "end": 88.903,
+    "voice": "ANCHOR",
+    "text": "The action card has the affected assets, owners and evidence."
+  }
+]

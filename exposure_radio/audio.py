@@ -91,8 +91,11 @@ def render(lines, receipt, ledger, output, model, voices):
             vtt.extend([f'{_stamp(start)} --> {_stamp(end)}', f'<v {voice}>{html.escape(text)}', ''])
         (output / 'episode.mp3').write_bytes(mp3.read_bytes())
         (output / 'episode.vtt').write_text('\n'.join(vtt), encoding='utf-8')
+        probe = json.loads(_run(['ffprobe', '-v', 'error', '-show_entries', 'stream=sample_rate',
+                                 '-show_entries', 'format=duration', '-of', 'json', str(mp3)]).stdout)
         result = {'receipt': report.receipt(), 'audio_sha256': hashlib.sha256(mp3.read_bytes()).hexdigest(), 'integrated_lufs': loudness, 'true_peak_dbtp': peak,
-                  'duration_seconds': round(elapsed, 3), 'sample_rate_hz': rate,
+                  'duration_seconds': float(probe['format']['duration']), 'sample_rate_hz': int(probe['streams'][0]['sample_rate']),
+                  'synthesis_sample_rate_hz': rate,
                   'codec': 'mp3', 'voices': {'ANCHOR': 'am_michael', 'ANALYST': 'af_heart'},
                   'cues': [{'start': round(a, 3), 'end': round(b, 3), 'voice': v, 'text': t} for a, b, v, t in cues]}
         (output / 'audio.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')

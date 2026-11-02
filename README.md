@@ -3,7 +3,7 @@
 **Turn two Tenable exports into a cited priority briefing and a remediation handoff.**
 Hear what changed, distinguish new exposure from new visibility, and act on a checked action card.
 
-[Listen to the synthetic sample](web/assets/briefing.mp3) · [Read the transcript](web/assets/briefing.vtt) · [Inspect the evidence](web/data/facts.json)
+[Listen to the 90-second priority break](web/assets/briefing.mp3) · [Full station episode](web/assets/full-briefing.mp3) · [Read the transcript](web/assets/briefing.vtt) · [Inspect the evidence](web/data/facts.json)
 
 ![Exposure Radio listener](docs/qa/desktop.png)
 
@@ -52,6 +52,8 @@ python3 -m exposure_radio demo --analyst anthropic
 
 The API adapter counts input before dispatch and reserves output within its configured budget. The default loop permits six model steps, eight read-only tool calls, one revision and 90 seconds. Provider failure or invalid output selects the checked template edition. The optional command adapter is an operator-trusted process; configure its own native tools and provider spending controls separately.
 
+![Evidence and authority flow](docs/architecture.png)
+
 ## Facts must pass before speech
 
 1. Exports and public feeds produce typed `(subject, predicate, value, source)` facts.
@@ -97,7 +99,7 @@ python3 scripts/build_site.py
 python3 scripts/benchmark.py --runs 5
 ```
 
-The [recorded preparation benchmark](docs/benchmark.json) measures a complete briefing plus an unchanged rerun: **2.06 seconds median across five runs** on an ARM64 Raspberry Pi. It measures software preparation, with no claimed human-time multiplier.
+The [recorded preparation benchmark](docs/benchmark.json) measures cited script and action-card generation plus an unchanged rerun: **2.06 seconds median across five runs** on an ARM64 Raspberry Pi. It measures software preparation, with no claimed human-time multiplier.
 
 Audio uses local Kokoro voices and two-pass normalization. [The manifest](web/assets/audio.json) records the exact script receipt, audio hash, duration, loudness and true peak. To render your own sample, install `kokoro-onnx`, `numpy`, `soundfile` and FFmpeg in a separate environment, supply the model and voice files, then run:
 
@@ -105,6 +107,8 @@ Audio uses local Kokoro voices and two-pass normalization. [The manifest](web/as
 python3 scripts/render_audio.py --model /path/to/kokoro.onnx \
   --voices /path/to/voices.bin --output rendered-audio
 ```
+
+For private exports, add `--prev exports/day1 --curr exports/day2 --kev feeds/kev-current.json` and, when available, `--prev-kev` and `--epss`. The same strict speech gate applies.
 
 The core does not install or download those dependencies. See [security boundaries](SECURITY.md), [build evidence](docs/BUILDLOG.md) and [third-party notices](THIRD_PARTY_NOTICES.md).
 

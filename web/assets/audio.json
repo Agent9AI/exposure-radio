@@ -1,0 +1,130 @@
+{
+  "receipt": {
+    "passed": true,
+    "ledger": "8ca3e21fddba6eb7",
+    "script_sha256": "3a16fb63e6ffef229a8b77de823001c456c42f169e811dd4937968f3ae5358a3",
+    "sentences_checked": 14,
+    "sentences_blocked": 0
+  },
+  "source_receipt": {
+    "passed": true,
+    "ledger": "8ca3e21fddba6eb7",
+    "script_sha256": "2feb264e686c159bd6a7855ed8661f4914258b55a3a93b997305f9bc5abfe9ea",
+    "sentences_checked": 54,
+    "sentences_blocked": 0
+  },
+  "source_audio_sha256": "d56bbb3b99bee853902dfb6b004e0ea2fa5b7560c6eb4129078b3b56d3c9638a",
+  "audio_sha256": "9f6d8e1cf37b6375e7bab4c68153aadfa7607aee6f7f6b5427972a93758b5921",
+  "line_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    6,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    52
+  ],
+  "duration_seconds": 89.184,
+  "integrated_lufs": -16.53,
+  "true_peak_dbtp": -1.83,
+  "sample_rate_hz": 48000,
+  "codec": "mp3",
+  "cues": [
+    {
+      "start": 0.0,
+      "end": 1.899,
+      "voice": "ANCHOR",
+      "text": "This is Exposure Radio."
+    },
+    {
+      "start": 2.149,
+      "end": 11.514,
+      "voice": "ANCHOR",
+      "text": "Priority bulletin: CVE-2026-118527 needs action today."
+    },
+    {
+      "start": 11.764,
+      "end": 25.183,
+      "voice": "ANALYST",
+      "text": "CVE-2026-118527 is listed as Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability."
+    },
+    {
+      "start": 25.433,
+      "end": 34.563,
+      "voice": "ANALYST",
+      "text": "CISA listed CVE-2026-118527 as exploited since the last briefing."
+    },
+    {
+      "start": 34.813,
+      "end": 42.472,
+      "voice": "ANALYST",
+      "text": "CVE-2026-118527 is open on 1 asset."
+    },
+    {
+      "start": 42.722,
+      "end": 54.434,
+      "voice": "ANCHOR",
+      "text": "Next step: follow CISA's required action for CVE-2026-118527, then rescan to confirm."
+    },
+    {
+      "start": 54.684,
+      "end": 57.586,
+      "voice": "ANCHOR",
+      "text": "Here is what changed since the last briefing."
+    },
+    {
+      "start": 57.836,
+      "end": 62.828,
+      "voice": "ANALYST",
+      "text": "Exposure grew by 4 priority findings on assets that were already being scanned."
+    },
+    {
+      "start": 63.078,
+      "end": 69.478,
+      "voice": "ANALYST",
+      "text": "Visibility grew: 2 priority findings came from 12 newly scanned or newly credentialed assets."
+    },
+    {
+      "start": 69.728,
+      "end": 73.632,
+      "voice": "ANALYST",
+      "text": "14 priority findings were verified fixed by a rescan."
+    },
+    {
+      "start": 73.882,
+      "end": 75.994,
+      "voice": "ANALYST",
+      "text": "11 assets missed this scan cycle."
+    },
+    {
+      "start": 76.244,
+      "end": 81.044,
+      "voice": "ANALYST",
+      "text": "3 open priority findings on missed assets are unverified, not fixed."
+    },
+    {
+      "start": 81.294,
+      "end": 84.6,
+      "voice": "ANALYST",
+      "text": "This cycle scanned 65 of 76 known assets."
+    },
+    {
+      "start": 84.85,
+      "end": 88.903,
+      "voice": "ANCHOR",
+      "text": "The action card has the affected assets, owners and evidence."
+    }
+  ],
+  "synthesis_sample_rate_hz": 24000,
+  "voices": {
+    "ANCHOR": "am_michael",
+    "ANALYST": "af_heart"
+  }
+}

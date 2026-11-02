@@ -41,7 +41,7 @@ sys.path.insert(0, str(ROOT))
 
 from exposure_radio import __version__  # noqa: E402
 from exposure_radio.adversarial import run_all  # noqa: E402
-from exposure_radio.gate import BLOCKED, SUPPORTED  # noqa: E402
+from exposure_radio.gate import BLOCKED, SUPPORTED, gate_script  # noqa: E402
 from exposure_radio.pipeline import run_cycle  # noqa: E402
 from exposure_radio.policy import Memory  # noqa: E402
 from exposure_radio.rundown import find_leaks  # noqa: E402
@@ -156,26 +156,45 @@ def build(web: Path) -> dict[str, object]:
 
     # --- media manifest -------------------------------------------------------------------------
     audio = web / "assets" / "briefing.mp3"
-    cues = _load_cues(web / "assets" / "cues.json", ep.lines)
+    display_lines, display_gate = ep.lines, ep.gate
+    manifest = None
     if audio.is_file():
         metadata = web / "assets" / "audio.json"
         if not metadata.is_file():
             raise BuildError("audio requires its receipt and measurement manifest")
         manifest = json.loads(metadata.read_text())
-        if manifest.get("receipt") != ep.gate.receipt():
-            raise BuildError("audio receipt does not match the current script and ledger")
+        indices = manifest.get("line_indices")
+        if indices is not None:
+            if (not isinstance(indices, list) or not indices or
+                    any(type(i) is not int or not 0 <= i < len(ep.lines) for i in indices) or
+                    indices != sorted(set(indices))):
+                raise BuildError("priority break must preserve a valid ordered subset of the full script")
+            display_lines = [ep.lines[i] for i in indices]
+            display_gate = gate_script(display_lines, ledger)
+        if not display_gate.passed or manifest.get("receipt") != display_gate.receipt():
+            raise BuildError("audio receipt does not match the selected script and ledger")
         if manifest.get("audio_sha256") != hashlib.sha256(audio.read_bytes()).hexdigest():
             raise BuildError("audio file does not match its integrity manifest")
-        if cues is None or manifest.get("cues") != cues:
-            raise BuildError("audio requires the matching caption cues")
-    media = {"audio": "assets/briefing.mp3" if audio.is_file() and audio.stat().st_size > 0 else None,
-             "cues": "assets/cues.json" if cues is not None else None}
+    cues = _load_cues(web / "assets" / "cues.json", display_lines)
+    if manifest and (cues is None or manifest.get("cues") != cues):
+        raise BuildError("audio requires the matching caption cues")
+    full_audio = web / "assets" / "full-briefing.mp3"
+    if full_audio.is_file():
+        full_manifest = json.loads((web / "assets" / "full-audio.json").read_text())
+        if (full_manifest.get("receipt") != ep.gate.receipt() or
+                full_manifest.get("audio_sha256") != hashlib.sha256(full_audio.read_bytes()).hexdigest() or
+                [c.get("text") for c in full_manifest.get("cues", [])] != [l["text"] for l in ep.lines]):
+            raise BuildError("full episode does not match the full script receipt, hash and captions")
+    media = {"audio": "assets/briefing.mp3" if manifest else None,
+             "cues": "assets/cues.json" if cues is not None else None,
+             "full_audio": "assets/full-briefing.mp3" if full_audio.is_file() else None,
+             "duration_seconds": manifest.get("duration_seconds") if manifest else None}
 
     # --- episode --------------------------------------------------------------------------------
     lead_name = next((f["value"] for f in facts if f["subject"] == decision.lead and f["predicate"] == "cve.name"),
                      None)
     lines = []
-    for i, (line, verdicts) in enumerate(zip(ep.lines, ep.gate.lines)):
+    for i, (line, verdicts) in enumerate(zip(display_lines, display_gate.lines)):
         lines.append({"index": i, "voice": line["voice"], "text": line["text"], "cites": line["cites"],
                       "template": line["template"],
                       "verdict": SUPPORTED if all(v.ok for v in verdicts) else BLOCKED})
@@ -184,7 +203,8 @@ def build(web: Path) -> dict[str, object]:
         "episode": decision.episode, "as_of": card["as_of"], "decision": decision.kind, "lead": decision.lead,
         "lead_name": lead_name, "policy_log": decision.log, "health": decision.health, "push": push,
         "rerun": {"decision": rerun.decision.kind, "policy_log": rerun.decision.log},
-        "lines": lines, "gate": ep.gate.receipt(), "sources": ledger.sources,
+        "lines": lines, "gate": display_gate.receipt(), "sources": ledger.sources,
+        "full_episode_gate": ep.gate.receipt(),
         "tenant": {"synthetic": True, "assets_total": ledger.value("tenant", "tenant.assets_total"),
                    "findings_prev": len(cycle.delta.prev.findings),
                    "findings_curr": len(cycle.delta.curr.findings),
