@@ -150,8 +150,8 @@ start-up):
 | Audio (`out/audio`, Kokoro-82M q8, voice af_heart, onnxruntime 1.20.1) | 33 cues, 245.2 s; raw -22.7 LUFS / +0.3 dBTP; after two-pass loudnorm and MP3 (64 kb/s mono): integrated -16.4 LUFS, true peak -1.1 dBTP, LRA 2.5 LU, measured with `ffmpeg ebur128` on the MP3; receipt hash in the VTT matches the script |
 | Intelligibility proxy | pocketsphinx 5 (default en-us model, no tuning) transcribes the normalised WAV cue by cue at 21.4% word error rate over 641 reference words; 3 of 33 cues verbatim, errors concentrated on spelled acronyms ("K E V") and the CVE digit groups. A floor, not a quality claim |
 | Python 3.10 | `vermin -t=3.10-` reports minimum 3.10 for `exposure_radio` and `scripts`; full suite green on the 3.10 interpreter |
-| Secret scan | `gitleaks git` (v8.30.1) over the full history through `9ecc55f`: 18 commits, 7.11 MB scanned, no leaks; `gitleaks dir` over the working tree: no leaks. The only commit after `9ecc55f` is this log entry |
-| Lint | `ruff check` (E, F, W, B, UP) clean |
+| Secret scan | `gitleaks` v8.30.1 over the full history through `591fcd5` (25 commits, 7.16 MB of patches): no leaks; the first-parent diffs of the two merge commits resolved on this branch (`fbb22bf`, `399f10f`): no leaks; `gitleaks dir` over the working tree (43.9 MB, including the ignored `out/` audio): no leaks. Report: `docs/qa/history-secret-scan.txt`. The only commit after `591fcd5` is the one recording this |
+| Lint | `make lint` (ruff 0.17.3; E, F, W, B, UP with the ignores listed in `pyproject.toml`) clean over `exposure_radio`, `tests` and `scripts` |
 
 Limits recorded with the measurements: the EPSS snapshot covers the fixture
 CVEs only; the analyst agent's live transport is exercised with a fake SDK
@@ -189,3 +189,11 @@ cross-checked against public mirrors before the full catalogue arrived from
   full-history secret scan after the merge is saved as
   `docs/qa/history-secret-scan.txt`; its figures replace the secret-scan row
   above.
+- Found while re-checking the merged tree: the `lint` target still named the
+  old `src` layout, so it skipped the package and ran without a rule set. The
+  rule set now lives in `pyproject.toml` and the target checks
+  `exposure_radio`, `tests` and `scripts`. The package reported 0.1.0 while
+  the project metadata said 0.2.0; both read 0.6.0, above the 0.5.0 on
+  `main`. Re-run at `591fcd5`: `make check` green on Python 3.13 and 3.10
+  (6 s wall each; 195 tests, 16/16 blocked, audit clean, replay accepted),
+  `make lint` clean.

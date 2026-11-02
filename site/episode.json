@@ -1,6 +1,6 @@
 {
- "built_at": "2026-11-02T21:40:00Z",
- "version": "0.1.0",
+ "built_at": "2026-11-02T22:01:33Z",
+ "version": "0.6.0",
  "episode_date": "2026-10-27",
  "previous_date": "2026-10-20",
  "held": false,
@@ -675,7 +675,7 @@
   "passed": true,
   "edition": "full",
   "script_sha256": "8b83f2ebb8e134077eeb219bb487c0ed172d62a39c3c212b7355ab94cc4d9cb3",
-  "generated_at": "2026-11-02T21:40:00Z",
+  "generated_at": "2026-11-02T22:01:33Z",
   "sentence_count": 33,
   "claims_total": 59,
   "claims_accepted": 59,
@@ -1390,7 +1390,7 @@
    "passed": true,
    "edition": "full",
    "script_sha256": "8b83f2ebb8e134077eeb219bb487c0ed172d62a39c3c212b7355ab94cc4d9cb3",
-   "generated_at": "2026-11-02T21:40:00Z",
+   "generated_at": "2026-11-02T22:01:33Z",
    "sentence_count": 33,
    "claims_total": 59,
    "claims_accepted": 59,
@@ -1946,7 +1946,7 @@
    "passed": true,
    "edition": "full",
    "script_sha256": "8b83f2ebb8e134077eeb219bb487c0ed172d62a39c3c212b7355ab94cc4d9cb3",
-   "generated_at": "2026-11-02T21:40:00Z",
+   "generated_at": "2026-11-02T22:01:33Z",
    "sentence_count": 33,
    "claims_total": 59,
    "claims_accepted": 59,
@@ -2253,14 +2253,14 @@
   "events": [
    {
     "type": "tool_call",
-    "t": 0.017,
+    "t": 0.015,
     "call": 1,
     "tool": "exposure_briefing",
     "error": false
    },
    {
     "type": "gate",
-    "t": 0.021,
+    "t": 0.018,
     "call": 2,
     "accepted": false,
     "reasons": [
@@ -2278,14 +2278,14 @@
    },
    {
     "type": "gate",
-    "t": 0.024,
+    "t": 0.021,
     "call": 3,
     "accepted": true,
     "reasons": []
    },
    {
     "type": "final",
-    "t": 0.024,
+    "t": 0.021,
     "mode": "analyst",
     "items": [
      "CVE-2026-110447",

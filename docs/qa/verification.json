@@ -41,6 +41,14 @@
     "receipt_matches_script": true,
     "pocketsphinx_word_error_rate": 0.214
   },
-  "secret_scan": "see history-secret-scan.txt",
+  "post_merge": {
+    "what": "Re-run on the tree after merging origin/main (pull request 2) and fixing the lint target",
+    "commit": "591fcd5",
+    "make_check_python3_13": {"seconds": 6, "exit": 0, "tests": 195, "gate_demo": "16/16 blocked", "audit": "clean", "agent_replay": "accepted"},
+    "make_check_python3_10": {"seconds": 6, "exit": 0, "tests": 195, "gate_demo": "16/16 blocked", "audit": "clean", "agent_replay": "accepted"},
+    "make_lint": "clean (ruff 0.17.3, rule set in pyproject.toml)",
+    "readme_relative_links": "all 14 resolve"
+  },
+  "secret_scan": "history-secret-scan.txt: full history through 591fcd5, both merge diffs and the working tree, no leaks",
   "python_minimum": "vermin -t=3.10- reports 3.10"
 }
