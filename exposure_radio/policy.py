@@ -136,6 +136,8 @@ def decide(delta: Delta, kev: KevCatalog, memory: Memory) -> Decision:
             reasons.append("found on newly scanned or newly credentialed assets")
         if r.reopened_assets:
             reasons.append("reopened on scanned assets")
+        if not reasons and r.open_assets - r.unverified_assets - memory.seen_assets(r.cve):
+            reasons.append("exploited exposure not previously announced")
         if reasons:
             key = alert_key(r)
             assets = frozenset(r.open_assets - r.unverified_assets)

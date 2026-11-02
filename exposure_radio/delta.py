@@ -104,8 +104,8 @@ def compute_delta(prev: Snapshot, curr: Snapshot, kev_prev: KevCatalog, kev_curr
             changes.append(Change(kind, f))
         elif curr.carried_open(f):
             changes.append(Change(Kind.UNVERIFIED, f))
-        elif curr.fixed_in_cycle(f) and before is not None and before.state in ("OPEN", "REOPENED"):
-            reliable = curr.covered(f.asset_id) and not (prev.authenticated(f.asset_id) and not curr.authenticated(f.asset_id))
+        elif f.state == "FIXED" and before is not None and before.state in ("OPEN", "REOPENED"):
+            reliable = curr.fixed_in_cycle(f) and curr.covered(f.asset_id) and not (prev.authenticated(f.asset_id) and not curr.authenticated(f.asset_id))
             changes.append(Change(Kind.FIXED if reliable else Kind.UNVERIFIED, f if reliable else before))
 
     for key, f in prev.findings.items():
