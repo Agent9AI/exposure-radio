@@ -118,38 +118,39 @@ Landed on a parallel branch from the scaffold:
 - Package moved to the repository root so `python3 -m exposure_radio demo`
   runs from a fresh clone with no `PYTHONPATH`.
 
-Measured (fresh clone of commit `3b2f15b` into an empty directory, every
-README command run verbatim; wall-clock seconds):
+Measured (fresh clone of commit `9ecc55f` into an empty directory, every
+README command run verbatim; wall-clock seconds including interpreter
+start-up):
 
 | Command | Seconds | Exit |
 |---|---|---|
-| `python3 -m exposure_radio demo` | 0.32 (pipeline itself 0.19) | 0 |
-| `make check` (Python 3.13) | 5.93 | 0 |
+| `python3 -m exposure_radio demo` | 0.35 (pipeline itself 0.20) | 0 |
+| `make check` (Python 3.13) | 5.85 | 0 |
 | `make gate-demo` | 0.30 | 0 |
-| `make audit` | 0.27 | 0 |
-| `make agent-replay` | 0.31 | 0 |
-| `make bench` | 1.67 | 0 |
-| `briefing` on tenant-b (directory layout) | 0.34 | 0 |
-| `packet --edition ciso` | 0.26 | 0 |
-| `feeds status` | 0.28 | 0 |
-| `briefing` on `current.nessus`, `current.csv`, `current_partial.json` | 0.25 each | 0 |
-| MCP stdio smoke (initialize, tools/list, two tools/call) | 0.28 | 0 |
-| `make check PY=<python3.10>` | 6.48 | 0 |
+| `make audit` | 0.29 | 0 |
+| `make agent-replay` | 0.35 | 0 |
+| `make bench` | 1.75 | 0 |
+| `briefing` on tenant-b (directory layout) | 0.36 | 0 |
+| `packet --edition ciso` | 0.30 | 0 |
+| `feeds status` | 0.25 | 0 |
+| `briefing` on `current.nessus`, `current.csv`, `current_partial.json` | 0.27, 0.26, 0.25 | 0 |
+| MCP stdio smoke (initialize, tools/list, two tools/call) | 0.30 | 0 |
+| `make check PY=<python3.10>` | 6.33 | 0 |
 | `python3 scripts/build_site.py` | 0.30 | 0 |
-| `pip install .` with Python 3.10, then `exposure-radio --version` | 2.62 | 0 |
+| `pip install .` with Python 3.10, then `exposure-radio --version` | 2.59 | 0 |
 
 | Check | Result |
 |---|---|
-| Tests | 194 pass, 0 fail, 0 errors (4.9 s on 3.13, 5.4 s on 3.10) |
+| Tests | 195 pass, 0 fail, 0 errors (4.8 s on 3.13, 5.3 s on 3.10) |
 | Gate demo | 16/16 planted cases blocked; clean briefing 59/59 claims, 33 sentences |
 | Zero-PII audit | clean on CISO packet, alert, redacted facts and narration against 216 tenant identifiers and 16 plugin names |
 | Agent replay | recorded run replayed through a live gate: 1 rejection (`VALUE_MISMATCH`), then accepted; 3 calls, 6,540 tokens counted |
 | Tenant-b (76 inventory assets, 65 scanned, 11 stale, 12 new) | gate passed, BREAK_IN on CVE-2026-118527, unverified-open sentence present |
-| Benchmark (500-finding pair: 1,459 raw rows, 223 assets, 510 pairs) | pipeline 0.31 s median of 5 (0.296 to 0.341); manual model 3 h 33 m 58 s; prep time saved 3 h 30 m 58 s per episode |
+| Benchmark (500-finding pair: 1,459 raw rows, 223 assets, 510 pairs) | pipeline 0.316 s median of 5 (0.308 to 0.360); manual model 3 h 33 m 58 s; prep time saved 3 h 30 m 58 s per episode |
 | Audio (`out/audio`, Kokoro-82M q8, voice af_heart, onnxruntime 1.20.1) | 33 cues, 245.2 s; raw -22.7 LUFS / +0.3 dBTP; after two-pass loudnorm and MP3 (64 kb/s mono): integrated -16.4 LUFS, true peak -1.1 dBTP, LRA 2.5 LU, measured with `ffmpeg ebur128` on the MP3; receipt hash in the VTT matches the script |
 | Intelligibility proxy | pocketsphinx 5 (default en-us model, no tuning) transcribes the normalised WAV cue by cue at 21.4% word error rate over 641 reference words; 3 of 33 cues verbatim, errors concentrated on spelled acronyms ("K E V") and the CVE digit groups. A floor, not a quality claim |
 | Python 3.10 | `vermin -t=3.10-` reports minimum 3.10 for `exposure_radio` and `scripts`; full suite green on the 3.10 interpreter |
-| Secret scan | `gitleaks git` over the full history: 17 commits, 7.1 MB scanned, no leaks; `gitleaks dir` over the working tree: no leaks |
+| Secret scan | `gitleaks git` (v8.30.1) over the full history through `9ecc55f`: 18 commits, 7.11 MB scanned, no leaks; `gitleaks dir` over the working tree: no leaks. The only commit after `9ecc55f` is this log entry |
 | Lint | `ruff check` (E, F, W, B, UP) clean |
 
 Limits recorded with the measurements: the EPSS snapshot covers the fixture
