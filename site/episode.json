@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-02T21:24:38Z",
+ "built_at": "2026-11-02T21:40:00Z",
  "version": "0.1.0",
  "episode_date": "2026-10-27",
  "previous_date": "2026-10-20",
@@ -67,7 +67,7 @@
      "source": "export:current"
     },
     {
-     "fact": "f0004",
+     "fact": "f0005",
      "subject": "episode",
      "predicate": "finding_count",
      "value": 53,
@@ -81,7 +81,7 @@
    "text": "This is a break-in bulletin: a KEV-listed exposure is new since the previous export.",
    "cites": [
     {
-     "fact": "f0299",
+     "fact": "f0313",
      "subject": "episode",
      "predicate": "decision",
      "value": "BREAK_IN",
@@ -95,21 +95,21 @@
    "text": "48 assets were rescanned, 3 assets were absent from this scan, and 3 assets are newly in scope.",
    "cites": [
     {
-     "fact": "f0011",
+     "fact": "f0012",
      "subject": "episode",
      "predicate": "assets_rescanned",
      "value": 48,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0012",
+     "fact": "f0013",
      "subject": "episode",
      "predicate": "assets_not_rescanned",
      "value": 3,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0013",
+     "fact": "f0014",
      "subject": "episode",
      "predicate": "assets_newly_in_scope",
      "value": 3,
@@ -123,28 +123,28 @@
    "text": "Open now: 11 critical findings and 13 high findings, with 5 KEV-listed CVEs on 6 assets.",
    "cites": [
     {
-     "fact": "f0005",
+     "fact": "f0006",
      "subject": "episode",
      "predicate": "open_critical_count",
      "value": 11,
      "source": "export:current"
     },
     {
-     "fact": "f0006",
+     "fact": "f0007",
      "subject": "episode",
      "predicate": "open_high_count",
      "value": 13,
      "source": "export:current"
     },
     {
-     "fact": "f0268",
+     "fact": "f0280",
      "subject": "episode",
      "predicate": "kev_open_cve_count",
      "value": 5,
      "source": "export:current"
     },
     {
-     "fact": "f0269",
+     "fact": "f0281",
      "subject": "episode",
      "predicate": "kev_open_asset_count",
      "value": 6,
@@ -158,14 +158,14 @@
    "text": "Since the previous export, 16 critical findings were closed on rescanned assets, and 1 CVE in your estate was added to the CISA KEV catalogue.",
    "cites": [
     {
-     "fact": "f0271",
+     "fact": "f0283",
      "subject": "delta",
      "predicate": "critical_closed",
      "value": 16,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0282",
+     "fact": "f0296",
      "subject": "delta",
      "predicate": "kev_new_entry_count",
      "value": 1,
@@ -179,14 +179,14 @@
    "text": "1 finding is new exposure on assets scanned before, and 4 findings are new visibility from assets new to the scan.",
    "cites": [
     {
-     "fact": "f0277",
+     "fact": "f0290",
      "subject": "delta",
      "predicate": "new_exposure_count",
      "value": 1,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0278",
+     "fact": "f0291",
      "subject": "delta",
      "predicate": "new_visibility_count",
      "value": 4,
@@ -200,7 +200,7 @@
    "text": "3 findings vanished from assets that were absent from this scan; they stay open as unverified absences.",
    "cites": [
     {
-     "fact": "f0279",
+     "fact": "f0292",
      "subject": "delta",
      "predicate": "unverified_absence_count",
      "value": 3,
@@ -214,7 +214,7 @@
    "text": "KEV additions touching your estate since the previous export: CVE-2026-110447.",
    "cites": [
     {
-     "fact": "f0281",
+     "fact": "f0295",
      "subject": "delta",
      "predicate": "kev_new_entries",
      "value": [
@@ -230,7 +230,7 @@
    "text": "Today there are 3 priority items.",
    "cites": [
     {
-     "fact": "f0296",
+     "fact": "f0310",
      "subject": "priority",
      "predicate": "count",
      "value": 3,
@@ -244,21 +244,21 @@
    "text": "Lead item: CVE-2026-110447, critical severity, open on 1 asset.",
    "cites": [
     {
-     "fact": "f0285",
+     "fact": "f0299",
      "subject": "cve:CVE-2026-110447",
      "predicate": "priority_rank",
      "value": 1,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0243",
+     "fact": "f0254",
      "subject": "cve:CVE-2026-110447",
      "predicate": "severity",
      "value": "critical",
      "source": "export:current"
     },
     {
-     "fact": "f0242",
+     "fact": "f0253",
      "subject": "cve:CVE-2026-110447",
      "predicate": "open_asset_count",
      "value": 1,
@@ -272,28 +272,28 @@
    "text": "CVE-2026-110447 affects Collabora Online - Built-in CODE Server and has been on the CISA KEV catalogue since 23 October 2026.",
    "cites": [
     {
-     "fact": "f0255",
+     "fact": "f0267",
      "subject": "cve:CVE-2026-110447",
      "predicate": "kev_listed",
      "value": true,
      "source": "kev:2026.10.30"
     },
     {
-     "fact": "f0256",
+     "fact": "f0268",
      "subject": "cve:CVE-2026-110447",
      "predicate": "kev_vendor",
      "value": "Collabora",
      "source": "kev:2026.10.30"
     },
     {
-     "fact": "f0257",
+     "fact": "f0269",
      "subject": "cve:CVE-2026-110447",
      "predicate": "kev_product",
      "value": "Collabora Online - Built-in CODE Server",
      "source": "kev:2026.10.30"
     },
     {
-     "fact": "f0259",
+     "fact": "f0271",
      "subject": "cve:CVE-2026-110447",
      "predicate": "kev_date_added",
      "value": "2026-10-23",
@@ -307,7 +307,7 @@
    "text": "A public exploit is available for CVE-2026-110447.",
    "cites": [
     {
-     "fact": "f0245",
+     "fact": "f0256",
      "subject": "cve:CVE-2026-110447",
      "predicate": "exploit_available",
      "value": true,
@@ -321,21 +321,21 @@
    "text": "For CVE-2026-110447: 1 asset newly exposed, 0 assets closed, and 0 absences unverified.",
    "cites": [
     {
-     "fact": "f0252",
+     "fact": "f0264",
      "subject": "cve:CVE-2026-110447",
      "predicate": "new_exposure_count",
      "value": 1,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0250",
+     "fact": "f0261",
      "subject": "cve:CVE-2026-110447",
      "predicate": "closed_asset_count",
      "value": 0,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0251",
+     "fact": "f0262",
      "subject": "cve:CVE-2026-110447",
      "predicate": "unverified_absence_count",
      "value": 0,
@@ -349,14 +349,14 @@
    "text": "Action: Workplace IT to patch CVE-2026-110447 by 31 October 2026 under the internal SLA.",
    "cites": [
     {
-     "fact": "f0267",
+     "fact": "f0279",
      "subject": "cve:CVE-2026-110447",
      "predicate": "owner",
      "value": "Workplace IT",
      "source": "owners:data/owners.json"
     },
     {
-     "fact": "f0265",
+     "fact": "f0277",
      "subject": "cve:CVE-2026-110447",
      "predicate": "sla_deadline",
      "value": "2026-10-31",
@@ -370,21 +370,21 @@
    "text": "Item 2: CVE-2024-3400, critical severity, open on 2 assets.",
    "cites": [
     {
-     "fact": "f0286",
+     "fact": "f0300",
      "subject": "cve:CVE-2024-3400",
      "predicate": "priority_rank",
      "value": 2,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0095",
+     "fact": "f0100",
      "subject": "cve:CVE-2024-3400",
      "predicate": "severity",
      "value": "critical",
      "source": "export:current"
     },
     {
-     "fact": "f0094",
+     "fact": "f0099",
      "subject": "cve:CVE-2024-3400",
      "predicate": "open_asset_count",
      "value": 2,
@@ -398,28 +398,28 @@
    "text": "CVE-2024-3400 affects Palo Alto Networks PAN-OS and has been on the CISA KEV catalogue since 12 April 2024.",
    "cites": [
     {
-     "fact": "f0107",
+     "fact": "f0113",
      "subject": "cve:CVE-2024-3400",
      "predicate": "kev_listed",
      "value": true,
      "source": "kev:2026.10.30"
     },
     {
-     "fact": "f0108",
+     "fact": "f0114",
      "subject": "cve:CVE-2024-3400",
      "predicate": "kev_vendor",
      "value": "Palo Alto Networks",
      "source": "kev:2026.10.30"
     },
     {
-     "fact": "f0109",
+     "fact": "f0115",
      "subject": "cve:CVE-2024-3400",
      "predicate": "kev_product",
      "value": "PAN-OS",
      "source": "kev:2026.10.30"
     },
     {
-     "fact": "f0111",
+     "fact": "f0117",
      "subject": "cve:CVE-2024-3400",
      "predicate": "kev_date_added",
      "value": "2024-04-12",
@@ -433,7 +433,7 @@
    "text": "CISA records known ransomware campaign use for CVE-2024-3400.",
    "cites": [
     {
-     "fact": "f0113",
+     "fact": "f0119",
      "subject": "cve:CVE-2024-3400",
      "predicate": "kev_ransomware_use",
      "value": true,
@@ -447,7 +447,7 @@
    "text": "EPSS puts CVE-2024-3400 at 99.9 percent probability of exploitation within 30 days.",
    "cites": [
     {
-     "fact": "f0116",
+     "fact": "f0122",
      "subject": "cve:CVE-2024-3400",
      "predicate": "epss_score",
      "value": 0.99999,
@@ -461,7 +461,7 @@
    "text": "A public exploit is available for CVE-2024-3400.",
    "cites": [
     {
-     "fact": "f0097",
+     "fact": "f0102",
      "subject": "cve:CVE-2024-3400",
      "predicate": "exploit_available",
      "value": true,
@@ -475,7 +475,7 @@
    "text": "Tenable Research has published 1 analysis of CVE-2024-3400.",
    "cites": [
     {
-     "fact": "f0118",
+     "fact": "f0124",
      "subject": "cve:CVE-2024-3400",
      "predicate": "research_count",
      "value": 1,
@@ -489,14 +489,14 @@
    "text": "Action: Network Engineering to patch CVE-2024-3400 by 31 October 2026 under the internal SLA.",
    "cites": [
     {
-     "fact": "f0124",
+     "fact": "f0130",
      "subject": "cve:CVE-2024-3400",
      "predicate": "owner",
      "value": "Network Engineering",
      "source": "owners:data/owners.json"
     },
     {
-     "fact": "f0122",
+     "fact": "f0128",
      "subject": "cve:CVE-2024-3400",
      "predicate": "sla_deadline",
      "value": "2026-10-31",
@@ -510,21 +510,21 @@
    "text": "Item 3: CVE-2025-53770, critical severity, open on 1 asset.",
    "cites": [
     {
-     "fact": "f0287",
+     "fact": "f0301",
      "subject": "cve:CVE-2025-53770",
      "predicate": "priority_rank",
      "value": 3,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0214",
+     "fact": "f0224",
      "subject": "cve:CVE-2025-53770",
      "predicate": "severity",
      "value": "critical",
      "source": "export:current"
     },
     {
-     "fact": "f0213",
+     "fact": "f0223",
      "subject": "cve:CVE-2025-53770",
      "predicate": "open_asset_count",
      "value": 1,
@@ -538,28 +538,28 @@
    "text": "CVE-2025-53770 affects Microsoft SharePoint and has been on the CISA KEV catalogue since 20 July 2025.",
    "cites": [
     {
-     "fact": "f0226",
+     "fact": "f0237",
      "subject": "cve:CVE-2025-53770",
      "predicate": "kev_listed",
      "value": true,
      "source": "kev:2026.10.30"
     },
     {
-     "fact": "f0227",
+     "fact": "f0238",
      "subject": "cve:CVE-2025-53770",
      "predicate": "kev_vendor",
      "value": "Microsoft",
      "source": "kev:2026.10.30"
     },
     {
-     "fact": "f0228",
+     "fact": "f0239",
      "subject": "cve:CVE-2025-53770",
      "predicate": "kev_product",
      "value": "SharePoint",
      "source": "kev:2026.10.30"
     },
     {
-     "fact": "f0230",
+     "fact": "f0241",
      "subject": "cve:CVE-2025-53770",
      "predicate": "kev_date_added",
      "value": "2025-07-20",
@@ -573,7 +573,7 @@
    "text": "CISA records known ransomware campaign use for CVE-2025-53770.",
    "cites": [
     {
-     "fact": "f0232",
+     "fact": "f0243",
      "subject": "cve:CVE-2025-53770",
      "predicate": "kev_ransomware_use",
      "value": true,
@@ -587,7 +587,7 @@
    "text": "A public exploit is available for CVE-2025-53770.",
    "cites": [
     {
-     "fact": "f0216",
+     "fact": "f0226",
      "subject": "cve:CVE-2025-53770",
      "predicate": "exploit_available",
      "value": true,
@@ -601,21 +601,21 @@
    "text": "For CVE-2025-53770: 0 assets newly exposed, 1 asset closed, and 0 absences unverified.",
    "cites": [
     {
-     "fact": "f0223",
+     "fact": "f0234",
      "subject": "cve:CVE-2025-53770",
      "predicate": "new_exposure_count",
      "value": 0,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0221",
+     "fact": "f0231",
      "subject": "cve:CVE-2025-53770",
      "predicate": "closed_asset_count",
      "value": 1,
      "source": "delta:2026-10-27"
     },
     {
-     "fact": "f0222",
+     "fact": "f0232",
      "subject": "cve:CVE-2025-53770",
      "predicate": "unverified_absence_count",
      "value": 0,
@@ -629,7 +629,7 @@
    "text": "Tenable Research has published 1 analysis of CVE-2025-53770.",
    "cites": [
     {
-     "fact": "f0235",
+     "fact": "f0246",
      "subject": "cve:CVE-2025-53770",
      "predicate": "research_count",
      "value": 1,
@@ -643,14 +643,14 @@
    "text": "Action: Workplace IT to patch CVE-2025-53770 by 31 October 2026 under the internal SLA.",
    "cites": [
     {
-     "fact": "f0241",
+     "fact": "f0252",
      "subject": "cve:CVE-2025-53770",
      "predicate": "owner",
      "value": "Workplace IT",
      "source": "owners:data/owners.json"
     },
     {
-     "fact": "f0239",
+     "fact": "f0250",
      "subject": "cve:CVE-2025-53770",
      "predicate": "sla_deadline",
      "value": "2026-10-31",
@@ -675,7 +675,7 @@
   "passed": true,
   "edition": "full",
   "script_sha256": "8b83f2ebb8e134077eeb219bb487c0ed172d62a39c3c212b7355ab94cc4d9cb3",
-  "generated_at": "2026-11-02T21:24:38Z",
+  "generated_at": "2026-11-02T21:40:00Z",
   "sentence_count": 33,
   "claims_total": 59,
   "claims_accepted": 59,
@@ -735,7 +735,7 @@
    "version": "",
    "url": "",
    "coverage": "",
-   "note": "coverage-aware classification, see src/exposure_radio/delta.py"
+   "note": "coverage-aware classification, see exposure_radio/delta.py"
   },
   {
    "id": "epss:2026-10-30",
@@ -807,7 +807,7 @@
    "version": "",
    "url": "",
    "coverage": "",
-   "note": "deterministic rules, see src/exposure_radio/policy.py"
+   "note": "deterministic rules, see exposure_radio/policy.py"
   },
   {
    "id": "sla:data/sla.json",
@@ -841,10 +841,12 @@
   "reopened": 0,
   "closed": 25,
   "unverified_absence": 3,
+  "unverified_open": 0,
   "critical_closed": 16,
   "critical_new_exposure": 1,
   "critical_new_visibility": 1,
   "critical_unverified_absence": 3,
+  "critical_unverified_open": 0,
   "high_closed": 9,
   "assets_rescanned": 48,
   "assets_not_rescanned": 3,
@@ -948,61 +950,61 @@
     "tenable_research": null,
     "evidence": [
      {
-      "fact": "f0242",
+      "fact": "f0253",
       "predicate": "open_asset_count",
       "value": 1,
       "source": "export:current"
      },
      {
-      "fact": "f0243",
+      "fact": "f0254",
       "predicate": "severity",
       "value": "critical",
       "source": "export:current"
      },
      {
-      "fact": "f0255",
+      "fact": "f0267",
       "predicate": "kev_listed",
       "value": true,
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0259",
+      "fact": "f0271",
       "predicate": "kev_date_added",
       "value": "2026-10-23",
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0245",
+      "fact": "f0256",
       "predicate": "exploit_available",
       "value": true,
       "source": "export:current"
      },
      {
-      "fact": "f0252",
+      "fact": "f0264",
       "predicate": "new_exposure_count",
       "value": 1,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0250",
+      "fact": "f0261",
       "predicate": "closed_asset_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0251",
+      "fact": "f0262",
       "predicate": "unverified_absence_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0265",
+      "fact": "f0277",
       "predicate": "sla_deadline",
       "value": "2026-10-31",
       "source": "sla:data/sla.json"
      },
      {
-      "fact": "f0267",
+      "fact": "f0279",
       "predicate": "owner",
       "value": "Workplace IT",
       "source": "owners:data/owners.json"
@@ -1013,7 +1015,7 @@
      "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2026-110447",
      "https://www.tenable.com/plugins/nessus/300123"
     ],
-    "ticket_markdown": "## Patch CVE-2026-110447 on 1 asset(s) (critical, KEV-listed)\n\n**Owner:** Workplace IT\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2026-10-23 (Collabora Online - Built-in CODE Server). Catalogue dueDate field: 2026-10-26 (CISA catalogue value).\n- CISA required action (catalogue text): Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA's BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA's Forensics Triage Requirements (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.\n- EPSS: no score in the offline snapshot (run `feeds refresh`).\n- Public exploit available: yes.\n- CVSS v3 base score: 9.2.\n- First seen in this estate: 2026-10-27.\n\n**Affected assets (1)**\n- nextcloud-01.northwind.internal\n\n**Scanner evidence**\n- Tenable plugin id(s): 300123\n- Plugin name(s) as reported by the scanner (sanitised): Nextcloud Collabora Online Built-in CODE Server Command Injection (CVE-2026-110447)\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 1; closed on rescanned assets: 0; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0242: open_asset_count = 1 (export:current)\n- f0243: severity = critical (export:current)\n- f0255: kev_listed = True (kev:2026.10.30)\n- f0259: kev_date_added = 2026-10-23 (kev:2026.10.30)\n- f0245: exploit_available = True (export:current)\n- f0252: new_exposure_count = 1 (delta:2026-10-27)\n- f0250: closed_asset_count = 0 (delta:2026-10-27)\n- f0251: unverified_absence_count = 0 (delta:2026-10-27)\n- f0265: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0267: owner = Workplace IT (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2026-110447\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2026-110447\n- https://www.tenable.com/plugins/nessus/300123"
+    "ticket_markdown": "## Patch CVE-2026-110447 on 1 asset(s) (critical, KEV-listed)\n\n**Owner:** Workplace IT\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2026-10-23 (Collabora Online - Built-in CODE Server). Catalogue dueDate field: 2026-10-26 (CISA catalogue value).\n- CISA required action (catalogue text): Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA's BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA's Forensics Triage Requirements (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.\n- EPSS: no score in the offline snapshot (run `feeds refresh`).\n- Public exploit available: yes.\n- CVSS v3 base score: 9.2.\n- First seen in this estate: 2026-10-27.\n\n**Affected assets (1)**\n- nextcloud-01.northwind.internal\n\n**Scanner evidence**\n- Tenable plugin id(s): 300123\n- Plugin name(s) as reported by the scanner (sanitised): Nextcloud Collabora Online Built-in CODE Server Command Injection (CVE-2026-110447)\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 1; closed on rescanned assets: 0; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0253: open_asset_count = 1 (export:current)\n- f0254: severity = critical (export:current)\n- f0267: kev_listed = True (kev:2026.10.30)\n- f0271: kev_date_added = 2026-10-23 (kev:2026.10.30)\n- f0256: exploit_available = True (export:current)\n- f0264: new_exposure_count = 1 (delta:2026-10-27)\n- f0261: closed_asset_count = 0 (delta:2026-10-27)\n- f0262: unverified_absence_count = 0 (delta:2026-10-27)\n- f0277: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0279: owner = Workplace IT (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2026-110447\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2026-110447\n- https://www.tenable.com/plugins/nessus/300123"
    },
    {
     "cve": "CVE-2024-3400",
@@ -1075,67 +1077,67 @@
     },
     "evidence": [
      {
-      "fact": "f0094",
+      "fact": "f0099",
       "predicate": "open_asset_count",
       "value": 2,
       "source": "export:current"
      },
      {
-      "fact": "f0095",
+      "fact": "f0100",
       "predicate": "severity",
       "value": "critical",
       "source": "export:current"
      },
      {
-      "fact": "f0107",
+      "fact": "f0113",
       "predicate": "kev_listed",
       "value": true,
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0111",
+      "fact": "f0117",
       "predicate": "kev_date_added",
       "value": "2024-04-12",
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0116",
+      "fact": "f0122",
       "predicate": "epss_score",
       "value": 0.99999,
       "source": "epss:2026-10-30"
      },
      {
-      "fact": "f0097",
+      "fact": "f0102",
       "predicate": "exploit_available",
       "value": true,
       "source": "export:current"
      },
      {
-      "fact": "f0104",
+      "fact": "f0110",
       "predicate": "new_exposure_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0102",
+      "fact": "f0107",
       "predicate": "closed_asset_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0103",
+      "fact": "f0108",
       "predicate": "unverified_absence_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0122",
+      "fact": "f0128",
       "predicate": "sla_deadline",
       "value": "2026-10-31",
       "source": "sla:data/sla.json"
      },
      {
-      "fact": "f0124",
+      "fact": "f0130",
       "predicate": "owner",
       "value": "Network Engineering",
       "source": "owners:data/owners.json"
@@ -1147,7 +1149,7 @@
      "https://www.tenable.com/plugins/nessus/193255",
      "https://www.tenable.com/blog/cve-2024-3400-zero-day-vulnerability-in-palo-alto-networks-pan-os-globalprotect-gateway"
     ],
-    "ticket_markdown": "## Patch CVE-2024-3400 on 2 asset(s) (critical, KEV-listed)\n\n**Owner:** Network Engineering\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2024-04-12 (Palo Alto Networks PAN-OS). Catalogue dueDate field: 2024-04-19 (CISA catalogue value). Known ransomware campaign use: yes.\n- CISA required action (catalogue text): Apply mitigations per vendor instructions as they become available. Otherwise, users with vulnerable versions of affected devices should enable Threat Prevention IDs available from the vendor. See the vendor bulletin for more details and a patch release schedule.\n- EPSS: 100.0% probability of exploitation within 30 days.\n- Public exploit available: yes.\n- CVSS v3 base score: 10.0.\n- First seen in this estate: 2024-04-16.\n\n**Affected assets (2)**\n- fw-edge-01.northwind.internal\n- fw-edge-02.northwind.internal\n\n**Scanner evidence**\n- Tenable plugin id(s): 193255\n- Plugin name(s) as reported by the scanner (sanitised): Palo Alto Networks PAN-OS GlobalProtect Command Injection (CVE-2024-3400)\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 0; closed on rescanned assets: 0; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0094: open_asset_count = 2 (export:current)\n- f0095: severity = critical (export:current)\n- f0107: kev_listed = True (kev:2026.10.30)\n- f0111: kev_date_added = 2024-04-12 (kev:2026.10.30)\n- f0116: epss_score = 0.99999 (epss:2026-10-30)\n- f0097: exploit_available = True (export:current)\n- f0104: new_exposure_count = 0 (delta:2026-10-27)\n- f0102: closed_asset_count = 0 (delta:2026-10-27)\n- f0103: unverified_absence_count = 0 (delta:2026-10-27)\n- f0122: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0124: owner = Network Engineering (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2024-3400\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2024-3400\n- https://www.tenable.com/plugins/nessus/193255\n- https://www.tenable.com/blog/cve-2024-3400-zero-day-vulnerability-in-palo-alto-networks-pan-os-globalprotect-gateway"
+    "ticket_markdown": "## Patch CVE-2024-3400 on 2 asset(s) (critical, KEV-listed)\n\n**Owner:** Network Engineering\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2024-04-12 (Palo Alto Networks PAN-OS). Catalogue dueDate field: 2024-04-19 (CISA catalogue value). Known ransomware campaign use: yes.\n- CISA required action (catalogue text): Apply mitigations per vendor instructions as they become available. Otherwise, users with vulnerable versions of affected devices should enable Threat Prevention IDs available from the vendor. See the vendor bulletin for more details and a patch release schedule.\n- EPSS: 99.9% probability of exploitation within 30 days (rounded down).\n- Public exploit available: yes.\n- CVSS v3 base score: 10.0.\n- First seen in this estate: 2024-04-16.\n\n**Affected assets (2)**\n- fw-edge-01.northwind.internal\n- fw-edge-02.northwind.internal\n\n**Scanner evidence**\n- Tenable plugin id(s): 193255\n- Plugin name(s) as reported by the scanner (sanitised): Palo Alto Networks PAN-OS GlobalProtect Command Injection (CVE-2024-3400)\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 0; closed on rescanned assets: 0; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0099: open_asset_count = 2 (export:current)\n- f0100: severity = critical (export:current)\n- f0113: kev_listed = True (kev:2026.10.30)\n- f0117: kev_date_added = 2024-04-12 (kev:2026.10.30)\n- f0122: epss_score = 0.99999 (epss:2026-10-30)\n- f0102: exploit_available = True (export:current)\n- f0110: new_exposure_count = 0 (delta:2026-10-27)\n- f0107: closed_asset_count = 0 (delta:2026-10-27)\n- f0108: unverified_absence_count = 0 (delta:2026-10-27)\n- f0128: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0130: owner = Network Engineering (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2024-3400\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2024-3400\n- https://www.tenable.com/plugins/nessus/193255\n- https://www.tenable.com/blog/cve-2024-3400-zero-day-vulnerability-in-palo-alto-networks-pan-os-globalprotect-gateway"
    },
    {
     "cve": "CVE-2025-53770",
@@ -1205,61 +1207,61 @@
     },
     "evidence": [
      {
-      "fact": "f0213",
+      "fact": "f0223",
       "predicate": "open_asset_count",
       "value": 1,
       "source": "export:current"
      },
      {
-      "fact": "f0214",
+      "fact": "f0224",
       "predicate": "severity",
       "value": "critical",
       "source": "export:current"
      },
      {
-      "fact": "f0226",
+      "fact": "f0237",
       "predicate": "kev_listed",
       "value": true,
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0230",
+      "fact": "f0241",
       "predicate": "kev_date_added",
       "value": "2025-07-20",
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0216",
+      "fact": "f0226",
       "predicate": "exploit_available",
       "value": true,
       "source": "export:current"
      },
      {
-      "fact": "f0223",
+      "fact": "f0234",
       "predicate": "new_exposure_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0221",
+      "fact": "f0231",
       "predicate": "closed_asset_count",
       "value": 1,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0222",
+      "fact": "f0232",
       "predicate": "unverified_absence_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0239",
+      "fact": "f0250",
       "predicate": "sla_deadline",
       "value": "2026-10-31",
       "source": "sla:data/sla.json"
      },
      {
-      "fact": "f0241",
+      "fact": "f0252",
       "predicate": "owner",
       "value": "Workplace IT",
       "source": "owners:data/owners.json"
@@ -1271,7 +1273,7 @@
      "https://www.tenable.com/plugins/nessus/242016",
      "https://www.tenable.com/blog/cve-2025-53770-frequently-asked-questions-about-zero-day-sharepoint-vulnerability-exploitation"
     ],
-    "ticket_markdown": "## Patch CVE-2025-53770 on 1 asset(s) (critical, KEV-listed)\n\n**Owner:** Workplace IT\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2025-07-20 (Microsoft SharePoint). Catalogue dueDate field: 2025-07-21 (CISA catalogue value). Known ransomware campaign use: yes.\n- CISA required action (catalogue text): Disconnect public-facing versions of SharePoint Server that have reached their end-of-life (EOL) or end-of-service (EOS) to include SharePoint Server 2013 and earlier versions. For supported versions, please follow the mitigations according to CISA (URL listed below in Notes) and vendor instructions (URL listed below in Notes). Adhere to the applicable BOD 22-01 guidance for cloud services or discontinue use of the product if mitigations are not available.\n- EPSS: no score in the offline snapshot (run `feeds refresh`).\n- Public exploit available: yes.\n- CVSS v3 base score: 9.8.\n- First seen in this estate: 2025-07-22.\n\n**Affected assets (1)**\n- sp-02.northwind.internal\n\n**Scanner evidence**\n- Tenable plugin id(s): 242016\n- Plugin name(s) as reported by the scanner (sanitised): Microsoft SharePoint Server Deserialization RCE (CVE-2025-53770)\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 0; closed on rescanned assets: 1; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0213: open_asset_count = 1 (export:current)\n- f0214: severity = critical (export:current)\n- f0226: kev_listed = True (kev:2026.10.30)\n- f0230: kev_date_added = 2025-07-20 (kev:2026.10.30)\n- f0216: exploit_available = True (export:current)\n- f0223: new_exposure_count = 0 (delta:2026-10-27)\n- f0221: closed_asset_count = 1 (delta:2026-10-27)\n- f0222: unverified_absence_count = 0 (delta:2026-10-27)\n- f0239: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0241: owner = Workplace IT (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2025-53770\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2025-53770\n- https://www.tenable.com/plugins/nessus/242016\n- https://www.tenable.com/blog/cve-2025-53770-frequently-asked-questions-about-zero-day-sharepoint-vulnerability-exploitation"
+    "ticket_markdown": "## Patch CVE-2025-53770 on 1 asset(s) (critical, KEV-listed)\n\n**Owner:** Workplace IT\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2025-07-20 (Microsoft SharePoint). Catalogue dueDate field: 2025-07-21 (CISA catalogue value). Known ransomware campaign use: yes.\n- CISA required action (catalogue text): Disconnect public-facing versions of SharePoint Server that have reached their end-of-life (EOL) or end-of-service (EOS) to include SharePoint Server 2013 and earlier versions. For supported versions, please follow the mitigations according to CISA (URL listed below in Notes) and vendor instructions (URL listed below in Notes). Adhere to the applicable BOD 22-01 guidance for cloud services or discontinue use of the product if mitigations are not available.\n- EPSS: no score in the offline snapshot (run `feeds refresh`).\n- Public exploit available: yes.\n- CVSS v3 base score: 9.8.\n- First seen in this estate: 2025-07-22.\n\n**Affected assets (1)**\n- sp-02.northwind.internal\n\n**Scanner evidence**\n- Tenable plugin id(s): 242016\n- Plugin name(s) as reported by the scanner (sanitised): Microsoft SharePoint Server Deserialization RCE (CVE-2025-53770)\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 0; closed on rescanned assets: 1; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0223: open_asset_count = 1 (export:current)\n- f0224: severity = critical (export:current)\n- f0237: kev_listed = True (kev:2026.10.30)\n- f0241: kev_date_added = 2025-07-20 (kev:2026.10.30)\n- f0226: exploit_available = True (export:current)\n- f0234: new_exposure_count = 0 (delta:2026-10-27)\n- f0231: closed_asset_count = 1 (delta:2026-10-27)\n- f0232: unverified_absence_count = 0 (delta:2026-10-27)\n- f0250: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0252: owner = Workplace IT (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2025-53770\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2025-53770\n- https://www.tenable.com/plugins/nessus/242016\n- https://www.tenable.com/blog/cve-2025-53770-frequently-asked-questions-about-zero-day-sharepoint-vulnerability-exploitation"
    }
   ],
   "sources": [
@@ -1285,7 +1287,7 @@
     "version": "",
     "url": "",
     "coverage": "",
-    "note": "coverage-aware classification, see src/exposure_radio/delta.py"
+    "note": "coverage-aware classification, see exposure_radio/delta.py"
    },
    {
     "id": "epss:2026-10-30",
@@ -1357,7 +1359,7 @@
     "version": "",
     "url": "",
     "coverage": "",
-    "note": "deterministic rules, see src/exposure_radio/policy.py"
+    "note": "deterministic rules, see exposure_radio/policy.py"
    },
    {
     "id": "sla:data/sla.json",
@@ -1388,7 +1390,7 @@
    "passed": true,
    "edition": "full",
    "script_sha256": "8b83f2ebb8e134077eeb219bb487c0ed172d62a39c3c212b7355ab94cc4d9cb3",
-   "generated_at": "2026-11-02T21:24:38Z",
+   "generated_at": "2026-11-02T21:40:00Z",
    "sentence_count": 33,
    "claims_total": 59,
    "claims_accepted": 59,
@@ -1513,61 +1515,61 @@
     "tenable_research": null,
     "evidence": [
      {
-      "fact": "f0242",
+      "fact": "f0253",
       "predicate": "open_asset_count",
       "value": 1,
       "source": "export:current"
      },
      {
-      "fact": "f0243",
+      "fact": "f0254",
       "predicate": "severity",
       "value": "critical",
       "source": "export:current"
      },
      {
-      "fact": "f0255",
+      "fact": "f0267",
       "predicate": "kev_listed",
       "value": true,
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0259",
+      "fact": "f0271",
       "predicate": "kev_date_added",
       "value": "2026-10-23",
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0245",
+      "fact": "f0256",
       "predicate": "exploit_available",
       "value": true,
       "source": "export:current"
      },
      {
-      "fact": "f0252",
+      "fact": "f0264",
       "predicate": "new_exposure_count",
       "value": 1,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0250",
+      "fact": "f0261",
       "predicate": "closed_asset_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0251",
+      "fact": "f0262",
       "predicate": "unverified_absence_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0265",
+      "fact": "f0277",
       "predicate": "sla_deadline",
       "value": "2026-10-31",
       "source": "sla:data/sla.json"
      },
      {
-      "fact": "f0267",
+      "fact": "f0279",
       "predicate": "owner",
       "value": "Workplace IT",
       "source": "owners:data/owners.json"
@@ -1578,7 +1580,7 @@
      "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2026-110447",
      "https://www.tenable.com/plugins/nessus/300123"
     ],
-    "ticket_markdown": "## Patch CVE-2026-110447 on 1 asset(s) (critical, KEV-listed)\n\n**Owner:** Workplace IT\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2026-10-23 (Collabora Online - Built-in CODE Server). Catalogue dueDate field: 2026-10-26 (CISA catalogue value).\n- CISA required action (catalogue text): Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA's BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA's Forensics Triage Requirements (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.\n- EPSS: no score in the offline snapshot (run `feeds refresh`).\n- Public exploit available: yes.\n- CVSS v3 base score: 9.2.\n- First seen in this estate: 2026-10-27.\n\n**Affected assets (1)**\n- 1 asset(s); identifiers withheld in this edition (env:prod, group:collab)\n\n**Scanner evidence**\n- Tenable plugin id(s): 300123\n- Plugin name(s) as reported by the scanner (sanitised): n/a\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 1; closed on rescanned assets: 0; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0242: open_asset_count = 1 (export:current)\n- f0243: severity = critical (export:current)\n- f0255: kev_listed = True (kev:2026.10.30)\n- f0259: kev_date_added = 2026-10-23 (kev:2026.10.30)\n- f0245: exploit_available = True (export:current)\n- f0252: new_exposure_count = 1 (delta:2026-10-27)\n- f0250: closed_asset_count = 0 (delta:2026-10-27)\n- f0251: unverified_absence_count = 0 (delta:2026-10-27)\n- f0265: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0267: owner = Workplace IT (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2026-110447\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2026-110447\n- https://www.tenable.com/plugins/nessus/300123"
+    "ticket_markdown": "## Patch CVE-2026-110447 on 1 asset(s) (critical, KEV-listed)\n\n**Owner:** Workplace IT\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2026-10-23 (Collabora Online - Built-in CODE Server). Catalogue dueDate field: 2026-10-26 (CISA catalogue value).\n- CISA required action (catalogue text): Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA's BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA's Forensics Triage Requirements (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.\n- EPSS: no score in the offline snapshot (run `feeds refresh`).\n- Public exploit available: yes.\n- CVSS v3 base score: 9.2.\n- First seen in this estate: 2026-10-27.\n\n**Affected assets (1)**\n- 1 asset(s); identifiers withheld in this edition (env:prod, group:collab)\n\n**Scanner evidence**\n- Tenable plugin id(s): 300123\n- Plugin name(s) as reported by the scanner (sanitised): n/a\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 1; closed on rescanned assets: 0; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0253: open_asset_count = 1 (export:current)\n- f0254: severity = critical (export:current)\n- f0267: kev_listed = True (kev:2026.10.30)\n- f0271: kev_date_added = 2026-10-23 (kev:2026.10.30)\n- f0256: exploit_available = True (export:current)\n- f0264: new_exposure_count = 1 (delta:2026-10-27)\n- f0261: closed_asset_count = 0 (delta:2026-10-27)\n- f0262: unverified_absence_count = 0 (delta:2026-10-27)\n- f0277: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0279: owner = Workplace IT (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2026-110447\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2026-110447\n- https://www.tenable.com/plugins/nessus/300123"
    },
    {
     "cve": "CVE-2024-3400",
@@ -1635,67 +1637,67 @@
     },
     "evidence": [
      {
-      "fact": "f0094",
+      "fact": "f0099",
       "predicate": "open_asset_count",
       "value": 2,
       "source": "export:current"
      },
      {
-      "fact": "f0095",
+      "fact": "f0100",
       "predicate": "severity",
       "value": "critical",
       "source": "export:current"
      },
      {
-      "fact": "f0107",
+      "fact": "f0113",
       "predicate": "kev_listed",
       "value": true,
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0111",
+      "fact": "f0117",
       "predicate": "kev_date_added",
       "value": "2024-04-12",
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0116",
+      "fact": "f0122",
       "predicate": "epss_score",
       "value": 0.99999,
       "source": "epss:2026-10-30"
      },
      {
-      "fact": "f0097",
+      "fact": "f0102",
       "predicate": "exploit_available",
       "value": true,
       "source": "export:current"
      },
      {
-      "fact": "f0104",
+      "fact": "f0110",
       "predicate": "new_exposure_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0102",
+      "fact": "f0107",
       "predicate": "closed_asset_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0103",
+      "fact": "f0108",
       "predicate": "unverified_absence_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0122",
+      "fact": "f0128",
       "predicate": "sla_deadline",
       "value": "2026-10-31",
       "source": "sla:data/sla.json"
      },
      {
-      "fact": "f0124",
+      "fact": "f0130",
       "predicate": "owner",
       "value": "Network Engineering",
       "source": "owners:data/owners.json"
@@ -1707,7 +1709,7 @@
      "https://www.tenable.com/plugins/nessus/193255",
      "https://www.tenable.com/blog/cve-2024-3400-zero-day-vulnerability-in-palo-alto-networks-pan-os-globalprotect-gateway"
     ],
-    "ticket_markdown": "## Patch CVE-2024-3400 on 2 asset(s) (critical, KEV-listed)\n\n**Owner:** Network Engineering\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2024-04-12 (Palo Alto Networks PAN-OS). Catalogue dueDate field: 2024-04-19 (CISA catalogue value). Known ransomware campaign use: yes.\n- CISA required action (catalogue text): Apply mitigations per vendor instructions as they become available. Otherwise, users with vulnerable versions of affected devices should enable Threat Prevention IDs available from the vendor. See the vendor bulletin for more details and a patch release schedule.\n- EPSS: 100.0% probability of exploitation within 30 days.\n- Public exploit available: yes.\n- CVSS v3 base score: 10.0.\n- First seen in this estate: 2024-04-16.\n\n**Affected assets (2)**\n- 2 asset(s); identifiers withheld in this edition (env:prod, group:edge)\n\n**Scanner evidence**\n- Tenable plugin id(s): 193255\n- Plugin name(s) as reported by the scanner (sanitised): n/a\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 0; closed on rescanned assets: 0; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0094: open_asset_count = 2 (export:current)\n- f0095: severity = critical (export:current)\n- f0107: kev_listed = True (kev:2026.10.30)\n- f0111: kev_date_added = 2024-04-12 (kev:2026.10.30)\n- f0116: epss_score = 0.99999 (epss:2026-10-30)\n- f0097: exploit_available = True (export:current)\n- f0104: new_exposure_count = 0 (delta:2026-10-27)\n- f0102: closed_asset_count = 0 (delta:2026-10-27)\n- f0103: unverified_absence_count = 0 (delta:2026-10-27)\n- f0122: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0124: owner = Network Engineering (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2024-3400\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2024-3400\n- https://www.tenable.com/plugins/nessus/193255\n- https://www.tenable.com/blog/cve-2024-3400-zero-day-vulnerability-in-palo-alto-networks-pan-os-globalprotect-gateway"
+    "ticket_markdown": "## Patch CVE-2024-3400 on 2 asset(s) (critical, KEV-listed)\n\n**Owner:** Network Engineering\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2024-04-12 (Palo Alto Networks PAN-OS). Catalogue dueDate field: 2024-04-19 (CISA catalogue value). Known ransomware campaign use: yes.\n- CISA required action (catalogue text): Apply mitigations per vendor instructions as they become available. Otherwise, users with vulnerable versions of affected devices should enable Threat Prevention IDs available from the vendor. See the vendor bulletin for more details and a patch release schedule.\n- EPSS: 99.9% probability of exploitation within 30 days (rounded down).\n- Public exploit available: yes.\n- CVSS v3 base score: 10.0.\n- First seen in this estate: 2024-04-16.\n\n**Affected assets (2)**\n- 2 asset(s); identifiers withheld in this edition (env:prod, group:edge)\n\n**Scanner evidence**\n- Tenable plugin id(s): 193255\n- Plugin name(s) as reported by the scanner (sanitised): n/a\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 0; closed on rescanned assets: 0; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0099: open_asset_count = 2 (export:current)\n- f0100: severity = critical (export:current)\n- f0113: kev_listed = True (kev:2026.10.30)\n- f0117: kev_date_added = 2024-04-12 (kev:2026.10.30)\n- f0122: epss_score = 0.99999 (epss:2026-10-30)\n- f0102: exploit_available = True (export:current)\n- f0110: new_exposure_count = 0 (delta:2026-10-27)\n- f0107: closed_asset_count = 0 (delta:2026-10-27)\n- f0108: unverified_absence_count = 0 (delta:2026-10-27)\n- f0128: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0130: owner = Network Engineering (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2024-3400\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2024-3400\n- https://www.tenable.com/plugins/nessus/193255\n- https://www.tenable.com/blog/cve-2024-3400-zero-day-vulnerability-in-palo-alto-networks-pan-os-globalprotect-gateway"
    },
    {
     "cve": "CVE-2025-53770",
@@ -1761,61 +1763,61 @@
     },
     "evidence": [
      {
-      "fact": "f0213",
+      "fact": "f0223",
       "predicate": "open_asset_count",
       "value": 1,
       "source": "export:current"
      },
      {
-      "fact": "f0214",
+      "fact": "f0224",
       "predicate": "severity",
       "value": "critical",
       "source": "export:current"
      },
      {
-      "fact": "f0226",
+      "fact": "f0237",
       "predicate": "kev_listed",
       "value": true,
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0230",
+      "fact": "f0241",
       "predicate": "kev_date_added",
       "value": "2025-07-20",
       "source": "kev:2026.10.30"
      },
      {
-      "fact": "f0216",
+      "fact": "f0226",
       "predicate": "exploit_available",
       "value": true,
       "source": "export:current"
      },
      {
-      "fact": "f0223",
+      "fact": "f0234",
       "predicate": "new_exposure_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0221",
+      "fact": "f0231",
       "predicate": "closed_asset_count",
       "value": 1,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0222",
+      "fact": "f0232",
       "predicate": "unverified_absence_count",
       "value": 0,
       "source": "delta:2026-10-27"
      },
      {
-      "fact": "f0239",
+      "fact": "f0250",
       "predicate": "sla_deadline",
       "value": "2026-10-31",
       "source": "sla:data/sla.json"
      },
      {
-      "fact": "f0241",
+      "fact": "f0252",
       "predicate": "owner",
       "value": "Workplace IT",
       "source": "owners:data/owners.json"
@@ -1827,7 +1829,7 @@
      "https://www.tenable.com/plugins/nessus/242016",
      "https://www.tenable.com/blog/cve-2025-53770-frequently-asked-questions-about-zero-day-sharepoint-vulnerability-exploitation"
     ],
-    "ticket_markdown": "## Patch CVE-2025-53770 on 1 asset(s) (critical, KEV-listed)\n\n**Owner:** Workplace IT\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2025-07-20 (Microsoft SharePoint). Catalogue dueDate field: 2025-07-21 (CISA catalogue value). Known ransomware campaign use: yes.\n- CISA required action (catalogue text): Disconnect public-facing versions of SharePoint Server that have reached their end-of-life (EOL) or end-of-service (EOS) to include SharePoint Server 2013 and earlier versions. For supported versions, please follow the mitigations according to CISA (URL listed below in Notes) and vendor instructions (URL listed below in Notes). Adhere to the applicable BOD 22-01 guidance for cloud services or discontinue use of the product if mitigations are not available.\n- EPSS: no score in the offline snapshot (run `feeds refresh`).\n- Public exploit available: yes.\n- CVSS v3 base score: 9.8.\n- First seen in this estate: 2025-07-22.\n\n**Affected assets (1)**\n- 1 asset(s); identifiers withheld in this edition (env:prod, group:sharepoint)\n\n**Scanner evidence**\n- Tenable plugin id(s): 242016\n- Plugin name(s) as reported by the scanner (sanitised): n/a\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 0; closed on rescanned assets: 1; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0213: open_asset_count = 1 (export:current)\n- f0214: severity = critical (export:current)\n- f0226: kev_listed = True (kev:2026.10.30)\n- f0230: kev_date_added = 2025-07-20 (kev:2026.10.30)\n- f0216: exploit_available = True (export:current)\n- f0223: new_exposure_count = 0 (delta:2026-10-27)\n- f0221: closed_asset_count = 1 (delta:2026-10-27)\n- f0222: unverified_absence_count = 0 (delta:2026-10-27)\n- f0239: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0241: owner = Workplace IT (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2025-53770\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2025-53770\n- https://www.tenable.com/plugins/nessus/242016\n- https://www.tenable.com/blog/cve-2025-53770-frequently-asked-questions-about-zero-day-sharepoint-vulnerability-exploitation"
+    "ticket_markdown": "## Patch CVE-2025-53770 on 1 asset(s) (critical, KEV-listed)\n\n**Owner:** Workplace IT\n**Deadline (internal SLA):** 2026-10-31 (4 days from export date 2026-10-27)\n**Policy context:** Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). That directive is not this organisation's SLA; the deadline above is.\n\n**Why now**\n- CISA KEV: listed since 2025-07-20 (Microsoft SharePoint). Catalogue dueDate field: 2025-07-21 (CISA catalogue value). Known ransomware campaign use: yes.\n- CISA required action (catalogue text): Disconnect public-facing versions of SharePoint Server that have reached their end-of-life (EOL) or end-of-service (EOS) to include SharePoint Server 2013 and earlier versions. For supported versions, please follow the mitigations according to CISA (URL listed below in Notes) and vendor instructions (URL listed below in Notes). Adhere to the applicable BOD 22-01 guidance for cloud services or discontinue use of the product if mitigations are not available.\n- EPSS: no score in the offline snapshot (run `feeds refresh`).\n- Public exploit available: yes.\n- CVSS v3 base score: 9.8.\n- First seen in this estate: 2025-07-22.\n\n**Affected assets (1)**\n- 1 asset(s); identifiers withheld in this edition (env:prod, group:sharepoint)\n\n**Scanner evidence**\n- Tenable plugin id(s): 242016\n- Plugin name(s) as reported by the scanner (sanitised): n/a\n- Ports: 443/tcp\n\n**Change since previous export**\n- New exposure: 0; closed on rescanned assets: 1; unverified absences: 0; reopened: 0\n\n**Evidence (fact id: predicate = value (source))**\n- f0223: open_asset_count = 1 (export:current)\n- f0224: severity = critical (export:current)\n- f0237: kev_listed = True (kev:2026.10.30)\n- f0241: kev_date_added = 2025-07-20 (kev:2026.10.30)\n- f0226: exploit_available = True (export:current)\n- f0234: new_exposure_count = 0 (delta:2026-10-27)\n- f0231: closed_asset_count = 1 (delta:2026-10-27)\n- f0232: unverified_absence_count = 0 (delta:2026-10-27)\n- f0250: sla_deadline = 2026-10-31 (sla:data/sla.json)\n- f0252: owner = Workplace IT (owners:data/owners.json)\n\n**References**\n- https://nvd.nist.gov/vuln/detail/CVE-2025-53770\n- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2025-53770\n- https://www.tenable.com/plugins/nessus/242016\n- https://www.tenable.com/blog/cve-2025-53770-frequently-asked-questions-about-zero-day-sharepoint-vulnerability-exploitation"
    }
   ],
   "sources": [
@@ -1841,7 +1843,7 @@
     "version": "",
     "url": "",
     "coverage": "",
-    "note": "coverage-aware classification, see src/exposure_radio/delta.py"
+    "note": "coverage-aware classification, see exposure_radio/delta.py"
    },
    {
     "id": "epss:2026-10-30",
@@ -1913,7 +1915,7 @@
     "version": "",
     "url": "",
     "coverage": "",
-    "note": "deterministic rules, see src/exposure_radio/policy.py"
+    "note": "deterministic rules, see exposure_radio/policy.py"
    },
    {
     "id": "sla:data/sla.json",
@@ -1944,7 +1946,7 @@
    "passed": true,
    "edition": "full",
    "script_sha256": "8b83f2ebb8e134077eeb219bb487c0ed172d62a39c3c212b7355ab94cc4d9cb3",
-   "generated_at": "2026-11-02T21:24:38Z",
+   "generated_at": "2026-11-02T21:40:00Z",
    "sentence_count": 33,
    "claims_total": 59,
    "claims_accepted": 59,
@@ -2013,7 +2015,7 @@
    {
     "name": "wrong_relation",
     "description": "claims CVE-2026-110447 closed on 20 assets, citing the fact that says it is open on 1",
-    "planted": "CVE-2026-110447: 20 assets closed (cite f0242)",
+    "planted": "CVE-2026-110447: 20 assets closed (cite f0253)",
     "blocked": true,
     "codes": [
      "VALUE_MISMATCH",
@@ -2027,7 +2029,7 @@
    {
     "name": "negation_claim",
     "description": "claims CVE-2026-110447 is not KEV-listed; the cited fact says it is",
-    "planted": "CVE-2026-110447: kev_listed=False (cite f0255)",
+    "planted": "CVE-2026-110447: kev_listed=False (cite f0267)",
     "blocked": true,
     "codes": [
      "VALUE_MISMATCH"
@@ -2251,14 +2253,14 @@
   "events": [
    {
     "type": "tool_call",
-    "t": 0.015,
+    "t": 0.017,
     "call": 1,
     "tool": "exposure_briefing",
     "error": false
    },
    {
     "type": "gate",
-    "t": 0.018,
+    "t": 0.021,
     "call": 2,
     "accepted": false,
     "reasons": [
@@ -2267,23 +2269,23 @@
        "subject": "cve:CVE-2026-110447",
        "predicate": "open_asset_count",
        "value": 2,
-       "cite": "f0242"
+       "cite": "f0253"
       },
       "code": "VALUE_MISMATCH",
-      "detail": "f0242 says 1, claim says 2"
+      "detail": "f0253 says 1, claim says 2"
      }
     ]
    },
    {
     "type": "gate",
-    "t": 0.021,
+    "t": 0.024,
     "call": 3,
     "accepted": true,
     "reasons": []
    },
    {
     "type": "final",
-    "t": 0.021,
+    "t": 0.024,
     "mode": "analyst",
     "items": [
      "CVE-2026-110447",
@@ -2308,12 +2310,12 @@
   "break_in": true
  },
  "audio": {
-  "duration_seconds": 228.88,
-  "receipt_sha256": "f306e73f08e9269631286f2f774862b3e4fbbeabf8fe7725f0bddae20938beed",
+  "duration_seconds": 245.23,
+  "receipt_sha256": "8b83f2ebb8e134077eeb219bb487c0ed172d62a39c3c212b7355ab94cc4d9cb3",
   "loudness": {
    "integrated_lufs": -16.4,
    "threshold_lufs": -26.8,
-   "lra_lu": 2.4,
+   "lra_lu": 2.5,
    "true_peak_dbtp": -1.1
   },
   "targets": {
@@ -2330,10 +2332,10 @@
    "onnxruntime": "1.20.1",
    "sample_rate": 24000
   },
-  "bytes": 1831725
+  "bytes": 1962477
  },
- "audio_matches_receipt": false,
- "vtt": "WEBVTT\n\nNOTE Exposure Radio episode 2026-10-27\n\nNOTE gate receipt sha256 f306e73f08e9269631286f2f774862b3e4fbbeabf8fe7725f0bddae20938beed\n\nNOTE Every cue is a gate-approved sentence; see transcript.json for the cited facts.\n\n1\n00:00:00.000 --> 00:00:01.541\nThis is Exposure Radio.\n\n2\n00:00:02.441 --> 00:00:06.420\nThis episode covers a synthetic estate built for demonstration.\n\n3\n00:00:06.870 --> 00:00:10.754\nYour exposure briefing for 27 October 2026.\n\n4\n00:00:11.204 --> 00:00:16.807\nThe current export covers 51 assets with 53 open findings above informational.\n\n5\n00:00:17.257 --> 00:00:23.209\n48 assets were rescanned, 3 assets were absent from this scan, and 3 assets are newly in scope.\n\n6\n00:00:23.659 --> 00:00:31.164\nOpen now: 11 critical findings and 13 high findings, with 5 KEV-listed CVEs on 6 assets.\n\n7\n00:00:31.614 --> 00:00:40.707\nSince the previous export, 16 critical findings were closed on rescanned assets, and 1 CVE in your estate was added to the CISA KEV catalogue.\n\n8\n00:00:41.157 --> 00:00:48.398\n1 finding is new exposure on assets scanned before, and 4 findings are new visibility from assets new to the scan.\n\n9\n00:00:48.848 --> 00:00:55.549\n3 findings vanished from assets that were absent from this scan; they stay open as unverified absences.\n\n10\n00:00:55.999 --> 00:01:04.209\nKEV additions touching your estate since the previous export: CVE-2026-110447.\n\n11\n00:01:04.659 --> 00:01:06.662\nToday there are 3 priority items.\n\n12\n00:01:07.112 --> 00:01:14.478\nLead item: CVE-2026-110447, critical severity, open on 1 asset.\n\n13\n00:01:14.928 --> 00:01:26.699\nCVE-2026-110447 affects Collabora Online Built-in CODE Server and has been on the CISA KEV catalogue since 23 October 2026.\n\n14\n00:01:27.149 --> 00:01:33.265\nA public exploit is available for CVE-2026-110447.\n\n15\n00:01:33.715 --> 00:01:43.822\nFor CVE-2026-110447: 1 asset newly exposed, 0 assets closed, and 0 absences unverified.\n\n16\n00:01:44.272 --> 00:01:54.438\nAction: Workplace IT to patch CVE-2026-110447 by 31 October 2026 under the internal SLA.\n\n17\n00:01:54.888 --> 00:02:01.584\nItem 2: CVE-2024-3400, critical severity, open on 2 assets.\n\n18\n00:02:02.034 --> 00:02:12.409\nCVE-2024-3400 affects Palo Alto Networks PAN-OS and has been on the CISA KEV catalogue since 12 April 2024.\n\n19\n00:02:12.859 --> 00:02:18.784\nCISA records known ransomware campaign use for CVE-2024-3400.\n\n20\n00:02:19.234 --> 00:02:24.471\nA public exploit is available for CVE-2024-3400.\n\n21\n00:02:24.921 --> 00:02:31.100\nTenable Research has published 1 analysis of CVE-2024-3400.\n\n22\n00:02:31.550 --> 00:02:41.700\nAction: Network Engineering to patch CVE-2024-3400 by 31 October 2026 under the internal SLA.\n\n23\n00:02:42.150 --> 00:02:49.372\nItem 3: CVE-2025-53770, critical severity, open on 1 asset.\n\n24\n00:02:49.822 --> 00:03:00.004\nCVE-2025-53770 affects Microsoft SharePoint and has been on the CISA KEV catalogue since 20 July 2025.\n\n25\n00:03:00.454 --> 00:03:07.033\nCISA records known ransomware campaign use for CVE-2025-53770.\n\n26\n00:03:07.483 --> 00:03:13.514\nA public exploit is available for CVE-2025-53770.\n\n27\n00:03:13.964 --> 00:03:24.072\nFor CVE-2025-53770: 0 assets newly exposed, 1 asset closed, and 0 absences unverified.\n\n28\n00:03:24.522 --> 00:03:31.346\nTenable Research has published 1 analysis of CVE-2025-53770.\n\n29\n00:03:31.796 --> 00:03:41.942\nAction: Workplace IT to patch CVE-2025-53770 by 31 October 2026 under the internal SLA.\n\n30\n00:03:42.392 --> 00:03:46.517\nThe action card with evidence, owners and deadlines is in your packet.\n\n31\n00:03:47.417 --> 00:03:48.433\nEnd of briefing.\n",
+ "audio_matches_receipt": true,
+ "vtt": "WEBVTT\n\nNOTE Exposure Radio episode 2026-10-27\n\nNOTE gate receipt sha256 8b83f2ebb8e134077eeb219bb487c0ed172d62a39c3c212b7355ab94cc4d9cb3\n\nNOTE Every cue is a gate-approved sentence; see transcript.json for the cited facts.\n\n1\n00:00:00.000 --> 00:00:01.541\nThis is Exposure Radio.\n\n2\n00:00:02.441 --> 00:00:06.420\nThis episode covers a synthetic estate built for demonstration.\n\n3\n00:00:06.870 --> 00:00:10.754\nYour exposure briefing for 27 October 2026.\n\n4\n00:00:11.204 --> 00:00:16.807\nThe current export covers 51 assets with 53 open findings above informational.\n\n5\n00:00:17.257 --> 00:00:22.825\nThis is a break-in bulletin: a KEV-listed exposure is new since the previous export.\n\n6\n00:00:23.275 --> 00:00:29.227\n48 assets were rescanned, 3 assets were absent from this scan, and 3 assets are newly in scope.\n\n7\n00:00:29.677 --> 00:00:37.182\nOpen now: 11 critical findings and 13 high findings, with 5 KEV-listed CVEs on 6 assets.\n\n8\n00:00:37.632 --> 00:00:46.725\nSince the previous export, 16 critical findings were closed on rescanned assets, and 1 CVE in your estate was added to the CISA KEV catalogue.\n\n9\n00:00:47.175 --> 00:00:54.416\n1 finding is new exposure on assets scanned before, and 4 findings are new visibility from assets new to the scan.\n\n10\n00:00:54.866 --> 00:01:01.567\n3 findings vanished from assets that were absent from this scan; they stay open as unverified absences.\n\n11\n00:01:02.017 --> 00:01:10.227\nKEV additions touching your estate since the previous export: CVE-2026-110447.\n\n12\n00:01:10.677 --> 00:01:12.680\nToday there are 3 priority items.\n\n13\n00:01:13.130 --> 00:01:20.496\nLead item: CVE-2026-110447, critical severity, open on 1 asset.\n\n14\n00:01:20.946 --> 00:01:32.970\nCVE-2026-110447 affects Collabora Online - Built-in CODE Server and has been on the CISA KEV catalogue since 23 October 2026.\n\n15\n00:01:33.420 --> 00:01:39.536\nA public exploit is available for CVE-2026-110447.\n\n16\n00:01:39.986 --> 00:01:50.093\nFor CVE-2026-110447: 1 asset newly exposed, 0 assets closed, and 0 absences unverified.\n\n17\n00:01:50.543 --> 00:02:00.709\nAction: Workplace IT to patch CVE-2026-110447 by 31 October 2026 under the internal SLA.\n\n18\n00:02:01.159 --> 00:02:07.856\nItem 2: CVE-2024-3400, critical severity, open on 2 assets.\n\n19\n00:02:08.306 --> 00:02:18.680\nCVE-2024-3400 affects Palo Alto Networks PAN-OS and has been on the CISA KEV catalogue since 12 April 2024.\n\n20\n00:02:19.130 --> 00:02:25.056\nCISA records known ransomware campaign use for CVE-2024-3400.\n\n21\n00:02:25.506 --> 00:02:35.129\nEPSS puts CVE-2024-3400 at 99.9 percent probability of exploitation within 30 days.\n\n22\n00:02:35.579 --> 00:02:40.815\nA public exploit is available for CVE-2024-3400.\n\n23\n00:02:41.265 --> 00:02:47.444\nTenable Research has published 1 analysis of CVE-2024-3400.\n\n24\n00:02:47.894 --> 00:02:58.045\nAction: Network Engineering to patch CVE-2024-3400 by 31 October 2026 under the internal SLA.\n\n25\n00:02:58.495 --> 00:03:05.716\nItem 3: CVE-2025-53770, critical severity, open on 1 asset.\n\n26\n00:03:06.166 --> 00:03:16.349\nCVE-2025-53770 affects Microsoft SharePoint and has been on the CISA KEV catalogue since 20 July 2025.\n\n27\n00:03:16.799 --> 00:03:23.378\nCISA records known ransomware campaign use for CVE-2025-53770.\n\n28\n00:03:23.828 --> 00:03:29.859\nA public exploit is available for CVE-2025-53770.\n\n29\n00:03:30.309 --> 00:03:40.417\nFor CVE-2025-53770: 0 assets newly exposed, 1 asset closed, and 0 absences unverified.\n\n30\n00:03:40.867 --> 00:03:47.691\nTenable Research has published 1 analysis of CVE-2025-53770.\n\n31\n00:03:48.141 --> 00:03:58.286\nAction: Workplace IT to patch CVE-2025-53770 by 31 October 2026 under the internal SLA.\n\n32\n00:03:58.736 --> 00:04:02.862\nThe action card with evidence, owners and deadlines is in your packet.\n\n33\n00:04:03.762 --> 00:04:04.777\nEnd of briefing.\n",
  "bench": {
   "fixture": {
    "current": "/home/user/exposure-radio/data/fixtures/bench/current_500.json",

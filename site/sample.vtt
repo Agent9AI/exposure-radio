@@ -2,7 +2,7 @@ WEBVTT
 
 NOTE Exposure Radio episode 2026-10-27
 
-NOTE gate receipt sha256 f306e73f08e9269631286f2f774862b3e4fbbeabf8fe7725f0bddae20938beed
+NOTE gate receipt sha256 8b83f2ebb8e134077eeb219bb487c0ed172d62a39c3c212b7355ab94cc4d9cb3
 
 NOTE Every cue is a gate-approved sentence; see transcript.json for the cited facts.
 
@@ -23,109 +23,117 @@ Your exposure briefing for 27 October 2026.
 The current export covers 51 assets with 53 open findings above informational.
 
 5
-00:00:17.257 --> 00:00:23.209
-48 assets were rescanned, 3 assets were absent from this scan, and 3 assets are newly in scope.
+00:00:17.257 --> 00:00:22.825
+This is a break-in bulletin: a KEV-listed exposure is new since the previous export.
 
 6
-00:00:23.659 --> 00:00:31.164
-Open now: 11 critical findings and 13 high findings, with 5 KEV-listed CVEs on 6 assets.
+00:00:23.275 --> 00:00:29.227
+48 assets were rescanned, 3 assets were absent from this scan, and 3 assets are newly in scope.
 
 7
-00:00:31.614 --> 00:00:40.707
-Since the previous export, 16 critical findings were closed on rescanned assets, and 1 CVE in your estate was added to the CISA KEV catalogue.
+00:00:29.677 --> 00:00:37.182
+Open now: 11 critical findings and 13 high findings, with 5 KEV-listed CVEs on 6 assets.
 
 8
-00:00:41.157 --> 00:00:48.398
-1 finding is new exposure on assets scanned before, and 4 findings are new visibility from assets new to the scan.
+00:00:37.632 --> 00:00:46.725
+Since the previous export, 16 critical findings were closed on rescanned assets, and 1 CVE in your estate was added to the CISA KEV catalogue.
 
 9
-00:00:48.848 --> 00:00:55.549
-3 findings vanished from assets that were absent from this scan; they stay open as unverified absences.
+00:00:47.175 --> 00:00:54.416
+1 finding is new exposure on assets scanned before, and 4 findings are new visibility from assets new to the scan.
 
 10
-00:00:55.999 --> 00:01:04.209
-KEV additions touching your estate since the previous export: CVE-2026-110447.
+00:00:54.866 --> 00:01:01.567
+3 findings vanished from assets that were absent from this scan; they stay open as unverified absences.
 
 11
-00:01:04.659 --> 00:01:06.662
-Today there are 3 priority items.
+00:01:02.017 --> 00:01:10.227
+KEV additions touching your estate since the previous export: CVE-2026-110447.
 
 12
-00:01:07.112 --> 00:01:14.478
-Lead item: CVE-2026-110447, critical severity, open on 1 asset.
+00:01:10.677 --> 00:01:12.680
+Today there are 3 priority items.
 
 13
-00:01:14.928 --> 00:01:26.699
-CVE-2026-110447 affects Collabora Online Built-in CODE Server and has been on the CISA KEV catalogue since 23 October 2026.
+00:01:13.130 --> 00:01:20.496
+Lead item: CVE-2026-110447, critical severity, open on 1 asset.
 
 14
-00:01:27.149 --> 00:01:33.265
-A public exploit is available for CVE-2026-110447.
+00:01:20.946 --> 00:01:32.970
+CVE-2026-110447 affects Collabora Online - Built-in CODE Server and has been on the CISA KEV catalogue since 23 October 2026.
 
 15
-00:01:33.715 --> 00:01:43.822
-For CVE-2026-110447: 1 asset newly exposed, 0 assets closed, and 0 absences unverified.
+00:01:33.420 --> 00:01:39.536
+A public exploit is available for CVE-2026-110447.
 
 16
-00:01:44.272 --> 00:01:54.438
-Action: Workplace IT to patch CVE-2026-110447 by 31 October 2026 under the internal SLA.
+00:01:39.986 --> 00:01:50.093
+For CVE-2026-110447: 1 asset newly exposed, 0 assets closed, and 0 absences unverified.
 
 17
-00:01:54.888 --> 00:02:01.584
-Item 2: CVE-2024-3400, critical severity, open on 2 assets.
+00:01:50.543 --> 00:02:00.709
+Action: Workplace IT to patch CVE-2026-110447 by 31 October 2026 under the internal SLA.
 
 18
-00:02:02.034 --> 00:02:12.409
-CVE-2024-3400 affects Palo Alto Networks PAN-OS and has been on the CISA KEV catalogue since 12 April 2024.
+00:02:01.159 --> 00:02:07.856
+Item 2: CVE-2024-3400, critical severity, open on 2 assets.
 
 19
-00:02:12.859 --> 00:02:18.784
-CISA records known ransomware campaign use for CVE-2024-3400.
+00:02:08.306 --> 00:02:18.680
+CVE-2024-3400 affects Palo Alto Networks PAN-OS and has been on the CISA KEV catalogue since 12 April 2024.
 
 20
-00:02:19.234 --> 00:02:24.471
-A public exploit is available for CVE-2024-3400.
+00:02:19.130 --> 00:02:25.056
+CISA records known ransomware campaign use for CVE-2024-3400.
 
 21
-00:02:24.921 --> 00:02:31.100
-Tenable Research has published 1 analysis of CVE-2024-3400.
+00:02:25.506 --> 00:02:35.129
+EPSS puts CVE-2024-3400 at 99.9 percent probability of exploitation within 30 days.
 
 22
-00:02:31.550 --> 00:02:41.700
-Action: Network Engineering to patch CVE-2024-3400 by 31 October 2026 under the internal SLA.
+00:02:35.579 --> 00:02:40.815
+A public exploit is available for CVE-2024-3400.
 
 23
-00:02:42.150 --> 00:02:49.372
-Item 3: CVE-2025-53770, critical severity, open on 1 asset.
+00:02:41.265 --> 00:02:47.444
+Tenable Research has published 1 analysis of CVE-2024-3400.
 
 24
-00:02:49.822 --> 00:03:00.004
-CVE-2025-53770 affects Microsoft SharePoint and has been on the CISA KEV catalogue since 20 July 2025.
+00:02:47.894 --> 00:02:58.045
+Action: Network Engineering to patch CVE-2024-3400 by 31 October 2026 under the internal SLA.
 
 25
-00:03:00.454 --> 00:03:07.033
-CISA records known ransomware campaign use for CVE-2025-53770.
+00:02:58.495 --> 00:03:05.716
+Item 3: CVE-2025-53770, critical severity, open on 1 asset.
 
 26
-00:03:07.483 --> 00:03:13.514
-A public exploit is available for CVE-2025-53770.
+00:03:06.166 --> 00:03:16.349
+CVE-2025-53770 affects Microsoft SharePoint and has been on the CISA KEV catalogue since 20 July 2025.
 
 27
-00:03:13.964 --> 00:03:24.072
-For CVE-2025-53770: 0 assets newly exposed, 1 asset closed, and 0 absences unverified.
+00:03:16.799 --> 00:03:23.378
+CISA records known ransomware campaign use for CVE-2025-53770.
 
 28
-00:03:24.522 --> 00:03:31.346
-Tenable Research has published 1 analysis of CVE-2025-53770.
+00:03:23.828 --> 00:03:29.859
+A public exploit is available for CVE-2025-53770.
 
 29
-00:03:31.796 --> 00:03:41.942
-Action: Workplace IT to patch CVE-2025-53770 by 31 October 2026 under the internal SLA.
+00:03:30.309 --> 00:03:40.417
+For CVE-2025-53770: 0 assets newly exposed, 1 asset closed, and 0 absences unverified.
 
 30
-00:03:42.392 --> 00:03:46.517
-The action card with evidence, owners and deadlines is in your packet.
+00:03:40.867 --> 00:03:47.691
+Tenable Research has published 1 analysis of CVE-2025-53770.
 
 31
-00:03:47.417 --> 00:03:48.433
+00:03:48.141 --> 00:03:58.286
+Action: Workplace IT to patch CVE-2025-53770 by 31 October 2026 under the internal SLA.
+
+32
+00:03:58.736 --> 00:04:02.862
+The action card with evidence, owners and deadlines is in your packet.
+
+33
+00:04:03.762 --> 00:04:04.777
 End of briefing.

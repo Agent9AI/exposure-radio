@@ -22,7 +22,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 from .facts import Fact, FactStore
 from .model import AssetPluginFinding, Export
 from .sanitize import SEVERITY_NAMES
-from .templates import vendor_product
+from .templates import percent, vendor_product
 
 FEDERAL_POLICY_NOTE = (
     "Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). "
@@ -215,7 +215,7 @@ def render_ticket(item: CardItem) -> str:
             required_line = f"- CISA required action (catalogue text): {item.kev['required_action']}"
     epss_line = "EPSS: no score in the offline snapshot (run `feeds refresh`)."
     if item.epss and item.epss.get("score") is not None:
-        epss_line = f"EPSS: {float(item.epss['score']) * 100:.1f}% probability of exploitation within 30 days."
+        epss_line = f"EPSS: {percent(item.epss['score'])}% probability of exploitation within 30 days (rounded down)."
     if item.assets:
         assets_block = "\n".join(f"- {label}" for label in item.assets)
     else:

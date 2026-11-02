@@ -152,8 +152,9 @@ a{color:var(--accent)}h1,h2,h3{line-height:1.2;margin:0 0 8px}h1{font-size:28px}
 .wrap{max-width:1180px;margin:0 auto}header{padding:28px 0 12px}.tag{color:var(--muted);margin:0}
 .badges{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}.badge{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:13px}
 .badge.ok{border-color:var(--ok)}.badge.bad{border-color:var(--bad)}.badge.warn{border-color:var(--warn)}
-.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;align-items:start}@media (max-width:900px){.grid{grid-template-columns:1fr}}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 16px}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;align-items:start}@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.grid>*{min-width:0}.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 16px;min-width:0;overflow-wrap:anywhere}
+td,dd,.cite,.card h3{overflow-wrap:anywhere}@media (max-width:600px){.transcript li{grid-template-columns:44px 1fr}.transcript .cites{grid-column:2;white-space:normal}}
 .player{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.play{background:var(--accent);color:var(--accent-ink);border:0;border-radius:999px;width:56px;height:56px;font-size:22px;cursor:pointer}
 .play:focus-visible{outline:3px solid var(--warn)}.time{font-family:var(--mono);color:var(--muted);font-size:14px}audio{width:100%;margin-top:8px}
 .transcript{list-style:none;margin:12px 0 0;padding:0;max-height:520px;overflow:auto;border-top:1px solid var(--line)}
@@ -340,7 +341,7 @@ details summary{cursor:pointer;color:var(--accent)}footer{color:var(--muted);fon
       const card = el('div', {class: 'card'});
       card.appendChild(el('h3', {}, [el('span', {text: '#' + item.rank + ' ' + item.cve + ' (' + item.severity + (item.kev ? ', KEV-listed' : '') + ')'}), el('span', {class: 'pill ' + (item.kev ? 'warn' : 'ok'), text: 'SLA ' + item.deadline.internal_sla})]));
       const dl = el('dl', {class: 'kv'});
-      [['Owner', item.owner], ['Open on', item.open_asset_count + ' asset(s)'], ['KEV added', item.kev ? item.kev.date_added : 'not listed'], ['Catalogue dueDate', item.kev && item.kev.catalogue_due_date ? item.kev.catalogue_due_date + ' (CISA field)' : 'n/a'], ['EPSS', item.epss ? (item.epss.score * 100).toFixed(1) + '%' : 'not in snapshot'], ['Assets', item.assets.length ? item.assets.join(', ') : 'withheld in this edition']].forEach(([k, v]) => { dl.appendChild(el('dt', {text: k})); dl.appendChild(el('dd', {text: String(v)})); });
+      [['Owner', item.owner], ['Open on', item.open_asset_count + ' asset(s)'], ['KEV added', item.kev ? item.kev.date_added : 'not listed'], ['Catalogue dueDate', item.kev && item.kev.catalogue_due_date ? item.kev.catalogue_due_date + ' (CISA field)' : 'n/a'], ['EPSS', item.epss ? (Math.floor(item.epss.score * 1000) / 10).toFixed(1) + '%' : 'not in snapshot'], ['Assets', item.assets.length ? item.assets.join(', ') : 'withheld in this edition']].forEach(([k, v]) => { dl.appendChild(el('dt', {text: k})); dl.appendChild(el('dd', {text: String(v)})); });
       card.appendChild(dl);
       const det = el('details'); det.appendChild(el('summary', {text: 'Ticket text (copyable Markdown) and evidence'})); det.appendChild(el('pre', {text: item.ticket_markdown})); card.appendChild(det);
       box.appendChild(card);
