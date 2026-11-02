@@ -1,6 +1,6 @@
 {
-  "verified_at": "2026-11-02T21:12:00.756953+00:00",
-  "source_commit": "646bcfdcf38ec9c94b68c18c7951a92d784b661b",
+  "verified_at": "2026-11-02T21:17:04.939607+00:00",
+  "source_commit": "c6eb510672ffcc55fca1abbaccc297fbc15e18c1",
   "tests": 88,
   "unit_result": "passed",
   "adversarial_rejections": "27/27",
@@ -12,7 +12,8 @@
   "tenant_identifiers_in_public_outputs": 0,
   "commit_dates_after_2026_11_02_1600Z": true,
   "test_log_summary": [
-    "Ran 88 tests in 67.613s",
+    "Ran 88 tests in 69.146s",
+    "",
     "OK"
   ],
   "priority_break_sentences": 14,
@@ -23,7 +24,7 @@
   "mobile_playback_progress_ms": 313,
   "audio_lufs": -16.53,
   "audio_true_peak_dbtp": -1.83,
-  "clean_checkout_note": "The baseline checkout at source_commit passed 86 tests. The final integrated working tree passed 88 tests, including media-integrity cases.",
+  "clean_checkout_note": "The exact source_commit passed all 88 tests, the artifact site build, and an isolated recorded-analyst replay. Subsequent changes only update verification records.",
   "tested_code_sha256": {
     "Makefile": "baeb9c84ad93337862c317339a7c77687da03c3b9e3601cc4914665c63a58179",
     "exposure_radio/__init__.py": "50229d0ec3b3a9aada13b13ee0cac42d622654e927e3cfc776546fa6a610f6fd",
