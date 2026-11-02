@@ -39,5 +39,6 @@ site:
 audio:
 	$(PY) -m exposure_radio audio --out out/audio
 
+## lint: ruff with the rule set in pyproject.toml (optional, not part of check)
 lint:
-	ruff check src tests scripts
+	ruff check exposure_radio tests scripts

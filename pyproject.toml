@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "exposure-radio"
-version = "0.2.0"
+version = "0.6.0"
 description = "Turns two Tenable exports into a verified, spoken priority briefing and a ticket-ready action card."
 readme = "README.md"
 license = { text = "MIT" }
@@ -33,3 +33,13 @@ exposure-radio = "exposure_radio.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["exposure_radio*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP"]
+# Long lines are a formatting matter; the typing modernisations are skipped so the
+# code reads the same on every supported interpreter; B904 is left to judgement.
+ignore = ["E501", "UP006", "UP007", "UP035", "UP045", "B904"]
