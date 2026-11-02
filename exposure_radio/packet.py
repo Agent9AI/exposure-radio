@@ -233,7 +233,7 @@ def render_ticket(item: CardItem) -> str:
     lines = [
         f"## Patch {item.cve} on {item.open_asset_count} asset(s) ({item.severity}{kev_tag})",
         "",
-        f"**Owner:** {item.owner}",
+        f"**Owner:** {item.owner}" + (" (map a team to the asset tags in data/owners.json)" if item.owner.lower().startswith("unassigned") else ""),
         f"**Deadline (internal SLA):** {item.sla_deadline} ({item.sla_days} days from export date {item.export_date})",
         f"**Policy context:** {FEDERAL_POLICY_NOTE}",
         "",

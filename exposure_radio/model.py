@@ -28,6 +28,10 @@ class Asset:
     ipv4: Optional[str] = None
     operating_system: Optional[str] = None
     tags: Tuple[str, ...] = ()
+    # Latest scan activity seen for the asset (UTC timestamp). An export lists
+    # every open finding, so presence alone does not mean the asset was
+    # scanned this cycle; coverage is decided from this stamp.
+    last_activity: Optional[str] = None
 
     @property
     def label(self) -> str:
@@ -98,6 +102,7 @@ class Export:
     assets: Dict[str, Asset] = field(default_factory=dict)
     findings: List[Finding] = field(default_factory=list)
     scan_date: Optional[str] = None
+    scan_completed: Optional[str] = None  # latest scan completion timestamp seen in the export
     manifest: ExportManifest = field(default_factory=ExportManifest)
     integrity: IntegrityReport = field(default_factory=IntegrityReport)
     records_seen: int = 0

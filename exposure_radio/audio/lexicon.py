@@ -15,7 +15,7 @@ import os
 import re
 from typing import Dict, List, Optional
 
-DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), "data")
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "data")
 DEFAULT_LEXICON = os.path.join(DATA_DIR, "lexicon.json")
 
 _DIGITS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
@@ -78,7 +78,7 @@ def load_lexicon(path: Optional[str] = None) -> Dict[str, str]:
     path = path or DEFAULT_LEXICON
     if not os.path.isfile(path):
         return {}
-    with open(path, "r", encoding="utf-8") as handle:
+    with open(path, encoding="utf-8") as handle:
         data = json.load(handle)
     terms = data.get("terms") if isinstance(data, dict) else None
     if not isinstance(terms, dict):

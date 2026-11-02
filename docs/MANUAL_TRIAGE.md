@@ -31,7 +31,7 @@ CISA KEV catalogue and FIRST EPSS scores.
 | executive_scrub | Produce a copy with hostnames removed and re-read it for leaks | fixed | 5 min |
 
 The unit times are mirrored in `MANUAL_UNIT_SECONDS` in
-`src/exposure_radio/bench.py`; a test keeps the two in sync.
+`exposure_radio/bench.py`; a test keeps the two in sync.
 
 ## Tool path
 

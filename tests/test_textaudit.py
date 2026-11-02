@@ -50,10 +50,23 @@ class SentenceChecks(unittest.TestCase):
     def test_identifier_dictionary(self):
         fb = forbidden_terms()
         self.assertIn(textaudit.IDENTIFIER_LEAK, codes("fw-edge-01 is affected.", fb))
+        self.assertIn(textaudit.IDENTIFIER_LEAK, codes("fw-edge-01-backup is affected.", fb))  # identifier inside a longer token
+        self.assertIn(textaudit.IDENTIFIER_LEAK, codes("see host:fw-edge-01.", fb))
+        self.assertNotIn(textaudit.IDENTIFIER_LEAK, codes("fw-edge-010 is affected.", fb))  # not a whole part
+        self.assertTrue(fb.identifier_in("FW-EDGE-01"))
+        self.assertFalse(fb.identifier_in("nothing here"))
         self.assertIn(textaudit.IDENTIFIER_LEAK, codes("FW-EDGE-01.NORTHWIND.INTERNAL is affected.", fb))
         self.assertIn(textaudit.IDENTIFIER_LEAK, codes("Host 10.20.0.1 is affected.", fb))
         self.assertIn(textaudit.ASSET_ID_LEAK, codes("Asset 3f2b7a1e-1111-4222-8333-444455556666 is affected.", fb))
         self.assertIn(textaudit.PLUGIN_TEXT_LEAK, codes("Palo Alto Networks PAN-OS Command Injection detected.", fb))
+
+    def test_trusted_vocabulary_is_not_treated_as_scanner_text(self):
+        export = Export(label="current", source="x", format="tenable-json")
+        export.findings.append(Finding("u1", 1, "Microsoft Remote Desktop Services Remote Code Execution Vulnerability", 4))
+        export.findings.append(Finding("u1", 2, "Scanner prose nobody vetted", 4))
+        fb = textaudit.ForbiddenTerms.from_exports(export, trusted=["Microsoft Remote Desktop Services Remote Code Execution Vulnerability"])
+        self.assertFalse(fb.plugin_text_in("The Microsoft Remote Desktop Services Remote Code Execution Vulnerability is listed."))
+        self.assertTrue(fb.plugin_text_in("Scanner prose nobody vetted."))
 
     def test_shape_based_leaks_without_dictionary(self):
         self.assertIn(textaudit.HOSTNAME_LEAK, codes("db-01.corp.example is affected."))

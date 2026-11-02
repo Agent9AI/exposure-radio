@@ -114,6 +114,25 @@ class Coverage:
         return self.current - self.previous
 
 
+def scanned_scope(export: Export, since: Optional[str]) -> FrozenSet[str]:
+    """Assets the export shows scan activity for after ``since``.
+
+    A Tenable export lists every open finding, including findings on assets
+    that were last scanned weeks ago, so presence in the export is not
+    evidence of a scan. An asset counts as in scope when its latest activity
+    stamp is later than the previous export's latest scan completion. With
+    no previous export, or no stamps to compare, every asset counts.
+    """
+    if since is None:
+        return frozenset(export.assets)
+    return frozenset(
+        asset_id
+        for asset_id, asset in export.assets.items()
+        if asset.last_activity is None or asset.last_activity > since
+    )
+
+
 def coverage(previous: Optional[Export], current: Export) -> Coverage:
     prev_ids = previous.asset_ids if previous is not None else frozenset()
-    return Coverage(previous=frozenset(prev_ids), current=frozenset(current.asset_ids))
+    since = previous.scan_completed if previous is not None else None
+    return Coverage(previous=frozenset(prev_ids), current=scanned_scope(current, since))

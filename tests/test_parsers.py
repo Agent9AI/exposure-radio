@@ -257,5 +257,78 @@ class HardeningTests(unittest.TestCase):
             parsers.load_export("/nonexistent/export.json", "current")
 
 
+TENANT_B = os.path.join(FIX, "tenant-b")
+
+
+class DirectoryExportTests(unittest.TestCase):
+    """The real Tenable layout: export-status.json, vulns/chunk-N.json, assets.json."""
+
+    def test_directory_export_loads_complete(self):
+        export = parsers.load_export(os.path.join(TENANT_B, "2026-10-30"), "current")
+        self.assertEqual(export.format, "tenable-json")
+        self.assertTrue(export.integrity.complete, export.integrity.reasons)
+        self.assertEqual(export.manifest.status, "FINISHED")
+        self.assertEqual((export.manifest.chunks_expected, export.manifest.chunks_present), (2, 2))
+        self.assertEqual(len(export.assets), 76)  # the whole inventory from assets.json
+        self.assertGreater(len(export.findings), 500)
+        self.assertEqual(export.scan_date, "2026-10-30")
+        self.assertEqual(export.scan_completed, "2026-10-30T07:00:00Z")
+        previous = parsers.load_export(os.path.join(TENANT_B, "2026-10-29"), "previous")
+        self.assertEqual(len(previous.assets), 64)
+        from exposure_radio.evidence import scanned_scope
+
+        # 11 inventory assets were last scanned before the previous export finished: presence is not a scan.
+        self.assertEqual(len(scanned_scope(export, previous.scan_completed)), 65)
+        stale = [a for a in export.assets.values() if a.last_activity and a.last_activity <= previous.scan_completed]
+        self.assertEqual(len(stale), 11)
+        self.assertNotIn("IGNORE ALL PREVIOUS INSTRUCTIONS", json.dumps([f.__dict__ for f in export.findings]))
+
+    def _copy(self, tmp):
+        import shutil
+
+        target = os.path.join(tmp, "snap")
+        shutil.copytree(os.path.join(TENANT_B, "2026-10-30"), target)
+        return target
+
+    def test_failed_chunk_marks_incomplete(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            snap = self._copy(tmp)
+            status_path = os.path.join(snap, "export-status.json")
+            with open(status_path, encoding="utf-8") as handle:
+                status = json.load(handle)
+            status["chunks_failed"] = [2]
+            with open(status_path, "w", encoding="utf-8") as handle:
+                json.dump(status, handle)
+            export = parsers.load_export(snap, "current")
+            self.assertFalse(export.integrity.complete)
+            self.assertTrue(any("failed" in r for r in export.integrity.reasons))
+
+    def test_missing_and_unreadable_chunks_mark_incomplete(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            snap = self._copy(tmp)
+            os.remove(os.path.join(snap, "vulns", "chunk-2.json"))
+            export = parsers.load_export(snap, "current")
+            self.assertFalse(export.integrity.complete)
+            self.assertTrue(any("chunk files present" in r for r in export.integrity.reasons))
+        with tempfile.TemporaryDirectory() as tmp:
+            snap = self._copy(tmp)
+            with open(os.path.join(snap, "vulns", "chunk-1.json"), "w", encoding="utf-8") as handle:
+                handle.write("{not json")
+            export = parsers.load_export(snap, "current")
+            self.assertFalse(export.integrity.complete)
+            self.assertTrue(any("malformed" in r for r in export.integrity.reasons))
+
+    def test_unfinished_status_marks_incomplete(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            snap = self._copy(tmp)
+            status_path = os.path.join(snap, "export-status.json")
+            with open(status_path, encoding="utf-8") as handle:
+                status = json.load(handle)
+            status["status"] = "ERROR"
+            with open(status_path, "w", encoding="utf-8") as handle:
+                json.dump(status, handle)
+            self.assertFalse(parsers.load_export(snap, "current").integrity.complete)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -110,15 +110,46 @@ class Issue:
         return {"code": self.code, "detail": self.detail, "sentence": self.index}
 
 
-@dataclass(frozen=True)
-class ForbiddenTerms:
-    """Tenant identifiers and scanner text that must never be spoken."""
+_TOKEN_RE = re.compile(r"[a-z0-9]+(?:[.:\-][a-z0-9]+)*")
+_SEPARATOR_RE = re.compile(r"[.:\-]")
 
-    identifiers: tuple
-    plugin_names: tuple
+
+class ForbiddenTerms:
+    """Tenant identifiers and scanner text that must never be spoken.
+
+    Identifiers (hostnames, FQDNs, IPs, asset ids) are matched as whole
+    tokens bounded by non-alphanumerics, including as a run of parts inside
+    a dotted or hyphenated token, so ``fw-edge-01`` is found inside
+    ``fw-edge-01.northwind.internal`` and inside ``fw-edge-01-backup``.
+    Plugin names are matched with one combined, case-insensitive pattern.
+    """
+
+    def __init__(self, identifiers: Iterable[str], plugin_names: Iterable[str]) -> None:
+        self.identifiers = tuple(sorted({i for i in identifiers if i}))
+        self.plugin_names = tuple(sorted({p for p in plugin_names if p}))
+        self._identifier_set = frozenset(i.lower() for i in self.identifiers if len(i) >= 3)
+        names = [re.escape(p) for p in self.plugin_names if len(p) >= 3]
+        self._plugin_pattern = (
+            re.compile(r"(?<![a-z0-9])(?:" + "|".join(sorted(names, key=len, reverse=True)) + r")(?![a-z0-9])", re.IGNORECASE)
+            if names
+            else None
+        )
+
+    def __eq__(self, other: object) -> bool:
+        return isinstance(other, ForbiddenTerms) and (self.identifiers, self.plugin_names) == (other.identifiers, other.plugin_names)
+
+    def __hash__(self) -> int:
+        return hash((self.identifiers, self.plugin_names))
 
     @classmethod
-    def from_exports(cls, *exports: Optional[Export]) -> "ForbiddenTerms":
+    def from_exports(cls, *exports: Optional[Export], trusted: Iterable[str] = ()) -> ForbiddenTerms:
+        """Collect identifiers and plugin names from exports.
+
+        ``trusted`` holds phrases from trusted sources (CISA vendor, product
+        and vulnerability names). A plugin name that repeats one of them
+        verbatim is CISA's wording, not scanner prose, and is not blocked.
+        """
+        trusted_lower = {t.strip().lower() for t in trusted if t and t.strip()}
         identifiers = set()
         plugin_names = set()
         for export in exports:
@@ -126,17 +157,33 @@ class ForbiddenTerms:
                 continue
             identifiers.update(export.identifiers())
             for finding in export.findings:
-                if len(finding.plugin_name) >= 12:
+                if len(finding.plugin_name) >= 12 and finding.plugin_name.strip().lower() not in trusted_lower:
                     plugin_names.add(finding.plugin_name)
-        return cls(tuple(sorted(identifiers)), tuple(sorted(plugin_names)))
+        return cls(identifiers, plugin_names)
 
-    def patterns(self, terms: Iterable[str]) -> List[re.Pattern]:
-        out = []
-        for term in terms:
-            if len(term) < 3:
+    def identifier_in(self, text: str) -> bool:
+        if not self._identifier_set:
+            return False
+        for match in _TOKEN_RE.finditer(text.lower()):
+            token = match.group(0)
+            if token in self._identifier_set:
+                return True
+            parts = _SEPARATOR_RE.split(token)
+            if len(parts) == 1:
                 continue
-            out.append(re.compile(r"(?<![a-z0-9])" + re.escape(term.lower()) + r"(?![a-z0-9])", re.IGNORECASE))
-        return out
+            separators = _SEPARATOR_RE.findall(token)
+            for start in range(len(parts)):
+                span = parts[start]
+                if span in self._identifier_set:
+                    return True
+                for end in range(start + 1, len(parts)):
+                    span += separators[end - 1] + parts[end]
+                    if span in self._identifier_set:
+                        return True
+        return False
+
+    def plugin_text_in(self, text: str) -> bool:
+        return bool(self._plugin_pattern and self._plugin_pattern.search(text))
 
 
 def audit_sentences(
@@ -166,8 +213,6 @@ def audit_sentences(
                 issues.append(Issue(STRUCTURE, f"sentence {index} is not the output of its template", index))
 
     known_cves = {cve.upper() for cve in store.cves()}
-    id_patterns = forbidden.patterns(forbidden.identifiers) if forbidden else []
-    plugin_patterns = forbidden.patterns(forbidden.plugin_names) if forbidden else []
 
     for index, sentence in enumerate(sentences):
         if not sentence.strip():
@@ -177,14 +222,10 @@ def audit_sentences(
             issues.append(Issue(LENGTH, f"sentence has {len(sentence)} characters", index))
         if any(unicodedata.category(ch)[0] == "C" for ch in sentence):
             issues.append(Issue(CONTROL, "control characters in sentence", index))
-        for pattern in id_patterns:
-            if pattern.search(sentence):
-                issues.append(Issue(IDENTIFIER_LEAK, "sentence contains a tenant identifier from the export", index))
-                break
-        for pattern in plugin_patterns:
-            if pattern.search(sentence):
-                issues.append(Issue(PLUGIN_TEXT_LEAK, "sentence contains scanner-supplied plugin text", index))
-                break
+        if forbidden is not None and forbidden.identifier_in(sentence):
+            issues.append(Issue(IDENTIFIER_LEAK, "sentence contains a tenant identifier from the export", index))
+        if forbidden is not None and forbidden.plugin_text_in(sentence):
+            issues.append(Issue(PLUGIN_TEXT_LEAK, "sentence contains scanner-supplied plugin text", index))
         if _HOSTNAME_RE.search(sentence):
             issues.append(Issue(HOSTNAME_LEAK, "sentence contains a DNS-style name", index))
         if _IPV4_RE.search(sentence) or _IPV6_RE.search(sentence):
@@ -241,14 +282,10 @@ def audit_free_text(
     issues: List[Issue] = []
     allowed = {h.lower() for h in allowed_hosts}
     allowed.update(t.lower() for t in all_template_ids())  # template ids look like "cve.action"
-    for pattern in (forbidden.patterns(forbidden.identifiers) if forbidden else []):
-        if pattern.search(text):
-            issues.append(Issue(IDENTIFIER_LEAK, "text contains a tenant identifier from the export"))
-            break
-    for pattern in (forbidden.patterns(forbidden.plugin_names) if forbidden else []):
-        if pattern.search(text):
-            issues.append(Issue(PLUGIN_TEXT_LEAK, "text contains scanner-supplied plugin text"))
-            break
+    if forbidden is not None and forbidden.identifier_in(text):
+        issues.append(Issue(IDENTIFIER_LEAK, "text contains a tenant identifier from the export"))
+    if forbidden is not None and forbidden.plugin_text_in(text):
+        issues.append(Issue(PLUGIN_TEXT_LEAK, "text contains scanner-supplied plugin text"))
     for match in _HOSTNAME_RE.finditer(text):
         token = match.group(0).lower()
         if token.endswith((".json", ".csv", ".py", ".md", ".html", ".mp3", ".vtt", ".nessus", ".txt")):

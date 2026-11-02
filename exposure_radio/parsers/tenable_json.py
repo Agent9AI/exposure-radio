@@ -32,7 +32,7 @@ from ..sanitize import (
     to_float,
     to_int,
 )
-from .common import FREE_TEXT_FIELDS, clean_tags, derive_asset_id, finalise, finding_sort_key, merge_asset, normalise_state
+from .common import FREE_TEXT_FIELDS, clean_tags, derive_asset_id, finalise, finding_sort_key, latest, merge_asset, normalise_state
 
 MAX_RECORDS = 2_000_000
 MAX_JSON_BYTES = 512 * 1024 * 1024
@@ -83,6 +83,8 @@ def _record_to_finding(
     else:
         os_label = clean_name(os_values) if os_values else None
     tags_raw = asset_raw.get("tags") or []
+    stamp = clean_datetime(scan_raw.get("completed_at"))
+    last_found = clean_datetime(record.get("last_found"))
     asset = Asset(
         asset_id=asset_id,
         hostname=hostname,
@@ -90,6 +92,7 @@ def _record_to_finding(
         ipv4=ipv4,
         operating_system=os_label or None,
         tags=clean_tags(tags_raw if isinstance(tags_raw, list) else []),
+        last_activity=latest(stamp, last_found),
     )
     merge_asset(export.assets, asset)
 
@@ -105,7 +108,6 @@ def _record_to_finding(
         return None
     vpr_raw = plugin_raw.get("vpr") or {}
     vpr = to_float(vpr_raw.get("score"), 0.0, 10.0) if isinstance(vpr_raw, dict) else to_float(vpr_raw, 0.0, 10.0)
-    stamp = clean_datetime(scan_raw.get("completed_at"))
     if stamp:
         stamps.append(stamp)
     return Finding(
@@ -118,7 +120,7 @@ def _record_to_finding(
         protocol=clean_protocol(port_raw.get("protocol")),
         state=normalise_state(record.get("state")),
         first_found=clean_datetime(record.get("first_found")),
-        last_found=clean_datetime(record.get("last_found")),
+        last_found=last_found,
         cvss3=to_float(plugin_raw.get("cvss3_base_score"), 0.0, 10.0),
         vpr=vpr,
         exploit_available=to_bool(plugin_raw.get("exploit_available")),
@@ -215,6 +217,7 @@ def parse_directory(path: str, label: str) -> Export:
             asset_id = clean_name(row.get("id") or row.get("uuid") or "")[:64]
             if not asset_id:
                 continue
+            last_scan = clean_datetime(row.get("last_scan_time"))
             hostnames = row.get("hostnames") if isinstance(row.get("hostnames"), list) else []
             fqdns = row.get("fqdns") if isinstance(row.get("fqdns"), list) else []
             ips = row.get("ipv4s") if isinstance(row.get("ipv4s"), list) else []
@@ -229,11 +232,11 @@ def parse_directory(path: str, label: str) -> Export:
                     ipv4=next((h for h in (clean_ip(x) for x in ips) if h), None),
                     operating_system=(clean_name(systems[0]) or None) if systems else None,
                     tags=clean_tags(tags_raw),
+                    last_activity=last_scan,
                 ),
             )
-            stamp = clean_datetime(row.get("last_scan_time"))
-            if stamp:
-                stamps.append(stamp)
+            if last_scan:
+                stamps.append(last_scan)
     export.findings.sort(key=finding_sort_key)
     return finalise(export, stamps)
 

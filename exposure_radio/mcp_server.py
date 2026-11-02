@@ -114,7 +114,7 @@ class Server:
         self.default_current = default_current or os.path.join(self.data_dir, "fixtures", "current.json")
         self.default_previous = default_previous or os.path.join(self.data_dir, "fixtures", "previous.json")
         self.roots = (os.path.abspath(os.getcwd()), self.data_dir)
-        self._cache: "OrderedDict[Tuple[str, Optional[str]], Episode]" = OrderedDict()
+        self._cache: OrderedDict[Tuple[str, Optional[str]], Episode] = OrderedDict()
         self.initialized = False
 
     # --- helpers ---------------------------------------------------------

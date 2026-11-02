@@ -35,7 +35,7 @@ class Claim:
         return {"subject": self.subject, "predicate": self.predicate, "value": value, "cite": self.cite}
 
     @classmethod
-    def from_dict(cls, data: Dict[str, object]) -> "Claim":
+    def from_dict(cls, data: Dict[str, object]) -> Claim:
         if not isinstance(data, dict):
             raise ValueError("claim must be an object")
         subject = data.get("subject")

@@ -20,7 +20,7 @@ from dataclasses import dataclass
 from datetime import date, timedelta
 from typing import Dict, FrozenSet, Iterable, List, Optional, Sequence, Tuple
 
-from .delta import CLOSED, NEW_EXPOSURE, NEW_VISIBILITY, REOPENED, UNVERIFIED_ABSENCE, Delta
+from .delta import CLOSED, NEW_EXPOSURE, NEW_VISIBILITY, REOPENED, UNVERIFIED_ABSENCE, UNVERIFIED_OPEN, Delta
 from .evidence import cve_sort_key
 from .feeds import Feeds
 from .model import AssetPluginFinding, Export
@@ -104,7 +104,7 @@ class FactStore:
 # --------------------------------------------------------------------------
 
 
-def priority_key(cve: str, store: "FactStore") -> tuple:
+def priority_key(cve: str, store: FactStore) -> tuple:
     """Higher is more urgent.
 
     Order: KEV listing, severity, KEV entries added since the previous
@@ -187,7 +187,9 @@ def build_facts(inputs: EvidenceInputs) -> FactStore:
     store.add("episode", "export_date", inputs.episode_date, src_cur)
     if previous is not None and previous.scan_date:
         store.add("episode", "previous_export_date", previous.scan_date, src_prev)
-    store.add("episode", "asset_count", len(current.assets), src_cur, sorted(current.assets))
+    scope = sorted(cov.current) if cov is not None else sorted(current.assets)
+    store.add("episode", "asset_count", len(scope), src_cur, scope)
+    store.add("episode", "inventory_count", len(current.assets), src_cur, sorted(current.assets))
     store.add("episode", "finding_count", len(open_findings), src_cur)
     store.add("episode", "open_critical_count", sum(1 for f in open_findings if f.severity == 4), src_cur)
     store.add("episode", "open_high_count", sum(1 for f in open_findings if f.severity == 3), src_cur)
@@ -208,6 +210,7 @@ def build_facts(inputs: EvidenceInputs) -> FactStore:
             per_cve.setdefault(cve, []).append(finding)
     closed_by_cve = inputs.delta.cves(CLOSED)
     unverified_by_cve = inputs.delta.cves(UNVERIFIED_ABSENCE)
+    unverified_open_by_cve = inputs.delta.cves(UNVERIFIED_OPEN)
     new_exposure_by_cve = inputs.delta.cves(NEW_EXPOSURE)
     new_visibility_by_cve = inputs.delta.cves(NEW_VISIBILITY)
     reopened_by_cve = inputs.delta.cves(REOPENED)
@@ -237,6 +240,7 @@ def build_facts(inputs: EvidenceInputs) -> FactStore:
         store.add(subject, "asset_groups", tuple(groups), src_cur, assets)
         store.add(subject, "closed_asset_count", closed_by_cve.get(cve, 0), src_delta)
         store.add(subject, "unverified_absence_count", unverified_by_cve.get(cve, 0), src_delta)
+        store.add(subject, "unverified_open_count", unverified_open_by_cve.get(cve, 0), src_delta)
         store.add(subject, "new_exposure_count", new_exposure_by_cve.get(cve, 0), src_delta)
         store.add(subject, "new_visibility_count", new_visibility_by_cve.get(cve, 0), src_delta)
         store.add(subject, "reopened_count", reopened_by_cve.get(cve, 0), src_delta)
@@ -293,12 +297,14 @@ def build_facts(inputs: EvidenceInputs) -> FactStore:
         "critical_new_exposure",
         "critical_new_visibility",
         "critical_unverified_absence",
+        "critical_unverified_open",
     ):
         store.add("delta", key, int(summary.get(key, 0)), src_delta)
     store.add("delta", "closed_count", int(summary.get(CLOSED, 0)), src_delta)
     store.add("delta", "new_exposure_count", int(summary.get(NEW_EXPOSURE, 0)), src_delta)
     store.add("delta", "new_visibility_count", int(summary.get(NEW_VISIBILITY, 0)), src_delta)
     store.add("delta", "unverified_absence_count", int(summary.get(UNVERIFIED_ABSENCE, 0)), src_delta)
+    store.add("delta", "unverified_open_count", int(summary.get(UNVERIFIED_OPEN, 0)), src_delta)
     store.add("delta", "reopened_count", int(summary.get(REOPENED, 0)), src_delta)
 
     # KEV entries added to the catalogue since the previous export that touch the estate.

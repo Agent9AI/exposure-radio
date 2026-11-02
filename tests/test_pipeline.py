@@ -7,7 +7,7 @@ from contextlib import redirect_stderr, redirect_stdout
 
 from exposure_radio import cli
 from exposure_radio.pipeline import run_episode, write_outputs
-from tests.common import CURRENT, FIX, PREVIOUS, demo_episode, first_episode, held_episode
+from tests.common import FIX, PREVIOUS, demo_episode, first_episode, held_episode
 
 
 class PipelineTests(unittest.TestCase):
@@ -66,6 +66,20 @@ class PipelineTests(unittest.TestCase):
             for predicate in ("asset_count", "open_critical_count", "open_high_count", "kev_open_cve_count"):
                 self.assertEqual(store.value("episode", predicate), json_facts.value("episode", predicate), predicate)
             self.assertEqual(store.value("priority", "items"), json_facts.value("priority", "items"))
+
+    def test_second_tenant_in_the_real_export_layout(self):
+        tenant = os.path.join(FIX, "tenant-b")
+        episode = run_episode(os.path.join(tenant, "2026-10-30"), os.path.join(tenant, "2026-10-29"))
+        self.assertTrue(episode.gate.passed, episode.gate.receipt.rejections or episode.gate.receipt.issues)
+        self.assertEqual(episode.facts.value("episode", "asset_count"), 65)  # 76 in inventory, 11 not scanned this cycle
+        self.assertEqual(episode.facts.value("episode", "assets_newly_in_scope"), 12)
+        self.assertEqual(episode.facts.value("episode", "assets_not_rescanned"), 11)
+        self.assertGreater(episode.facts.value("delta", "unverified_open_count"), 0)  # stale rows on assets not rescanned
+        self.assertIn("they stay open and unverified", "\n".join(episode.sentences))
+        self.assertEqual(episode.decision.kind, "BREAK_IN")
+        self.assertIn("CVE-2026-118527", episode.facts.value("delta", "kev_new_entries"))
+        self.assertTrue(all(not v for k, v in episode.pii_issues.items()), episode.pii_issues)
+        self.assertNotIn("corp.example", "\n".join(episode.sentences))
 
     def test_write_outputs(self):
         episode = demo_episode()

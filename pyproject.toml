@@ -21,4 +21,4 @@ classifiers = [
 exposure-radio = "exposure_radio.cli:main"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+include = ["exposure_radio*"]

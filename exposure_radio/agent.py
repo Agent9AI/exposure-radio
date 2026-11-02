@@ -27,7 +27,7 @@ import json
 import os
 import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, List, Optional
 
 from .briefing import build_segments
 from .claims import Claim
@@ -567,7 +567,7 @@ def run_agent(
 
 
 def load_trace(path: str) -> Dict[str, Any]:
-    with open(path, "r", encoding="utf-8") as handle:
+    with open(path, encoding="utf-8") as handle:
         data = json.load(handle)
     if not isinstance(data, dict) or not isinstance(data.get("events"), list):
         raise ValueError("trace file must be an object with an events list")

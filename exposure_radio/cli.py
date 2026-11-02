@@ -12,7 +12,7 @@ import json
 import os
 import sys
 import time
-from typing import List, Optional, Sequence
+from typing import Optional, Sequence
 
 from . import __version__
 from .model import ExportError
@@ -188,7 +188,7 @@ def cmd_check_claims(args: argparse.Namespace) -> int:
     from .claims import Claim, validate
 
     episode = _episode_from_args(args)
-    with open(args.claims, "r", encoding="utf-8") as handle:
+    with open(args.claims, encoding="utf-8") as handle:
         raw = json.load(handle)
     if isinstance(raw, dict):
         raw = raw.get("claims", [])

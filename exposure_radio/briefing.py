@@ -115,6 +115,10 @@ def build_segments(
             seg = _seg(store, "delta.unverified", "delta", ("unverified_absence_count",))
             if seg:
                 segments.append(seg)
+        if int(store.value("delta", "unverified_open_count", 0) or 0) > 0:
+            seg = _seg(store, "delta.unverified_open", "delta", ("unverified_open_count",))
+            if seg:
+                segments.append(seg)
         if int(store.value("delta", "kev_new_entry_count", 0) or 0) > 0:
             seg = _seg(store, "delta.kev_entries", "delta", ("kev_new_entries",))
             if seg:

@@ -182,7 +182,7 @@ class _Target:
         os_label = clean_name(props.get("os")) or None
         merge_asset(
             self.export.assets,
-            Asset(asset_id=asset_id, hostname=hostname, fqdn=fqdn, ipv4=ipv4, operating_system=os_label),
+            Asset(asset_id=asset_id, hostname=hostname, fqdn=fqdn, ipv4=ipv4, operating_system=os_label, last_activity=end_stamp),
         )
         for index, item in enumerate(self.host_items):
             self.export.records_seen += 1

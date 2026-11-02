@@ -1,5 +1,4 @@
 PY ?= python3
-export PYTHONPATH := src
 
 .PHONY: check test gate-demo audit agent-replay demo bench fixtures site audio lint
 

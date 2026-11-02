@@ -72,6 +72,7 @@ def merge_asset(assets: Dict[str, Asset], asset: Asset) -> None:
     if existing is None:
         assets[asset.asset_id] = asset
         return
+    activities = [a for a in (existing.last_activity, asset.last_activity) if a]
     merged = Asset(
         asset_id=existing.asset_id,
         hostname=existing.hostname or asset.hostname,
@@ -79,17 +80,26 @@ def merge_asset(assets: Dict[str, Asset], asset: Asset) -> None:
         ipv4=existing.ipv4 or asset.ipv4,
         operating_system=existing.operating_system or asset.operating_system,
         tags=tuple(dict.fromkeys(existing.tags + asset.tags)),
+        last_activity=max(activities) if activities else None,
     )
     assets[asset.asset_id] = merged
+
+
+def latest(*stamps: Optional[str]) -> Optional[str]:
+    """Latest of several optional UTC timestamps."""
+    present = [s for s in stamps if s]
+    return max(present) if present else None
 
 
 def finalise(export: Export, scan_stamps: Iterable[Optional[str]]) -> Export:
     """Fill the scan date and run the generic integrity checks."""
     stamps = sorted(s for s in scan_stamps if s)
     if stamps:
+        export.scan_completed = stamps[-1]
         export.scan_date = stamps[-1][:10]
     else:
         last = sorted(f.last_found for f in export.findings if f.last_found)
+        export.scan_completed = last[-1] if last else None
         export.scan_date = last[-1][:10] if last else None
     if export.records_seen == 0:
         export.integrity.fail("export contains no records")

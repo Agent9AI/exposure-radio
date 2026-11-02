@@ -21,6 +21,7 @@ SAMPLE_VALUES = {
     "new_exposure_count": 1,
     "new_visibility_count": 4,
     "unverified_absence_count": 3,
+    "unverified_open_count": 3,
     "kev_new_entries": ("CVE-2026-110447", "CVE-2024-3400"),
     "priority_rank": 1,
     "severity": "critical",

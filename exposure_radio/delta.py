@@ -26,8 +26,11 @@ NEW_VISIBILITY = "new_visibility"
 REOPENED = "reopened"
 CLOSED = "closed"
 UNVERIFIED_ABSENCE = "unverified_absence"
+# Still listed open, but the asset was not rescanned: the export carried the
+# old row forward. Neither closed nor confirmed.
+UNVERIFIED_OPEN = "unverified_open"
 
-CATEGORIES = (PERSISTING, NEW_EXPOSURE, NEW_VISIBILITY, REOPENED, CLOSED, UNVERIFIED_ABSENCE)
+CATEGORIES = (PERSISTING, NEW_EXPOSURE, NEW_VISIBILITY, REOPENED, CLOSED, UNVERIFIED_ABSENCE, UNVERIFIED_OPEN)
 
 
 @dataclass(frozen=True)
@@ -71,6 +74,7 @@ class Delta:
         result["critical_new_exposure"] = self.count(NEW_EXPOSURE, 4)
         result["critical_new_visibility"] = self.count(NEW_VISIBILITY, 4)
         result["critical_unverified_absence"] = self.count(UNVERIFIED_ABSENCE, 4)
+        result["critical_unverified_open"] = self.count(UNVERIFIED_OPEN, 4)
         result["high_closed"] = self.count(CLOSED, 3)
         if self.coverage is not None:
             result["assets_rescanned"] = len(self.coverage.rescanned)
@@ -108,7 +112,10 @@ def compute_delta(
 
     for key, finding in sorted(cur_open.items()):
         if key in prev_open:
-            delta.changes.append(Change(PERSISTING, finding))
+            if finding.asset_id in cov.current:
+                delta.changes.append(Change(PERSISTING, finding))
+            else:
+                delta.changes.append(Change(UNVERIFIED_OPEN, finding))
         elif key in prev_all:
             delta.changes.append(Change(REOPENED, finding))
         elif finding.asset_id in cov.previous:

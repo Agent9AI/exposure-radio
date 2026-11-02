@@ -24,7 +24,7 @@ from __future__ import annotations
 import ipaddress
 import re
 import unicodedata
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Iterable, Optional
 
 # Printable ASCII subset used for names and labels. Quotes, angle brackets,
@@ -39,6 +39,8 @@ MAX_HOSTNAME_LEN = 253
 
 _CVE_RE = re.compile(r"CVE-(\d{4})-(\d{4,9})", re.IGNORECASE)
 _WS_RE = re.compile(r"\s+")
+# Fast path for ISO 8601 as Tenable and CISA write it: date, optional time, optional fraction, optional zone.
+_ISO_RE = re.compile(r"(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2}):(\d{2})(?:\.\d{1,9})?([Zz]|[+-]\d{2}:?\d{2})?)?")
 _HOST_LABEL_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
 
 SEVERITY_NAMES = {0: "info", 1: "low", 2: "medium", 3: "high", 4: "critical"}
@@ -244,6 +246,21 @@ def clean_datetime(value: object) -> Optional[str]:
         return None
     if text.isdigit():
         return clean_datetime(int(text))
+    fast = _ISO_RE.fullmatch(text)
+    if fast:
+        year, month, day = int(fast.group(1)), int(fast.group(2)), int(fast.group(3))
+        hour, minute, second = int(fast.group(4) or 0), int(fast.group(5) or 0), int(fast.group(6) or 0)
+        if 1970 <= year <= 2100:
+            try:
+                parsed = datetime(year, month, day, hour, minute, second, tzinfo=timezone.utc)
+            except ValueError:
+                return None
+            offset = fast.group(7)
+            if offset and offset not in ("Z", "z"):
+                sign = -1 if offset[0] == "-" else 1
+                parsed -= sign * timedelta(hours=int(offset[1:3]), minutes=int(offset[4:6]))
+            return parsed.strftime("%Y-%m-%dT%H:%M:%SZ")
+        return None
     for fmt in _DATE_FORMATS:
         try:
             parsed = datetime.strptime(text, fmt)

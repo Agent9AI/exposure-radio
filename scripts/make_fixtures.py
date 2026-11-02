@@ -249,7 +249,7 @@ def nessus_from_records(records: List[Dict[str, object]], scan_date: str, trunca
         lines.append(f'<tag name="hostname">{xml_escape(asset["hostname"])}</tag>')
         lines.append(f'<tag name="host-uuid">{xml_escape(asset["uuid"])}</tag>')
         lines.append(f'<tag name="operating-system">{xml_escape(asset["operating_system"][0])}</tag>')
-        lines.append(f'<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>')
+        lines.append('<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>')
         lines.append(f'<tag name="HOST_END">{xml_escape(stamp)}</tag>')
         lines.append("</HostProperties>")
         for rec in recs:

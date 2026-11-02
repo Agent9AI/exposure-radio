@@ -1,0 +1,237 @@
+{
+  "generated_at": "2026-11-02T21:06:21Z",
+  "episode_date": "2026-10-27",
+  "receipt_sha256": "f306e73f08e9269631286f2f774862b3e4fbbeabf8fe7725f0bddae20938beed",
+  "receipt_passed": true,
+  "sentences": 31,
+  "duration_seconds": 228.88,
+  "mp3": {
+    "path": "out/audio/sample.mp3",
+    "bytes": 1831725,
+    "bitrate": "64k"
+  },
+  "loudness": {
+    "targets": {
+      "integrated_lufs": -16.0,
+      "true_peak_dbtp": -1.0
+    },
+    "raw": {
+      "integrated_lufs": -22.7,
+      "threshold_lufs": -33.0,
+      "lra_lu": 2.4,
+      "true_peak_dbtp": 0.3
+    },
+    "normalised_wav": {
+      "integrated_lufs": -16.0,
+      "threshold_lufs": -26.3,
+      "lra_lu": 2.4,
+      "true_peak_dbtp": -0.9
+    },
+    "mp3": {
+      "integrated_lufs": -16.4,
+      "threshold_lufs": -26.8,
+      "lra_lu": 2.4,
+      "true_peak_dbtp": -1.1
+    },
+    "mp3_within_targets": true
+  },
+  "synth": {
+    "engine": "Kokoro-82M (ONNX)",
+    "model_path": "model_quantized.onnx",
+    "model_sha256": "fbae9257e1e05ffc727e951ef9b9c98418e6d79f1c9b6b13bd59f5c9028a1478",
+    "voice": "af_heart",
+    "speed": 1.0,
+    "onnxruntime": "1.20.1",
+    "sample_rate": 24000
+  },
+  "spoken_forms": [
+    "This is Exposure Radio.",
+    "This episode covers a synthetic estate built for demonstration.",
+    "Your exposure briefing for 27 October twenty twenty-six.",
+    "The current export covers 51 assets with 53 open findings above informational.",
+    "48 assets were rescanned, 3 assets were absent from this scan, and 3 assets are newly in scope.",
+    "Open now: 11 critical findings and 13 high findings, with 5 K E V listed CVEs on 6 assets.",
+    "Since the previous export, 16 critical findings were closed on rescanned assets, and 1 CVE in your estate was added to the sissa K E V catalogue.",
+    "1 finding is new exposure on assets scanned before, and 4 findings are new visibility from assets new to the scan.",
+    "3 findings vanished from assets that were absent from this scan; they stay open as unverified absences.",
+    "K E V additions touching your estate since the previous export: C V E twenty twenty-six, one one zero, four four seven.",
+    "Today there are 3 priority items.",
+    "Lead item: C V E twenty twenty-six, one one zero, four four seven, critical severity, open on 1 asset.",
+    "C V E twenty twenty-six, one one zero, four four seven affects collabora Online Built-in code server and has been on the sissa K E V catalogue since 23 October twenty twenty-six.",
+    "A public exploit is available for C V E twenty twenty-six, one one zero, four four seven.",
+    "For C V E twenty twenty-six, one one zero, four four seven: 1 asset newly exposed, 0 assets closed, and 0 absences unverified.",
+    "Action: Workplace IT to patch C V E twenty twenty-six, one one zero, four four seven by 31 October twenty twenty-six under the internal S L A.",
+    "Item 2: C V E twenty twenty-four, three four, zero zero, critical severity, open on 2 assets.",
+    "C V E twenty twenty-four, three four, zero zero affects Palo Alto Networks pan O S and has been on the sissa K E V catalogue since 12 April twenty twenty-four.",
+    "sissa records known ransomware campaign use for C V E twenty twenty-four, three four, zero zero.",
+    "A public exploit is available for C V E twenty twenty-four, three four, zero zero.",
+    "tenable Research has published 1 analysis of C V E twenty twenty-four, three four, zero zero.",
+    "Action: Network Engineering to patch C V E twenty twenty-four, three four, zero zero by 31 October twenty twenty-six under the internal S L A.",
+    "Item 3: C V E twenty twenty-five, five three, seven seven zero, critical severity, open on 1 asset.",
+    "C V E twenty twenty-five, five three, seven seven zero affects Microsoft share point and has been on the sissa K E V catalogue since 20 July twenty twenty-five.",
+    "sissa records known ransomware campaign use for C V E twenty twenty-five, five three, seven seven zero.",
+    "A public exploit is available for C V E twenty twenty-five, five three, seven seven zero.",
+    "For C V E twenty twenty-five, five three, seven seven zero: 0 assets newly exposed, 1 asset closed, and 0 absences unverified.",
+    "tenable Research has published 1 analysis of C V E twenty twenty-five, five three, seven seven zero.",
+    "Action: Workplace IT to patch C V E twenty twenty-five, five three, seven seven zero by 31 October twenty twenty-six under the internal S L A.",
+    "The action card with evidence, owners and deadlines is in your packet.",
+    "End of briefing."
+  ],
+  "cues": [
+    {
+      "start": 0.0,
+      "end": 1.541,
+      "text": "This is Exposure Radio."
+    },
+    {
+      "start": 2.441,
+      "end": 6.42,
+      "text": "This episode covers a synthetic estate built for demonstration."
+    },
+    {
+      "start": 6.87,
+      "end": 10.754,
+      "text": "Your exposure briefing for 27 October 2026."
+    },
+    {
+      "start": 11.204,
+      "end": 16.807,
+      "text": "The current export covers 51 assets with 53 open findings above informational."
+    },
+    {
+      "start": 17.257,
+      "end": 23.209,
+      "text": "48 assets were rescanned, 3 assets were absent from this scan, and 3 assets are newly in scope."
+    },
+    {
+      "start": 23.659,
+      "end": 31.164,
+      "text": "Open now: 11 critical findings and 13 high findings, with 5 KEV-listed CVEs on 6 assets."
+    },
+    {
+      "start": 31.614,
+      "end": 40.707,
+      "text": "Since the previous export, 16 critical findings were closed on rescanned assets, and 1 CVE in your estate was added to the CISA KEV catalogue."
+    },
+    {
+      "start": 41.157,
+      "end": 48.398,
+      "text": "1 finding is new exposure on assets scanned before, and 4 findings are new visibility from assets new to the scan."
+    },
+    {
+      "start": 48.848,
+      "end": 55.549,
+      "text": "3 findings vanished from assets that were absent from this scan; they stay open as unverified absences."
+    },
+    {
+      "start": 55.999,
+      "end": 64.209,
+      "text": "KEV additions touching your estate since the previous export: CVE-2026-110447."
+    },
+    {
+      "start": 64.659,
+      "end": 66.662,
+      "text": "Today there are 3 priority items."
+    },
+    {
+      "start": 67.112,
+      "end": 74.478,
+      "text": "Lead item: CVE-2026-110447, critical severity, open on 1 asset."
+    },
+    {
+      "start": 74.928,
+      "end": 86.699,
+      "text": "CVE-2026-110447 affects Collabora Online Built-in CODE Server and has been on the CISA KEV catalogue since 23 October 2026."
+    },
+    {
+      "start": 87.149,
+      "end": 93.265,
+      "text": "A public exploit is available for CVE-2026-110447."
+    },
+    {
+      "start": 93.715,
+      "end": 103.822,
+      "text": "For CVE-2026-110447: 1 asset newly exposed, 0 assets closed, and 0 absences unverified."
+    },
+    {
+      "start": 104.272,
+      "end": 114.438,
+      "text": "Action: Workplace IT to patch CVE-2026-110447 by 31 October 2026 under the internal SLA."
+    },
+    {
+      "start": 114.888,
+      "end": 121.584,
+      "text": "Item 2: CVE-2024-3400, critical severity, open on 2 assets."
+    },
+    {
+      "start": 122.034,
+      "end": 132.409,
+      "text": "CVE-2024-3400 affects Palo Alto Networks PAN-OS and has been on the CISA KEV catalogue since 12 April 2024."
+    },
+    {
+      "start": 132.859,
+      "end": 138.784,
+      "text": "CISA records known ransomware campaign use for CVE-2024-3400."
+    },
+    {
+      "start": 139.234,
+      "end": 144.471,
+      "text": "A public exploit is available for CVE-2024-3400."
+    },
+    {
+      "start": 144.921,
+      "end": 151.1,
+      "text": "Tenable Research has published 1 analysis of CVE-2024-3400."
+    },
+    {
+      "start": 151.55,
+      "end": 161.7,
+      "text": "Action: Network Engineering to patch CVE-2024-3400 by 31 October 2026 under the internal SLA."
+    },
+    {
+      "start": 162.15,
+      "end": 169.372,
+      "text": "Item 3: CVE-2025-53770, critical severity, open on 1 asset."
+    },
+    {
+      "start": 169.822,
+      "end": 180.004,
+      "text": "CVE-2025-53770 affects Microsoft SharePoint and has been on the CISA KEV catalogue since 20 July 2025."
+    },
+    {
+      "start": 180.454,
+      "end": 187.033,
+      "text": "CISA records known ransomware campaign use for CVE-2025-53770."
+    },
+    {
+      "start": 187.483,
+      "end": 193.514,
+      "text": "A public exploit is available for CVE-2025-53770."
+    },
+    {
+      "start": 193.964,
+      "end": 204.072,
+      "text": "For CVE-2025-53770: 0 assets newly exposed, 1 asset closed, and 0 absences unverified."
+    },
+    {
+      "start": 204.522,
+      "end": 211.346,
+      "text": "Tenable Research has published 1 analysis of CVE-2025-53770."
+    },
+    {
+      "start": 211.796,
+      "end": 221.942,
+      "text": "Action: Workplace IT to patch CVE-2025-53770 by 31 October 2026 under the internal SLA."
+    },
+    {
+      "start": 222.392,
+      "end": 226.517,
+      "text": "The action card with evidence, owners and deadlines is in your packet."
+    },
+    {
+      "start": 227.417,
+      "end": 228.433,
+      "text": "End of briefing."
+    }
+  ]
+}

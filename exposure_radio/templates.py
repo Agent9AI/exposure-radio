@@ -155,6 +155,13 @@ def _delta_unverified(_s: str, v: Dict[str, object]) -> str:
     )
 
 
+def _delta_unverified_open(_s: str, v: Dict[str, object]) -> str:
+    return (
+        f"{count(v['unverified_open_count'], 'open finding sits', 'open findings sit')} on assets absent from this scan; "
+        f"they stay open and unverified."
+    )
+
+
 def _delta_kev_entries(_s: str, v: Dict[str, object]) -> str:
     return f"KEV additions touching your estate since the previous export: {join_list(v['kev_new_entries'])}."
 
@@ -259,6 +266,7 @@ TEMPLATES: Dict[str, Template] = {
         Template("delta.progress", "delta", ("critical_closed", "kev_new_entry_count"), _delta_progress),
         Template("delta.new", "delta", ("new_exposure_count", "new_visibility_count"), _delta_new),
         Template("delta.unverified", "delta", ("unverified_absence_count",), _delta_unverified),
+        Template("delta.unverified_open", "delta", ("unverified_open_count",), _delta_unverified_open),
         Template("delta.kev_entries", "delta", ("kev_new_entries",), _delta_kev_entries),
         Template("cve.lead", "cve", ("priority_rank", "severity", "open_asset_count"), _cve_lead, (("priority_rank", 1),)),
         Template("cve.item", "cve", ("priority_rank", "severity", "open_asset_count"), _cve_item),
@@ -298,7 +306,7 @@ class Segment:
         return {"template": self.template_id, "claims": [c.to_dict() for c in self.claims]}
 
     @classmethod
-    def from_dict(cls, data: Dict[str, object]) -> "Segment":
+    def from_dict(cls, data: Dict[str, object]) -> Segment:
         if not isinstance(data, dict) or not isinstance(data.get("template"), str):
             raise TemplateError("segment needs a template id")
         raw_claims = data.get("claims") or []

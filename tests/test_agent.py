@@ -5,6 +5,7 @@ from unittest import mock
 
 from exposure_radio import agent as agent_mod
 from exposure_radio.gate import run_gate
+from exposure_radio.templates import TemplateError
 from tests.common import ROOT, demo_episode
 
 TRACE = os.path.join(ROOT, "data", "replay", "analyst_trace.json")
@@ -135,11 +136,11 @@ class AnthropicTransportTests(unittest.TestCase):
 class ProposalTests(unittest.TestCase):
     def test_unknown_item_and_bad_template_are_rejected(self):
         episode = demo_episode()
-        with self.assertRaises(Exception):
+        with self.assertRaises((TemplateError, ValueError)):
             agent_mod._proposal_segments(episode, {"items": ["CVE-2031-99999"], "angle_template": "", "angle_claims": []})
-        with self.assertRaises(Exception):
+        with self.assertRaises((TemplateError, ValueError)):
             agent_mod._proposal_segments(episode, {"items": ["CVE-2024-3400"], "angle_template": "intro.held", "angle_claims": []})
-        with self.assertRaises(Exception):
+        with self.assertRaises((TemplateError, ValueError)):
             agent_mod._proposal_segments(episode, {"items": ["CVE-2023-4966"], "angle_template": "", "angle_claims": []})  # closed/unverified, nothing open
 
     def test_tools_expose_redacted_evidence_only(self):

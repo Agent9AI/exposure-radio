@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from typing import Callable, Dict, List, Optional, Sequence, Set
+from typing import Dict, List, Sequence
 
 from .claims import Claim
 from .gate import run_gate

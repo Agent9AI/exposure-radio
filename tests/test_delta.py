@@ -29,17 +29,20 @@ class ClassificationTests(unittest.TestCase):
         self.cov = Coverage(previous=frozenset({"a", "b", "c", "d"}), current=frozenset({"a", "b", "c", "e"}))
 
     def test_matrix(self):
-        previous = [apf("a", 1), apf("b", 1), apf("c", 1), apf("d", 1), apf("a", 2, state="FIXED")]
-        current = [apf("a", 1), apf("b", 1, state="FIXED"), apf("a", 2), apf("a", 3), apf("e", 1)]
+        previous = [apf("a", 1), apf("b", 1), apf("c", 1), apf("d", 1), apf("d", 2), apf("a", 2, state="FIXED")]
+        # "d" is carried in the current export (stale row for plugin 2) but is outside the scanned scope.
+        current = [apf("a", 1), apf("b", 1, state="FIXED"), apf("a", 2), apf("a", 3), apf("e", 1), apf("d", 2)]
         result = d.compute_delta(previous, current, self.cov)
         cats = {(c.finding.asset_id, c.finding.plugin_id): c.category for c in result.changes}
         self.assertEqual(cats[("a", 1)], d.PERSISTING)
         self.assertEqual(cats[("b", 1)], d.CLOSED)  # rescanned, now FIXED
         self.assertEqual(cats[("c", 1)], d.CLOSED)  # rescanned, finding gone
-        self.assertEqual(cats[("d", 1)], d.UNVERIFIED_ABSENCE)  # asset absent from current export
+        self.assertEqual(cats[("d", 1)], d.UNVERIFIED_ABSENCE)  # asset not rescanned, row gone
+        self.assertEqual(cats[("d", 2)], d.UNVERIFIED_OPEN)  # asset not rescanned, stale row carried forward
         self.assertEqual(cats[("a", 2)], d.REOPENED)  # was FIXED, open again
         self.assertEqual(cats[("a", 3)], d.NEW_EXPOSURE)  # asset scanned before, finding is new
         self.assertEqual(cats[("e", 1)], d.NEW_VISIBILITY)  # asset new to the scan
+        self.assertEqual(result.summary()["critical_unverified_open"], 1)
 
     def test_summary_counts_by_severity(self):
         previous = [apf("a", 1, sev=4), apf("b", 1, sev=3), apf("d", 1, sev=4)]

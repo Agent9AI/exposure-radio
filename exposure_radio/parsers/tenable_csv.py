@@ -27,7 +27,7 @@ from ..sanitize import (
     to_float,
     to_int,
 )
-from .common import FREE_TEXT_FIELDS, clean_tags, derive_asset_id, finalise, finding_sort_key, merge_asset, normalise_state
+from .common import FREE_TEXT_FIELDS, clean_tags, derive_asset_id, finalise, finding_sort_key, latest, merge_asset, normalise_state
 
 MAX_FIELD_BYTES = 4 * 1024 * 1024
 MAX_ROWS = 2_000_000
@@ -87,7 +87,7 @@ def parse(path: str, label: str) -> Export:
     export = Export(label=label, source=path, format="tenable-csv")
     stamps: List[str] = []
     try:
-        with open(path, "r", encoding="utf-8-sig", errors="replace", newline="") as handle:
+        with open(path, encoding="utf-8-sig", errors="replace", newline="") as handle:
             reader = csv.reader(handle)
             try:
                 header = next(reader)
@@ -160,6 +160,8 @@ def _row_to_finding(
         return None
     tags_cell = _cell(row, columns, "tags") or ""
     tags = clean_tags(part.strip() for part in tags_cell.split(",") if part.strip())
+    stamp = clean_datetime(_cell(row, columns, "scan_completed"))
+    last_found = clean_datetime(_cell(row, columns, "last_found"))
     merge_asset(
         export.assets,
         Asset(
@@ -169,9 +171,9 @@ def _row_to_finding(
             ipv4=ipv4,
             operating_system=clean_name(_cell(row, columns, "os")) or None,
             tags=tags,
+            last_activity=latest(stamp, last_found),
         ),
     )
-    stamp = clean_datetime(_cell(row, columns, "scan_completed"))
     if stamp:
         stamps.append(stamp)
     return Finding(
@@ -184,7 +186,7 @@ def _row_to_finding(
         protocol=clean_protocol(_cell(row, columns, "protocol")),
         state=normalise_state(_cell(row, columns, "state")),
         first_found=clean_datetime(_cell(row, columns, "first_found")),
-        last_found=clean_datetime(_cell(row, columns, "last_found")),
+        last_found=last_found,
         cvss3=to_float(_cell(row, columns, "cvss3"), 0.0, 10.0),
         vpr=to_float(_cell(row, columns, "vpr"), 0.0, 10.0),
         exploit_available=to_bool(_cell(row, columns, "exploit")),

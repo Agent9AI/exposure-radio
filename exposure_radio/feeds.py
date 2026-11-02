@@ -183,7 +183,7 @@ class KevSnapshot:
         return sorted(out, key=lambda e: (e.date_added, e.cve))
 
     @classmethod
-    def load(cls, path: str) -> "KevSnapshot":
+    def load(cls, path: str) -> KevSnapshot:
         data = json.loads(_read_capped(path).decode("utf-8"))
         if not isinstance(data, dict) or not isinstance(data.get("vulnerabilities"), list):
             raise ValueError("KEV snapshot is not in the CISA JSON schema")
@@ -251,7 +251,7 @@ class EpssSnapshot:
         return {k: v[0] for k, v in self.scores.items()}
 
     @classmethod
-    def _load_json(cls, data: object) -> "EpssSnapshot":
+    def _load_json(cls, data: object) -> EpssSnapshot:
         """Two JSON shapes: the FIRST API response and the bundled snapshot.
 
         FIRST API: ``{"data": [{"cve": ..., "epss": "0.94", "percentile": "0.99", "date": "2026-10-30"}]}``.
@@ -293,7 +293,7 @@ class EpssSnapshot:
         raise ValueError("EPSS JSON has neither a data list nor a scores object")
 
     @classmethod
-    def load(cls, path: str) -> "EpssSnapshot":
+    def load(cls, path: str) -> EpssSnapshot:
         raw = _read_capped(path)
         if raw[:2] == b"\x1f\x8b":
             import gzip
@@ -365,7 +365,7 @@ class ResearchSnapshot:
         return [p for p in self.items if cve in p.cves]
 
     @classmethod
-    def load(cls, path: str) -> "ResearchSnapshot":
+    def load(cls, path: str) -> ResearchSnapshot:
         data = json.loads(_read_capped(path).decode("utf-8"))
         items = data.get("items") if isinstance(data, dict) else data
         snap = cls(captured=clean_name((data.get("captured") if isinstance(data, dict) else "") or "")[:25])

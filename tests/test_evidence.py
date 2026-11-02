@@ -1,7 +1,7 @@
 import unittest
 
 from exposure_radio import evidence
-from exposure_radio.model import Export, Finding
+from exposure_radio.model import Asset, Export, Finding
 
 
 def finding(asset, plugin, port, state="OPEN", cves=(), cvss=None, sev=3, first=None, last=None):
@@ -63,18 +63,41 @@ class PrimaryCveTests(unittest.TestCase):
         self.assertIsNone(evidence.select_primary_cve([], frozenset(), {}))
 
 
+def export(label, assets, completed=None):
+    return Export(
+        label=label,
+        source=label,
+        format="tenable-json",
+        assets={asset_id: Asset(asset_id, last_activity=activity) for asset_id, activity in assets.items()},
+        scan_completed=completed,
+    )
+
+
 class CoverageTests(unittest.TestCase):
     def test_sets(self):
-        prev = Export(label="p", source="p", format="tenable-json", assets={"a": None, "b": None})  # type: ignore[dict-item]
-        cur = Export(label="c", source="c", format="tenable-json", assets={"b": None, "c": None})  # type: ignore[dict-item]
+        prev = export("p", {"a": "2026-10-20T02:00:00Z", "b": "2026-10-20T02:00:00Z"}, completed="2026-10-20T02:14:09Z")
+        cur = export("c", {"b": "2026-10-27T02:00:00Z", "c": "2026-10-27T02:00:00Z"}, completed="2026-10-27T02:11:52Z")
         cov = evidence.coverage(prev, cur)
         self.assertEqual(cov.rescanned, {"b"})
         self.assertEqual(cov.not_rescanned, {"a"})
         self.assertEqual(cov.newly_in_scope, {"c"})
 
+    def test_presence_in_the_export_is_not_a_scan(self):
+        # Asset "a" is carried in the current export with stale activity: it was not rescanned.
+        prev = export("p", {"a": "2026-10-29T04:00:00Z", "b": "2026-10-29T06:00:00Z"}, completed="2026-10-29T07:00:00Z")
+        cur = export("c", {"a": "2026-10-29T04:00:00Z", "b": "2026-10-30T05:00:00Z", "d": None}, completed="2026-10-30T07:00:00Z")
+        cov = evidence.coverage(prev, cur)
+        self.assertEqual(cov.current, {"b", "d"})  # unknown activity counts as scanned
+        self.assertEqual(cov.not_rescanned, {"a"})
+        self.assertEqual(cov.rescanned, {"b"})
+
+    def test_same_export_twice_rescans_nothing(self):
+        prev = export("p", {"a": "2026-10-29T04:00:00Z"}, completed="2026-10-29T07:00:00Z")
+        cov = evidence.coverage(prev, export("c", {"a": "2026-10-29T04:00:00Z"}, completed="2026-10-29T07:00:00Z"))
+        self.assertEqual(cov.not_rescanned, {"a"})
+
     def test_no_previous(self):
-        cur = Export(label="c", source="c", format="tenable-json", assets={"b": None})  # type: ignore[dict-item]
-        cov = evidence.coverage(None, cur)
+        cov = evidence.coverage(None, export("c", {"b": None}))
         self.assertEqual(cov.newly_in_scope, {"b"})
         self.assertEqual(cov.not_rescanned, frozenset())
 

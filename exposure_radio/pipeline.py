@@ -27,13 +27,13 @@ from .policy import Decision, decide
 from .templates import Segment
 from .textaudit import ForbiddenTerms, Issue, audit_free_text
 
-DEFAULT_DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "data")
+DEFAULT_DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
 
 
 def _load_json(path: str) -> Dict[str, object]:
     if not os.path.isfile(path):
         return {}
-    with open(path, "r", encoding="utf-8") as handle:
+    with open(path, encoding="utf-8") as handle:
         data = json.load(handle)
     return data if isinstance(data, dict) else {}
 
@@ -70,7 +70,7 @@ class Episode:
 
     def transcript(self) -> List[Dict[str, object]]:
         out = []
-        for index, (segment, sentence) in enumerate(zip(self.gate.segments, self.gate.sentences)):
+        for index, (segment, sentence) in enumerate(zip(self.gate.segments, self.gate.sentences, strict=True)):
             cites = []
             for claim in segment.claims:
                 fact = self.facts.by_id(claim.cite)
@@ -129,7 +129,7 @@ def run_episode(
     date = episode_date or current.scan_date or ""
     if not date:
         raise ExportError("current export carries no scan or finding dates; pass --episode-date")
-    ledger.add(Source(f"delta:{date}", "delta", "Computed delta between the two exports", "", "", date, note="coverage-aware classification, see src/exposure_radio/delta.py"))
+    ledger.add(Source(f"delta:{date}", "delta", "Computed delta between the two exports", "", "", date, note="coverage-aware classification, see exposure_radio/delta.py"))
     ledger.add(Source("sla:data/sla.json", "config", "Internal SLA policy", os.path.relpath(os.path.join(data_dir, "sla.json")), sha256_file(os.path.join(data_dir, "sla.json")) if os.path.isfile(os.path.join(data_dir, "sla.json")) else "", ""))
     ledger.add(Source("owners:data/owners.json", "config", "Owner mapping", os.path.relpath(os.path.join(data_dir, "owners.json")), sha256_file(os.path.join(data_dir, "owners.json")) if os.path.isfile(os.path.join(data_dir, "owners.json")) else "", ""))
 
@@ -176,10 +176,15 @@ def run_episode(
     facts.add("episode", "decision", decision.kind, f"policy:{date}")
     facts.add("episode", "decision_reasons", tuple(decision.reasons), f"policy:{date}")
     facts.add("episode", "decision_health", tuple(decision.health), f"policy:{date}")
-    ledger.add(Source(f"policy:{date}", "policy", "Alert policy decision", "", "", date, note="deterministic rules, see src/exposure_radio/policy.py"))
+    ledger.add(Source(f"policy:{date}", "policy", "Alert policy decision", "", "", date, note="deterministic rules, see exposure_radio/policy.py"))
 
     segments = build_segments(facts, synthetic_note=synthetic_note, items=items)
-    forbidden = ForbiddenTerms.from_exports(previous, current)
+    trusted_vocabulary = [
+        phrase
+        for entry in feeds.kev.entries.values()
+        for phrase in (entry.name, entry.product, entry.vendor)
+    ]
+    forbidden = ForbiddenTerms.from_exports(previous, current, trusted=trusted_vocabulary)
     gate = run_gate(segments, facts, forbidden, edition="full")
 
     receipt_dict = gate.receipt.to_dict()
@@ -198,7 +203,7 @@ def run_episode(
     if pii_issues["alert"]:
         alert = {"title": "Exposure Radio", "body": "Briefing ready.", "reference": alert.get("reference", ""), "action": "Open the briefing", "withheld_detail": "alert text failed the identifier audit"}
 
-    memory.record_episode(date, "current", current.asset_ids, current_findings, primary, kev_listed, held, feeds.kev.catalog_version, delta.summary())
+    memory.record_episode(date, "current", cov.current, current_findings, primary, kev_listed, held, feeds.kev.catalog_version, delta.summary())
     trend = memory.trend()
     if owns_memory:
         memory.close()

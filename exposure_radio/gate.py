@@ -71,7 +71,7 @@ class GateReceipt:
         return self.passed and script_hash(sentences) == self.script_sha256
 
     @classmethod
-    def from_dict(cls, data: Dict[str, object]) -> "GateReceipt":
+    def from_dict(cls, data: Dict[str, object]) -> GateReceipt:
         return cls(
             passed=bool(data.get("passed")),
             edition=str(data.get("edition", "")),
