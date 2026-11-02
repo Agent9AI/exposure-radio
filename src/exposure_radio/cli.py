@@ -25,13 +25,24 @@ DEFAULT_CURRENT = os.path.join(FIXTURES, "current.json")
 
 def _episode_from_args(args: argparse.Namespace) -> Episode:
     previous = None if getattr(args, "no_previous", False) else args.previous
-    return run_episode(
-        args.current,
-        previous,
-        data_dir=args.data_dir,
-        synthetic_note=not getattr(args, "no_synthetic_note", False),
-        episode_date=getattr(args, "episode_date", None),
-    )
+    memory = None
+    memory_path = getattr(args, "memory", None)
+    if memory_path:
+        from .memory import Memory
+
+        memory = Memory(memory_path)
+    try:
+        return run_episode(
+            args.current,
+            previous,
+            data_dir=args.data_dir,
+            memory=memory,
+            synthetic_note=not getattr(args, "no_synthetic_note", False),
+            episode_date=getattr(args, "episode_date", None),
+        )
+    finally:
+        if memory is not None:
+            memory.close()
 
 
 def _add_export_args(parser: argparse.ArgumentParser) -> None:
@@ -41,6 +52,7 @@ def _add_export_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--data-dir", default=DEFAULT_DATA_DIR, help="directory with feeds/, sla.json and owners.json")
     parser.add_argument("--episode-date", default=None, help="override the episode date (YYYY-MM-DD)")
     parser.add_argument("--no-synthetic-note", action="store_true", help="omit the 'synthetic estate' intro sentence")
+    parser.add_argument("--memory", default=None, help="sqlite3 file for episode and alert memory (default: in-process only)")
 
 
 def _print_receipt(episode: Episode) -> None:
@@ -67,6 +79,12 @@ def cmd_demo(args: argparse.Namespace) -> int:
     print("=" * 72)
     if episode.held:
         print("HELD: " + "; ".join(episode.hold_reasons))
+    if episode.decision is not None:
+        print(f"Decision: {episode.decision.kind}" + (f"  lead {episode.decision.lead}" if episode.decision.lead else ""))
+        for reason in episode.decision.reasons:
+            print(f"  policy: {reason}")
+        for note in episode.decision.health:
+            print(f"  health: {note}")
     print()
     for sentence in episode.sentences:
         print(sentence)

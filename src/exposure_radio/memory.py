@@ -50,6 +50,17 @@ CREATE TABLE IF NOT EXISTS episode_findings (
     PRIMARY KEY (episode_id, asset_id, plugin_id)
 );
 CREATE INDEX IF NOT EXISTS idx_episode_findings_cve ON episode_findings(episode_id, primary_cve);
+CREATE TABLE IF NOT EXISTS alerts (
+    key TEXT PRIMARY KEY,
+    cve TEXT NOT NULL,
+    episode_date TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS briefed (
+    fingerprint TEXT PRIMARY KEY,
+    episode_date TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
 """
 
 
@@ -181,6 +192,31 @@ class Memory:
             (episode_id,),
         ).fetchall()
         return frozenset(str(r[0]) for r in rows)
+
+    # --- alert policy memory -----------------------------------------------
+    def seen_alert(self, key: str) -> Optional[str]:
+        row = self.conn.execute("SELECT episode_date FROM alerts WHERE key = ?", (key,)).fetchone()
+        return str(row[0]) if row else None
+
+    def record_alert(self, key: str, cve: str, episode_date: str) -> None:
+        created = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        with self.conn:
+            self.conn.execute(
+                "INSERT OR IGNORE INTO alerts (key, cve, episode_date, created_at) VALUES (?,?,?,?)",
+                (key, cve, episode_date, created),
+            )
+
+    def seen_episode(self, fingerprint: str) -> Optional[str]:
+        row = self.conn.execute("SELECT episode_date FROM briefed WHERE fingerprint = ?", (fingerprint,)).fetchone()
+        return str(row[0]) if row else None
+
+    def record_briefed(self, fingerprint: str, episode_date: str) -> None:
+        created = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        with self.conn:
+            self.conn.execute(
+                "INSERT OR IGNORE INTO briefed (fingerprint, episode_date, created_at) VALUES (?,?,?)",
+                (fingerprint, episode_date, created),
+            )
 
     def trend(self, limit: int = 6) -> List[Dict[str, object]]:
         """Compact per-episode numbers for the listen page and the briefing."""

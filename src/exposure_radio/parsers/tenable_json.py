@@ -15,6 +15,7 @@ that an unfinished or short export is held instead of briefed.
 from __future__ import annotations
 
 import json
+import os
 from typing import Any, Dict, List, Optional
 
 from ..model import Asset, Export, ExportError, ExportManifest, Finding, PartialExportError
@@ -124,6 +125,117 @@ def _record_to_finding(
         has_patch=to_bool(plugin_raw.get("has_patch")),
         record_ref=f"{label}:json#{index}",
     )
+
+
+def _chunk_number(name: str) -> int:
+    digits = "".join(ch for ch in os.path.basename(name) if ch.isdigit())
+    return int(digits) if digits else 0
+
+
+def parse_directory(path: str, label: str) -> Export:
+    """Real Tenable export layout: ``export-status.json`` + ``vulns/chunk-N.json`` + ``assets.json``.
+
+    A failed or cancelled chunk, a missing chunk file or an unreadable chunk
+    marks the export incomplete (the briefing is then held). ``assets.json``
+    widens scan coverage to assets that carry no findings.
+    """
+    export = Export(label=label, source=path, format="tenable-json")
+    stamps: List[str] = []
+    status_path = os.path.join(path, "export-status.json")
+    expected: Optional[int] = None
+    if os.path.isfile(status_path):
+        with open(status_path, "rb") as handle:
+            raw_status = handle.read(1024 * 1024)
+        try:
+            status = json.loads(raw_status.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            raise PartialExportError(f"{label}: export-status.json is unreadable") from None
+        if not isinstance(status, dict):
+            raise ExportError(f"{label}: export-status.json must be an object")
+        export.manifest = _manifest_from({"export": status})
+        expected = export.manifest.chunks_expected
+        for key in ("chunks_failed", "chunks_cancelled"):
+            if isinstance(status.get(key), list) and status[key]:
+                export.integrity.fail(f"export reports {key.replace('chunks_', '')} chunks: {len(status[key])}")
+    chunk_dir = os.path.join(path, "vulns")
+    chunk_files = sorted(
+        (os.path.join(chunk_dir, n) for n in os.listdir(chunk_dir) if n.startswith("chunk") and n.endswith(".json")),
+        key=_chunk_number,
+    ) if os.path.isdir(chunk_dir) else []
+    if expected is not None:
+        available = export.manifest.chunks_present or 0
+        if len(chunk_files) < max(expected, available):
+            export.integrity.fail(f"{len(chunk_files)} of {max(expected, available)} chunk files present")
+    present = 0
+    total_bytes = 0
+    for chunk_path in chunk_files:
+        with open(chunk_path, "rb") as handle:
+            raw = handle.read(MAX_JSON_BYTES + 1)
+        total_bytes += len(raw)
+        if len(raw) > MAX_JSON_BYTES or total_bytes > MAX_JSON_BYTES:
+            raise ExportError(f"{label}: chunk files exceed {MAX_JSON_BYTES} bytes")
+        try:
+            records = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            export.integrity.fail(f"chunk {_chunk_number(chunk_path)} is malformed or truncated")
+            continue
+        if not isinstance(records, list):
+            export.integrity.fail(f"chunk {_chunk_number(chunk_path)} is not a record array")
+            continue
+        present += 1
+        for index, record in enumerate(records):
+            export.records_seen += 1
+            if not isinstance(record, dict):
+                export.records_dropped += 1
+                continue
+            finding = _record_to_finding(record, index, f"{label}:chunk{_chunk_number(chunk_path)}", export, stamps)
+            if finding is None:
+                export.records_dropped += 1
+                continue
+            export.findings.append(finding)
+    export.manifest = ExportManifest(
+        status=export.manifest.status,
+        chunks_expected=expected,
+        chunks_present=present if expected is not None else None,
+        truncated=export.manifest.truncated,
+        note=export.manifest.note,
+    )
+    assets_path = os.path.join(path, "assets.json")
+    if os.path.isfile(assets_path):
+        with open(assets_path, "rb") as handle:
+            raw = handle.read(MAX_JSON_BYTES + 1)
+        try:
+            rows = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            rows = []
+            export.integrity.fail("assets.json is unreadable")
+        for row in rows if isinstance(rows, list) else []:
+            if not isinstance(row, dict):
+                continue
+            asset_id = clean_name(row.get("id") or row.get("uuid") or "")[:64]
+            if not asset_id:
+                continue
+            hostnames = row.get("hostnames") if isinstance(row.get("hostnames"), list) else []
+            fqdns = row.get("fqdns") if isinstance(row.get("fqdns"), list) else []
+            ips = row.get("ipv4s") if isinstance(row.get("ipv4s"), list) else []
+            systems = row.get("operating_systems") if isinstance(row.get("operating_systems"), list) else []
+            tags_raw = row.get("tags") if isinstance(row.get("tags"), list) else []
+            merge_asset(
+                export.assets,
+                Asset(
+                    asset_id=asset_id,
+                    hostname=next((h for h in (clean_hostname(x) for x in hostnames) if h), None),
+                    fqdn=next((h for h in (clean_hostname(x) for x in fqdns) if h), None),
+                    ipv4=next((h for h in (clean_ip(x) for x in ips) if h), None),
+                    operating_system=(clean_name(systems[0]) or None) if systems else None,
+                    tags=clean_tags(tags_raw),
+                ),
+            )
+            stamp = clean_datetime(row.get("last_scan_time"))
+            if stamp:
+                stamps.append(stamp)
+    export.findings.sort(key=finding_sort_key)
+    return finalise(export, stamps)
 
 
 def parse(path: str, label: str) -> Export:

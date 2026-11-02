@@ -2,51 +2,29 @@
   "kev": {
     "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
     "captured": "2026-11-02",
-    "coverage": "subset",
-    "note": "Seven catalogue entries in the published CISA JSON schema, limited to the CVE IDs that appear in the demo fixtures. Dates, vendor and product labels and ransomware flags were transcribed on 2026-11-02 from public catalogue mirrors and CISA alert coverage because the build host had no route to cisa.gov. Fields that could not be confirmed were left out rather than guessed. `python3 -m exposure_radio feeds refresh` replaces this file with the complete catalogue.",
-    "verification": {
-      "CVE-2026-110447": [
-        "https://securityaffairs.com/?p=201652",
-        "https://feedly.com/cve/CVE-2026-110447",
-        "https://senserva.com/cve/CVE-2026-110447.html"
-      ],
-      "CVE-2025-53770": [
-        "https://db.gcve.eu/vuln/CVE-2025-53770",
-        "https://app.opencve.io/cve/CVE-2025-53770",
-        "https://content.govdelivery.com/accounts/USDHSCISA/bulletins/3ea54c6"
-      ],
-      "CVE-2024-3400": [
-        "https://db.gcve.eu/vuln/CVE-2024-3400",
-        "https://cvefind.com/en/cve/CVE-2024-3400.html"
-      ],
-      "CVE-2024-21762": [
-        "https://senserva.com/cve/CVE-2024-21762.html",
-        "https://securityaffairs.com/158955/uncategorized/cisa-fortinet-fortios-bug-known-exploited-vulnerabilities-catalog.html"
-      ],
-      "CVE-2024-21887": [
-        "https://db.gcve.eu/known-exploited-vulnerabilities-catalog/51a79bd8-4c86-4191-a8ba-154678f2c256",
-        "https://senserva.com/cve/CVE-2024-21887.html"
-      ],
-      "CVE-2023-46805": [
-        "https://sara-open.sirp.io/free-tools/kev-browser?page=10",
-        "https://securityaffairs.com/157320/security/cisa-ivanti-microsoft-sharepoint-known-exploited-vulnerabilities-catalog.html"
-      ],
-      "CVE-2023-4966": [
-        "https://senserva.com/cve/CVE-2023-4966.html",
-        "https://cisa.gov/news-events/cybersecurity-advisories/aa23-325a"
-      ]
+    "coverage": "full",
+    "note": "Complete CISA Known Exploited Vulnerabilities catalogue, version 2026.10.30 (1,766 entries), in the published JSON schema. Pulled from cisa.gov on 2 November 2026 (see docs/BUILDLOG.md, S0). `python3 -m exposure_radio feeds refresh` replaces it with the current catalogue.",
+    "cross_checks": {
+      "note": "Entries used by the demo were independently cross-checked on 2026-11-02 against public catalogue mirrors and CISA alert coverage before the full file landed; the dates agreed.",
+      "CVE-2026-110447": ["https://securityaffairs.com/?p=201652", "https://feedly.com/cve/CVE-2026-110447"],
+      "CVE-2025-53770": ["https://db.gcve.eu/vuln/CVE-2025-53770", "https://content.govdelivery.com/accounts/USDHSCISA/bulletins/3ea54c6"],
+      "CVE-2024-3400": ["https://db.gcve.eu/vuln/CVE-2024-3400"],
+      "CVE-2024-21762": ["https://senserva.com/cve/CVE-2024-21762.html"],
+      "CVE-2024-21887": ["https://db.gcve.eu/known-exploited-vulnerabilities-catalog/51a79bd8-4c86-4191-a8ba-154678f2c256"],
+      "CVE-2023-46805": ["https://securityaffairs.com/157320/security/cisa-ivanti-microsoft-sharepoint-known-exploited-vulnerabilities-catalog.html"],
+      "CVE-2023-4966": ["https://cisa.gov/news-events/cybersecurity-advisories/aa23-325a"]
     }
   },
   "epss": {
-    "url": "https://epss.empiricalsecurity.com/epss_scores-current.csv.gz",
-    "captured": "",
-    "coverage": "none",
-    "note": "No EPSS snapshot is committed: the build host had no route to FIRST and scores are never transcribed from secondary sources. The loader reads the published FIRST CSV schema; `python3 -m exposure_radio feeds refresh` downloads the current file and the briefing then carries EPSS facts automatically."
+    "url": "https://api.first.org/data/v1/epss",
+    "captured": "2026-11-02",
+    "coverage": "subset",
+    "note": "FIRST EPSS scores with score date 2026-10-30 for the CVE identifiers the synthetic tenants carry (19 entries), stored as {score_date, scores: {cve: {epss, percentile}}}. The previous day's scores are kept in epss-2026-10-29.json. The loader also reads the FIRST daily CSV (plain or gzip) and the FIRST API JSON response; `python3 -m exposure_radio feeds refresh` downloads the complete daily file."
   },
   "tenable_research": {
     "url": "https://www.tenable.com/blog",
     "captured": "2026-11-02",
     "coverage": "subset",
-    "note": "Tenable Research publications that cover CVE IDs in the demo fixtures. Titles, dates and URLs were confirmed through web search on 2026-11-02; only tenable.com URLs are accepted by the loader."
+    "note": "Tenable Research publications that cover CVE identifiers in the demo fixtures. Titles and URLs were confirmed through web search on 2026-11-02; only tenable.com URLs are accepted by the loader. Publication dates are recorded only where confirmed."
   }
 }

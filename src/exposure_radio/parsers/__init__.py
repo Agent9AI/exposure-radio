@@ -41,6 +41,9 @@ def load_export(path: str, label: str, fmt: Optional[str] = None) -> Export:
     Raises :class:`ExportError` when the file cannot be read safely and
     :class:`PartialExportError` when it is readable but incomplete.
     """
+    if os.path.isdir(path):
+        # Real Tenable layout: export-status.json, vulns/chunk-N.json and an optional assets.json.
+        return tenable_json.parse_directory(path, label)
     if not os.path.isfile(path):
         raise ExportError(f"{label}: no such file: {path}")
     size = os.path.getsize(path)

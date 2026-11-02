@@ -12,6 +12,7 @@ Adding a sentence type means adding a template here, a predicate in
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Callable, Dict, Optional, Sequence, Tuple
 
@@ -64,7 +65,8 @@ def percent(score: object) -> str:
         raise TemplateError(f"bad score {score!r}") from None
     if value < 0 or value > 1:
         raise TemplateError(f"score {value} is outside 0..1")
-    return f"{value * 100:.1f}"
+    # Rounded down to one decimal so 0.99999 reads as 99.9, never as 100.0.
+    return f"{math.floor(value * 1000) / 10:.1f}"
 
 
 def join_list(values: object) -> str:
@@ -170,10 +172,22 @@ def _cve_item(s: str, v: Dict[str, object]) -> str:
     )
 
 
+def vendor_product(vendor: object, product: object) -> str:
+    """'Collabora' + 'Collabora Online ...' -> 'Collabora Online ...' (no doubled vendor)."""
+    vendor_text, product_text = str(vendor).strip(), str(product).strip()
+    if not vendor_text:
+        return product_text
+    if not product_text:
+        return vendor_text
+    if product_text.lower().startswith(vendor_text.lower()):
+        return product_text
+    return f"{vendor_text} {product_text}"
+
+
 def _cve_kev(s: str, v: Dict[str, object]) -> str:
     return (
-        f"{subject_display(s)} affects {v['kev_vendor']} {v['kev_product']} and has been on the CISA KEV catalogue "
-        f"since {long_date(v['kev_date_added'])}."
+        f"{subject_display(s)} affects {vendor_product(v['kev_vendor'], v['kev_product'])} and has been on the CISA KEV "
+        f"catalogue since {long_date(v['kev_date_added'])}."
     )
 
 
@@ -211,6 +225,18 @@ def _cve_first_seen(s: str, v: Dict[str, object]) -> str:
 
 def _priority_count(_s: str, v: Dict[str, object]) -> str:
     return f"Today there {'is' if int(v['count']) == 1 else 'are'} {count(v['count'], 'priority item')}."
+
+
+def _decision_break_in(_s: str, _v: Dict[str, object]) -> str:
+    return "This is a break-in bulletin: a KEV-listed exposure is new since the previous export."
+
+
+def _decision_health(_s: str, _v: Dict[str, object]) -> str:
+    return "This is a data health notice: the evidence itself is in doubt this episode."
+
+
+def _decision_scheduled(_s: str, _v: Dict[str, object]) -> str:
+    return "This is the scheduled briefing."
 
 
 TEMPLATES: Dict[str, Template] = {
@@ -256,6 +282,9 @@ TEMPLATES: Dict[str, Template] = {
         Template("cve.research", "cve", ("research_count",), _cve_research),
         Template("cve.first_seen", "cve", ("first_seen",), _cve_first_seen),
         Template("priority.count", "priority", ("count",), _priority_count),
+        Template("decision.break_in", "episode", ("decision",), _decision_break_in, (("decision", "BREAK_IN"),)),
+        Template("decision.health", "episode", ("decision",), _decision_health, (("decision", "HEALTH"),)),
+        Template("decision.scheduled", "episode", ("decision",), _decision_scheduled, (("decision", "SCHEDULED"),)),
     )
 }
 

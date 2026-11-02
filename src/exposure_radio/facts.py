@@ -253,6 +253,8 @@ def build_facts(inputs: EvidenceInputs) -> FactStore:
                 store.add(subject, "kev_catalogue_due_date", entry.due_date, kev.source_id)
             if entry.ransomware is not None:
                 store.add(subject, "kev_ransomware_use", entry.ransomware, kev.source_id)
+            if entry.required_action:
+                store.add(subject, "kev_required_action", entry.required_action, kev.source_id)
             since_previous = (
                 prev_date is not None and prev_date < entry.date_added <= inputs.episode_date
             )

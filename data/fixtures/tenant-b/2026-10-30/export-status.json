@@ -1,0 +1,21 @@
+{
+ "uuid": "1f643394-48ce-55ae-882b-12f290520894",
+ "status": "FINISHED",
+ "chunks_available": [
+  1,
+  2
+ ],
+ "chunks_failed": [],
+ "chunks_cancelled": [],
+ "total_chunks": 2,
+ "finished_chunks": 2,
+ "num_assets_per_chunk": 50,
+ "filters": {
+  "state": [
+   "OPEN",
+   "REOPENED",
+   "FIXED"
+  ]
+ },
+ "created": 1793390400000
+}

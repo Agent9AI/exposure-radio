@@ -4,6 +4,10 @@ A push notification is the least private surface there is: it shows on a
 lock screen. The alert therefore carries counts and an opaque reference
 only. It never names a host, an asset, a vendor or a CVE. ``audit_alert``
 enforces that before the alert is written anywhere.
+
+The title follows the alert policy's decision: a break-in bulletin, a data
+health notice or the scheduled briefing. A SILENT decision produces no push
+at all, only a suppressed record with the reason.
 """
 
 from __future__ import annotations
@@ -14,13 +18,29 @@ from typing import Dict, List, Optional
 from .facts import FactStore
 from .textaudit import ForbiddenTerms, Issue, audit_free_text
 
+TITLES = {
+    "BREAK_IN": "Exposure Radio: priority bulletin",
+    "HEALTH": "Exposure Radio: data health notice",
+    "SCHEDULED": "Exposure Radio",
+}
+
 
 def _n(value: object, singular: str, plural: Optional[str] = None) -> str:
     number = int(value or 0)  # type: ignore[arg-type]
     return f"{number} {singular if number == 1 else (plural or singular + 's')}"
 
 
-def build_alert(store: FactStore, receipt_hash: str) -> Dict[str, str]:
+def build_alert(store: FactStore, receipt_hash: str, kind: str = "SCHEDULED") -> Dict[str, object]:
+    reference = hashlib.sha256(receipt_hash.encode("utf-8")).hexdigest()[:12]
+    if kind == "SILENT":
+        return {
+            "title": "Exposure Radio",
+            "body": "",
+            "reference": reference,
+            "kind": kind,
+            "suppressed": True,
+            "reason": "evidence unchanged since the last briefing; nothing is repeated",
+        }
     held = store.value("episode", "held") is True
     priority = int(store.value("priority", "count", 0) or 0)
     kev_cves = int(store.value("episode", "kev_open_cve_count", 0) or 0)
@@ -40,15 +60,16 @@ def build_alert(store: FactStore, receipt_hash: str) -> Dict[str, str]:
             if new_kev:
                 parts.append(f"{_n(new_kev, 'KEV catalogue addition')} touches the estate.")
         body = " ".join(parts)
-    reference = hashlib.sha256(receipt_hash.encode("utf-8")).hexdigest()[:12]
     return {
-        "title": "Exposure Radio",
+        "title": TITLES.get(kind, TITLES["SCHEDULED"]),
         "body": body,
         "reference": reference,
+        "kind": kind,
+        "suppressed": False,
         "action": "Open the briefing",
     }
 
 
-def audit_alert(alert: Dict[str, str], forbidden: Optional[ForbiddenTerms]) -> List[Issue]:
+def audit_alert(alert: Dict[str, object], forbidden: Optional[ForbiddenTerms]) -> List[Issue]:
     text = " ".join(str(v) for v in alert.values())
     return audit_free_text(text, forbidden, allow_cves=False)

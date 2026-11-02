@@ -95,7 +95,9 @@ class AlertTests(unittest.TestCase):
     def test_alert_has_counts_only(self):
         episode = demo_episode()
         alert = episode.alert
-        self.assertEqual(alert["title"], "Exposure Radio")
+        self.assertEqual(alert["title"], "Exposure Radio: priority bulletin")
+        self.assertEqual(alert["kind"], "BREAK_IN")
+        self.assertFalse(alert["suppressed"])
         self.assertIn("3 priority items today, 5 KEV-listed CVEs open.", alert["body"])
         self.assertIn("16 critical findings closed", alert["body"])
         self.assertIn("1 KEV catalogue addition touches the estate.", alert["body"])

@@ -48,10 +48,14 @@ class DemoFactTests(unittest.TestCase):
         self.assertIs(self.v(subject, "kev_added_since_previous"), False)
         self.assertEqual(self.v(subject, "owner"), "Network Engineering")
         self.assertEqual(self.v(subject, "research_count"), 1)
-        self.assertEqual(self.store.get(subject, "kev_listed").source, "kev:subset-2026.11.02")
+        self.assertEqual(self.store.get(subject, "kev_listed").source, "kev:2026.10.30")
         self.assertEqual(self.store.get(subject, "open_asset_count").source, "export:current")
         self.assertEqual(len(self.store.get(subject, "open_asset_count").evidence), 2)
-        self.assertIsNone(self.store.get(subject, "epss_score"))  # no EPSS snapshot committed
+        self.assertEqual(self.store.get(subject, "epss_score").source, "epss:2026-10-30")
+        self.assertGreater(self.v(subject, "epss_score"), 0.9)
+        self.assertTrue(str(self.v(subject, "kev_required_action")).startswith("Apply"))
+        self.assertIsNone(self.store.get("cve:CVE-2026-110447", "epss_score"))  # not in the EPSS snapshot
+        self.assertIs(self.v("cve:CVE-2026-110447", "kev_ransomware_use"), False)
 
     def test_primary_cve_selection_on_multi_cve_plugin(self):
         # Both Ivanti CVEs are KEV-listed and there is no EPSS; the newest id wins.

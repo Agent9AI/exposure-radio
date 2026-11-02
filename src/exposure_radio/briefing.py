@@ -89,6 +89,13 @@ def build_segments(
             segments.append(seg)
     if held:
         segments.append(Segment("intro.held"))
+    decision = store.value("episode", "decision")
+    if isinstance(decision, str):
+        template_id = {"BREAK_IN": "decision.break_in", "HEALTH": "decision.health", "SCHEDULED": "decision.scheduled"}.get(decision)
+        if template_id:
+            seg = _seg(store, template_id, "episode", ("decision",))
+            if seg:
+                segments.append(seg)
     if has_previous:
         cov = _seg(store, "episode.coverage", "episode", ("assets_rescanned", "assets_not_rescanned", "assets_newly_in_scope"))
         if cov:

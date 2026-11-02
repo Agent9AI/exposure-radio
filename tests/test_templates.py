@@ -38,6 +38,7 @@ SAMPLE_VALUES = {
     "research_count": 1,
     "first_seen": "2024-04-16",
     "count": 3,
+    "decision": "SCHEDULED",
 }
 
 
@@ -45,6 +46,8 @@ def segment_for(template, rank=1):
     subject = {"cve": "cve:CVE-2024-3400", "episode": "episode", "delta": "delta", "priority": "priority"}[template.subject_kind]
     values = dict(SAMPLE_VALUES)
     values["priority_rank"] = rank
+    for predicate, required in template.requires:
+        values[predicate] = required
     return templates.Segment(template.template_id, tuple(Claim(subject, p, values[p], f"f{i:04d}") for i, p in enumerate(template.slots, start=1)))
 
 

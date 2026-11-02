@@ -48,6 +48,20 @@ _SEVERITY_BY_NAME.update({"informational": 0, "none": 0})
 _PROTOCOLS = {"tcp", "udp", "icmp", "sctp"}
 
 
+_PUNCTUATION_FOLD = str.maketrans(
+    {
+        "‘": "'",  # left single quotation mark
+        "’": "'",  # right single quotation mark
+        "“": '"',  # left double quotation mark
+        "”": '"',  # right double quotation mark
+        "–": "-",  # en dash
+        "—": "-",  # em dash
+        "−": "-",  # minus sign
+        " ": " ",  # no-break space
+    }
+)
+
+
 def _as_text(value: object) -> str:
     if value is None:
         return ""
@@ -55,8 +69,9 @@ def _as_text(value: object) -> str:
         value = value.decode("utf-8", "replace")
     if not isinstance(value, str):
         value = str(value)
-    # NFKC folds look-alike and full-width characters before the allowlist.
-    return unicodedata.normalize("NFKC", value)
+    # Typographic punctuation folds to ASCII, then NFKC folds look-alike and
+    # full-width characters, before the allowlist is applied.
+    return unicodedata.normalize("NFKC", value.translate(_PUNCTUATION_FOLD))
 
 
 def clean_text(value: object, max_len: int = MAX_NAME_LEN, allowed: Optional[set] = None) -> str:

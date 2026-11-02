@@ -41,20 +41,20 @@
     },
     {
       "type": "tool_call",
-      "t": 0.225,
+      "t": 0.253,
       "call": 1,
       "tool": "exposure_briefing",
       "error": false
     },
     {
       "type": "request",
-      "t": 0.226,
+      "t": 0.254,
       "call": 2,
       "message_count": 3
     },
     {
       "type": "response",
-      "t": 0.226,
+      "t": 0.254,
       "call": 2,
       "response": {
         "stop_reason": "tool_use",
@@ -80,19 +80,19 @@
                   "subject": "cve:CVE-2026-110447",
                   "predicate": "priority_rank",
                   "value": 1,
-                  "cite": "f0273"
+                  "cite": "f0285"
                 },
                 {
                   "subject": "cve:CVE-2026-110447",
                   "predicate": "severity",
                   "value": "critical",
-                  "cite": "f0233"
+                  "cite": "f0243"
                 },
                 {
                   "subject": "cve:CVE-2026-110447",
                   "predicate": "open_asset_count",
                   "value": 2,
-                  "cite": "f0232"
+                  "cite": "f0242"
                 }
               ],
               "break_in": true,
@@ -109,7 +109,7 @@
     },
     {
       "type": "gate",
-      "t": 0.237,
+      "t": 0.265,
       "call": 2,
       "accepted": false,
       "reasons": [
@@ -118,22 +118,22 @@
             "subject": "cve:CVE-2026-110447",
             "predicate": "open_asset_count",
             "value": 2,
-            "cite": "f0232"
+            "cite": "f0242"
           },
           "code": "VALUE_MISMATCH",
-          "detail": "f0232 says 1, claim says 2"
+          "detail": "f0242 says 1, claim says 2"
         }
       ]
     },
     {
       "type": "request",
-      "t": 0.237,
+      "t": 0.265,
       "call": 3,
       "message_count": 5
     },
     {
       "type": "response",
-      "t": 0.237,
+      "t": 0.265,
       "call": 3,
       "response": {
         "stop_reason": "tool_use",
@@ -159,7 +159,7 @@
                   "subject": "cve:CVE-2026-110447",
                   "predicate": "first_seen",
                   "value": "2026-10-27",
-                  "cite": "f0238"
+                  "cite": "f0248"
                 }
               ],
               "break_in": true,
@@ -176,14 +176,14 @@
     },
     {
       "type": "gate",
-      "t": 0.248,
+      "t": 0.277,
       "call": 3,
       "accepted": true,
       "reasons": []
     },
     {
       "type": "final",
-      "t": 0.248,
+      "t": 0.277,
       "mode": "analyst",
       "items": [
         "CVE-2026-110447",

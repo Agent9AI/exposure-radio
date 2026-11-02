@@ -17,12 +17,13 @@ from .briefing import build_segments
 from .delta import Delta, compute_delta
 from .evidence import coverage, dedupe, select_primary_cve
 from .facts import EvidenceInputs, FactStore, build_facts
-from .feeds import Feeds, Source, load_feeds, sha256_file
+from .feeds import Feeds, Source, load_feeds, sha256_file, sha256_path
 from .gate import GateResult, run_gate
 from .memory import Memory
 from .model import AssetPluginFinding, Export, ExportError, PartialExportError
 from .packet import build_packet
 from .parsers import load_export
+from .policy import Decision, decide
 from .templates import Segment
 from .textaudit import ForbiddenTerms, Issue, audit_free_text
 
@@ -56,6 +57,7 @@ class Episode:
     pii_issues: Dict[str, List[Issue]]
     held: bool
     hold_reasons: List[str]
+    decision: Optional[Decision] = None
     memory_trend: List[Dict[str, object]] = field(default_factory=list)
 
     @property
@@ -121,9 +123,9 @@ def run_episode(
     sla = _load_json(os.path.join(data_dir, "sla.json"))
     owners = _load_json(os.path.join(data_dir, "owners.json"))
     ledger = feeds.ledger
-    ledger.add(Source("export:current", "export", "Current Tenable export", os.path.relpath(current.source), sha256_file(current.source), current.scan_date or "", coverage=f"{len(current.assets)} assets"))
+    ledger.add(Source("export:current", "export", "Current Tenable export", os.path.relpath(current.source), sha256_path(current.source), current.scan_date or "", coverage=f"{len(current.assets)} assets"))
     if previous is not None:
-        ledger.add(Source("export:previous", "export", "Previous Tenable export", os.path.relpath(previous.source), sha256_file(previous.source), previous.scan_date or "", coverage=f"{len(previous.assets)} assets"))
+        ledger.add(Source("export:previous", "export", "Previous Tenable export", os.path.relpath(previous.source), sha256_path(previous.source), previous.scan_date or "", coverage=f"{len(previous.assets)} assets"))
     date = episode_date or current.scan_date or ""
     if not date:
         raise ExportError("current export carries no scan or finding dates; pass --episode-date")
@@ -170,6 +172,12 @@ def run_episode(
             previous_kev_cves=previous_kev,
         )
     )
+    decision = decide(facts, current_findings, primary, kev_listed, memory, date, held)
+    facts.add("episode", "decision", decision.kind, f"policy:{date}")
+    facts.add("episode", "decision_reasons", tuple(decision.reasons), f"policy:{date}")
+    facts.add("episode", "decision_health", tuple(decision.health), f"policy:{date}")
+    ledger.add(Source(f"policy:{date}", "policy", "Alert policy decision", "", "", date, note="deterministic rules, see src/exposure_radio/policy.py"))
+
     segments = build_segments(facts, synthetic_note=synthetic_note, items=items)
     forbidden = ForbiddenTerms.from_exports(previous, current)
     gate = run_gate(segments, facts, forbidden, edition="full")
@@ -177,7 +185,7 @@ def run_episode(
     receipt_dict = gate.receipt.to_dict()
     packet_full = build_packet(facts, current, current_findings, primary, ledger.to_list(), edition="full", receipt=receipt_dict)
     packet_ciso = build_packet(facts, current, current_findings, primary, ledger.to_list(), edition="ciso", receipt=receipt_dict)
-    alert = build_alert(facts, gate.receipt.script_sha256)
+    alert = build_alert(facts, gate.receipt.script_sha256, decision.kind)
 
     pii_issues = {
         "ciso_packet": audit_free_text(json.dumps(packet_ciso, sort_keys=True), forbidden),
@@ -213,6 +221,7 @@ def run_episode(
         pii_issues=pii_issues,
         held=held,
         hold_reasons=hold_reasons,
+        decision=decision,
         memory_trend=trend,
     )
 
@@ -249,6 +258,7 @@ def write_outputs(episode: Episode, out_dir: str) -> Dict[str, str]:
             "\n\n---\n\n".join(item["ticket_markdown"] for item in episode.packet_ciso.get("items", [])) or "(no items)",
         )
     dump("alert.json", episode.alert)
+    dump("decision.json", episode.decision.to_dict() if episode.decision else {})
     dump("facts.json", episode.facts.to_list(redact=False))
     dump("facts_redacted.json", episode.facts.to_list(redact=True))
     dump("ledger.json", episode.sources)

@@ -145,8 +145,9 @@ class CliTests(unittest.TestCase):
     def test_feeds_status(self):
         code, out, _ = self.run_cli("feeds", "status")
         self.assertEqual(code, 0)
-        self.assertIn("KEV: 7 entries", out)
-        self.assertIn("EPSS: 0 scores", out)
+        self.assertIn("KEV: 1766 entries, version 2026.10.30", out)
+        self.assertIn("EPSS: 19 scores, score date 2026-10-30", out)
+        self.assertIn("kev:2026.10.30: full", out)
 
 
 if __name__ == "__main__":

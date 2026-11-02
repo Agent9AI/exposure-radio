@@ -31,7 +31,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Callable, Dict, FrozenSet, List, Optional, Tuple
 
-from .sanitize import clean_cve, clean_date, clean_name, to_float
+from .sanitize import clean_cve, clean_date, clean_name, clean_text, to_float
 
 MAX_FEED_BYTES = 64 * 1024 * 1024
 _DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
@@ -48,6 +48,36 @@ def sha256_file(path: str) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def sha256_path(path: str) -> str:
+    """Digest of a file, or of a directory's files (names and contents, sorted)."""
+    if not os.path.isdir(path):
+        return sha256_file(path)
+    digest = hashlib.sha256()
+    for root, dirs, files in os.walk(path):
+        dirs.sort()
+        for name in sorted(files):
+            full = os.path.join(root, name)
+            digest.update(os.path.relpath(full, path).encode("utf-8"))
+            digest.update(b"\0")
+            digest.update(sha256_file(full).encode("ascii"))
+            digest.update(b"\n")
+    return digest.hexdigest()
+
+
+_URL_RE = re.compile(r"https?://\S+")
+
+
+def clean_required_action(text: object, max_len: int = 500) -> str:
+    """CISA's requiredAction text without URLs, cut at a sentence end."""
+    without_urls = _URL_RE.sub("", str(text or ""))
+    cleaned = clean_text(without_urls, max_len)
+    if len(cleaned) >= max_len:
+        cut = cleaned.rfind(". ")
+        if cut > 80:
+            cleaned = cleaned[: cut + 1]
+    return cleaned
 
 
 def _read_capped(path: str) -> bytes:
@@ -126,6 +156,7 @@ class KevEntry:
     due_date: Optional[str]
     ransomware: Optional[bool]
     cwes: Tuple[str, ...] = ()
+    required_action: str = ""
 
 
 @dataclass
@@ -188,6 +219,7 @@ class KevSnapshot:
                 due_date=clean_date(item.get("dueDate")),
                 ransomware=ransomware,
                 cwes=cwes,
+                required_action=clean_required_action(item.get("requiredAction")),
             )
         if not snap.count:
             snap.count = len(snap.entries)
@@ -219,6 +251,48 @@ class EpssSnapshot:
         return {k: v[0] for k, v in self.scores.items()}
 
     @classmethod
+    def _load_json(cls, data: object) -> "EpssSnapshot":
+        """Two JSON shapes: the FIRST API response and the bundled snapshot.
+
+        FIRST API: ``{"data": [{"cve": ..., "epss": "0.94", "percentile": "0.99", "date": "2026-10-30"}]}``.
+        Snapshot:  ``{"score_date": "2026-10-30", "scores": {"CVE-...": {"epss": 0.94, "percentile": 0.99}}}``.
+        """
+        snap = cls()
+        if not isinstance(data, dict):
+            raise ValueError("EPSS JSON must be an object")
+        snap.model_version = clean_name(data.get("model_version") or data.get("model") or "")[:40]
+        match = _DATE_RE.search(str(data.get("score_date") or ""))
+        snap.score_date = match.group(0) if match else ""
+        rows = data.get("data")
+        if isinstance(rows, list):
+            for row in rows:
+                if not isinstance(row, dict):
+                    continue
+                cve = clean_cve(row.get("cve"))
+                score = to_float(row.get("epss"), 0.0, 1.0)
+                if cve is None or score is None:
+                    continue
+                pct = to_float(row.get("percentile"), 0.0, 1.0)
+                snap.scores[cve] = (score, pct if pct is not None else 0.0)
+                if not snap.score_date:
+                    date_match = _DATE_RE.search(str(row.get("date") or ""))
+                    snap.score_date = date_match.group(0) if date_match else ""
+            return snap
+        scores = data.get("scores")
+        if isinstance(scores, dict):
+            for key, value in scores.items():
+                cve = clean_cve(key)
+                if cve is None or not isinstance(value, dict):
+                    continue
+                score = to_float(value.get("epss"), 0.0, 1.0)
+                if score is None:
+                    continue
+                pct = to_float(value.get("percentile"), 0.0, 1.0)
+                snap.scores[cve] = (score, pct if pct is not None else 0.0)
+            return snap
+        raise ValueError("EPSS JSON has neither a data list nor a scores object")
+
+    @classmethod
     def load(cls, path: str) -> "EpssSnapshot":
         raw = _read_capped(path)
         if raw[:2] == b"\x1f\x8b":
@@ -228,6 +302,8 @@ class EpssSnapshot:
             if len(raw) > MAX_FEED_BYTES * 4:
                 raise ValueError("EPSS feed decompresses past the size limit")
         text = raw.decode("utf-8", "replace")
+        if text.lstrip().startswith("{"):
+            return cls._load_json(json.loads(text))
         snap = cls()
         lines = text.splitlines()
         start = 0
@@ -358,7 +434,10 @@ def load_feeds(feeds_dir: str, ledger: Optional[Ledger] = None) -> Feeds:
             )
         )
 
-    epss_path = os.path.join(feeds_dir, "epss.csv")
+    epss_path = next(
+        (p for p in (os.path.join(feeds_dir, name) for name in ("epss.csv", "epss.csv.gz", "epss.json")) if os.path.isfile(p)),
+        os.path.join(feeds_dir, "epss.csv"),
+    )
     epss = EpssSnapshot.load(epss_path) if os.path.isfile(epss_path) else EpssSnapshot()
     if epss.scores:
         meta = _manifest_entry(manifest, "epss")

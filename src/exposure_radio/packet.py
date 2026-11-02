@@ -22,6 +22,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 from .facts import Fact, FactStore
 from .model import AssetPluginFinding, Export
 from .sanitize import SEVERITY_NAMES
+from .templates import vendor_product
 
 FEDERAL_POLICY_NOTE = (
     "Federal civilian agencies remediate KEV entries on the timelines of CISA BOD 26-04 (which replaced BOD 22-01). "
@@ -119,7 +120,8 @@ def build_items(
                 "date_added": store.value(subject, "kev_date_added"),
                 "catalogue_due_date": store.value(subject, "kev_catalogue_due_date"),
                 "known_ransomware_campaign_use": store.value(subject, "kev_ransomware_use"),
-                "catalogue_note": "dateAdded and dueDate are CISA catalogue fields, reported as published.",
+                "required_action": store.value(subject, "kev_required_action"),
+                "catalogue_note": "dateAdded, dueDate and requiredAction are CISA catalogue fields, reported as published.",
             }
         epss: Optional[Dict[str, object]] = None
         if store.get(subject, "epss_score") is not None:
@@ -200,14 +202,17 @@ def build_items(
 def render_ticket(item: CardItem) -> str:
     """Copyable ticket text (Markdown)."""
     kev_line = "Not in the CISA KEV catalogue snapshot."
+    required_line = ""
     if item.kev:
         due = item.kev.get("catalogue_due_date")
         ransom = item.kev.get("known_ransomware_campaign_use")
         kev_line = (
-            f"CISA KEV: listed since {item.kev.get('date_added')} ({item.kev.get('vendor')} {item.kev.get('product')})."
+            f"CISA KEV: listed since {item.kev.get('date_added')} ({vendor_product(item.kev.get('vendor'), item.kev.get('product'))})."
             + (f" Catalogue dueDate field: {due} (CISA catalogue value)." if due else "")
             + (" Known ransomware campaign use: yes." if ransom is True else "")
         )
+        if item.kev.get("required_action"):
+            required_line = f"- CISA required action (catalogue text): {item.kev['required_action']}"
     epss_line = "EPSS: no score in the offline snapshot (run `feeds refresh`)."
     if item.epss and item.epss.get("score") is not None:
         epss_line = f"EPSS: {float(item.epss['score']) * 100:.1f}% probability of exploitation within 30 days."
@@ -234,6 +239,10 @@ def render_ticket(item: CardItem) -> str:
         "",
         "**Why now**",
         f"- {kev_line}",
+    ]
+    if required_line:
+        lines.append(required_line)
+    lines += [
         f"- {epss_line}",
         f"- Public exploit available: {'yes' if item.exploit_available else 'not flagged by the scanner'}.",
         f"- CVSS v3 base score: {item.cvss3 if item.cvss3 is not None else 'n/a'}.",
