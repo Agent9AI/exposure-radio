@@ -112,6 +112,12 @@ class Memory:
         kev_cves.discard(None)
         created = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         with self.conn:
+            # Re-running an episode replaces its earlier record instead of duplicating it.
+            stale = [int(r[0]) for r in self.conn.execute("SELECT id FROM episodes WHERE episode_date = ? AND label = ?", (episode_date, label)).fetchall()]
+            for old_id in stale:
+                self.conn.execute("DELETE FROM episode_findings WHERE episode_id = ?", (old_id,))
+                self.conn.execute("DELETE FROM episode_assets WHERE episode_id = ?", (old_id,))
+                self.conn.execute("DELETE FROM episodes WHERE id = ?", (old_id,))
             cursor = self.conn.execute(
                 "INSERT INTO episodes (episode_date, label, created_at, asset_count, open_critical, open_high,"
                 " kev_open_cves, held, kev_version, summary_json) VALUES (?,?,?,?,?,?,?,?,?,?)",

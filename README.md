@@ -43,7 +43,7 @@ and the lead action card, and writes everything (briefing, transcript with citat
 both card editions, alert, facts, ledger) to `out/demo/`. It runs in well under a second.
 
 ```bash
-make check                          # 194 tests, gate demo, zero-PII audit, agent replay
+make check                          # 195 tests, gate demo, zero-PII audit, agent replay
 make gate-demo                      # 16 planted false statements, all blocked
 make audit                          # no tenant identifier in CISO edition, alert or redacted facts
 make agent-replay                   # recorded analyst run, gate executed live, no API key
@@ -242,7 +242,7 @@ need for the same inputs:
 | | |
 |---|---|
 | Fixture | 1,459 raw rows across two exports, 223 assets, 510 (asset, plugin) pairs, 17 assets not rescanned, 3 tickets |
-| Pipeline | 0.30 s median of 5 runs (this machine; see the build log for the fresh-clone run) |
+| Pipeline | 0.3 s median of 5 runs on a fresh clone (timings in the build log) |
 | Manual model | 3 h 34 min at the documented unit times |
 | Prep time saved | about 3 h 31 min per episode |
 
@@ -251,7 +251,7 @@ remediation-speed claim.
 
 ## Verification
 
-- `make check`: 194 unit and integration tests, the gate demo, the zero-PII audit and the agent
+- `make check`: 195 unit and integration tests, the gate demo, the zero-PII audit and the agent
   replay; green on Python 3.13 and 3.10.
 - Audio: Kokoro-82M (Apache-2.0) through onnxruntime, loudness normalised with two-pass
   `loudnorm` and measured with `ffmpeg ebur128`: integrated -16.4 LUFS, true peak -1.1 dBTP

@@ -54,6 +54,8 @@ class DemoDecisionTests(unittest.TestCase):
         # The narration itself is still produced and gated; only the interruption is withheld.
         self.assertTrue(second.gate.passed)
         self.assertNotIn("break-in bulletin", "\n".join(second.sentences))
+        # Re-running replaces the episode records instead of duplicating them.
+        self.assertEqual([t["episode_date"] for t in second.memory_trend], ["2026-10-20", "2026-10-27"])
 
 
 class RuleTests(unittest.TestCase):

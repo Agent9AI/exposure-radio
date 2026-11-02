@@ -76,6 +76,18 @@ class McpServerTests(unittest.TestCase):
         self.assertTrue(response["result"]["isError"])
         self.assertIn("DOCTYPE", response["result"]["content"][0]["text"])
 
+    def test_symlink_cannot_escape_the_roots(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            link = os.path.join(tmp, "export.json")
+            os.symlink(CURRENT, link)  # points at a real fixture outside this data directory
+            server = mcp_server.Server(data_dir=tmp, default_current=CURRENT, default_previous=PREVIOUS)
+            server.roots = (os.path.realpath(tmp),)  # only the temp data dir is allowed
+            response = rpc(server, "tools/call", {"name": "exposure_briefing", "arguments": {"current": link, "previous": PREVIOUS}})
+            self.assertTrue(response["result"]["isError"])
+            self.assertIn("inside the working directory", response["result"]["content"][0]["text"])
+
     def test_protocol_errors(self):
         self.assertEqual(rpc(self.server, "tools/call", {"name": "shell", "arguments": {}})["error"]["code"], -32602)
         self.assertEqual(rpc(self.server, "resources/list")["error"]["code"], -32601)

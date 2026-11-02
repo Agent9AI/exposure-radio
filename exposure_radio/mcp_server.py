@@ -113,7 +113,7 @@ class Server:
         self.data_dir = os.path.abspath(data_dir)
         self.default_current = default_current or os.path.join(self.data_dir, "fixtures", "current.json")
         self.default_previous = default_previous or os.path.join(self.data_dir, "fixtures", "previous.json")
-        self.roots = (os.path.abspath(os.getcwd()), self.data_dir)
+        self.roots = (os.path.realpath(os.getcwd()), os.path.realpath(self.data_dir))
         self._cache: OrderedDict[Tuple[str, Optional[str]], Episode] = OrderedDict()
         self.initialized = False
 
@@ -123,7 +123,7 @@ class Server:
             return default
         if not isinstance(path, str) or len(path) > 1024 or "\x00" in path:
             raise ToolError("path must be a short string")
-        candidate = os.path.abspath(path)
+        candidate = os.path.realpath(path)  # symlinks resolved before the root check
         if not any(candidate == root or candidate.startswith(root + os.sep) for root in self.roots):
             raise ToolError("export paths must be inside the working directory or the data directory")
         if not os.path.isfile(candidate):
