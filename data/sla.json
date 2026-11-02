@@ -1,0 +1,14 @@
+{
+  "name": "Example internal remediation SLA",
+  "description": "Deadlines the organisation sets for itself. Edit this file to match your policy. These are never CISA dates: the KEV catalogue's own dates and the federal BOD 26-04 timelines are reported on the action card as separate fields.",
+  "clock_starts": "export_date",
+  "deadline_days": {
+    "kev_listed": 7,
+    "critical": 14,
+    "high": 30,
+    "medium": 90,
+    "low": 180
+  },
+  "exploit_available_bonus_days": -3,
+  "minimum_days": 2
+}

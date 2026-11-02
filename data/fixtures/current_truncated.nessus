@@ -1,0 +1,706 @@
+<?xml version="1.0" ?>
+<NessusClientData_v2>
+<Policy><policyName>Synthetic</policyName><Preferences><ServerPreferences><preference><name>login</name><value>svc-scan</value></preference></ServerPreferences></Preferences></Policy>
+<Report name="Northwind weekly" xmlns:cm="http://www.nessus.org/cm">
+<ReportHost name="10.20.1.11"><HostProperties>
+<tag name="host-ip">10.20.1.11</tag>
+<tag name="host-fqdn">adc-01.northwind.internal</tag>
+<tag name="hostname">adc-01</tag>
+<tag name="host-uuid">29180559-5e8a-5d09-beb0-eb334a0f3cdd</tag>
+<tag name="operating-system">Citrix NetScaler 13.1</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.4.11"><HostProperties>
+<tag name="host-ip">10.20.4.11</tag>
+<tag name="host-fqdn">app-01.northwind.internal</tag>
+<tag name="hostname">app-01</tag>
+<tag name="host-uuid">736d9614-e974-5659-9048-e74535bb0ce9</tag>
+<tag name="operating-system">Red Hat Enterprise Linux 9</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="57582" pluginName="SSL Self-Signed Certificate &lt;img src=x onerror=&quot;alert(1)&quot;&gt;; drop table findings; --" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.4.12"><HostProperties>
+<tag name="host-ip">10.20.4.12</tag>
+<tag name="host-fqdn">app-02.northwind.internal</tag>
+<tag name="hostname">app-02</tag>
+<tag name="host-uuid">83262254-acc2-5322-8c55-f0dcb5684d03</tag>
+<tag name="operating-system">Red Hat Enterprise Linux 9</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="57582" pluginName="SSL Self-Signed Certificate &lt;img src=x onerror=&quot;alert(1)&quot;&gt;; drop table findings; --" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.4.13"><HostProperties>
+<tag name="host-ip">10.20.4.13</tag>
+<tag name="host-fqdn">app-03.northwind.internal</tag>
+<tag name="hostname">app-03</tag>
+<tag name="host-uuid">a1503ade-ec8c-5007-8b52-274d43b2d3ba</tag>
+<tag name="operating-system">Red Hat Enterprise Linux 9</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="57582" pluginName="SSL Self-Signed Certificate &lt;img src=x onerror=&quot;alert(1)&quot;&gt;; drop table findings; --" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.4.14"><HostProperties>
+<tag name="host-ip">10.20.4.14</tag>
+<tag name="host-fqdn">app-04.northwind.internal</tag>
+<tag name="hostname">app-04</tag>
+<tag name="host-uuid">3e662cad-33c4-57cd-b777-ece30ce69088</tag>
+<tag name="operating-system">Red Hat Enterprise Linux 9</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="3" pluginID="182875" pluginName="curl SOCKS5 Heap Buffer Overflow (CVE-2023-38545)" pluginFamily="Misc.">
+<cve>CVE-2023-38545</cve>
+<cvss3_base_score>8.8</cvss3_base_score>
+<vpr_score>8.4</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="57582" pluginName="SSL Self-Signed Certificate &lt;img src=x onerror=&quot;alert(1)&quot;&gt;; drop table findings; --" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.4.15"><HostProperties>
+<tag name="host-ip">10.20.4.15</tag>
+<tag name="host-fqdn">app-05.northwind.internal</tag>
+<tag name="hostname">app-05</tag>
+<tag name="host-uuid">405c8670-aea7-51c1-b95b-25f67d6a7154</tag>
+<tag name="operating-system">Red Hat Enterprise Linux 9</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="3" pluginID="182875" pluginName="curl SOCKS5 Heap Buffer Overflow (CVE-2023-38545)" pluginFamily="Misc.">
+<cve>CVE-2023-38545</cve>
+<cvss3_base_score>8.8</cvss3_base_score>
+<vpr_score>8.4</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="57582" pluginName="SSL Self-Signed Certificate &lt;img src=x onerror=&quot;alert(1)&quot;&gt;; drop table findings; --" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.4.16"><HostProperties>
+<tag name="host-ip">10.20.4.16</tag>
+<tag name="host-fqdn">app-06.northwind.internal</tag>
+<tag name="hostname">app-06</tag>
+<tag name="host-uuid">861b6588-bdf3-5eaf-b264-496035dcf96a</tag>
+<tag name="operating-system">Red Hat Enterprise Linux 9</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="3" pluginID="182875" pluginName="curl SOCKS5 Heap Buffer Overflow (CVE-2023-38545)" pluginFamily="Misc.">
+<cve>CVE-2023-38545</cve>
+<cvss3_base_score>8.8</cvss3_base_score>
+<vpr_score>8.4</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="57582" pluginName="SSL Self-Signed Certificate &lt;img src=x onerror=&quot;alert(1)&quot;&gt;; drop table findings; --" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.4.17"><HostProperties>
+<tag name="host-ip">10.20.4.17</tag>
+<tag name="host-fqdn">app-07.northwind.internal</tag>
+<tag name="hostname">app-07</tag>
+<tag name="host-uuid">48cb099c-31ca-5fad-8108-415f27f1c76a</tag>
+<tag name="operating-system">Red Hat Enterprise Linux 9</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="3" pluginID="182875" pluginName="curl SOCKS5 Heap Buffer Overflow (CVE-2023-38545)" pluginFamily="Misc.">
+<cve>CVE-2023-38545</cve>
+<cvss3_base_score>8.8</cvss3_base_score>
+<vpr_score>8.4</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="57582" pluginName="SSL Self-Signed Certificate &lt;img src=x onerror=&quot;alert(1)&quot;&gt;; drop table findings; --" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.4.18"><HostProperties>
+<tag name="host-ip">10.20.4.18</tag>
+<tag name="host-fqdn">app-08.northwind.internal</tag>
+<tag name="hostname">app-08</tag>
+<tag name="host-uuid">1be403bc-a649-5edf-ad9b-f15968136831</tag>
+<tag name="operating-system">Red Hat Enterprise Linux 9</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="3" pluginID="182875" pluginName="curl SOCKS5 Heap Buffer Overflow (CVE-2023-38545)" pluginFamily="Misc.">
+<cve>CVE-2023-38545</cve>
+<cvss3_base_score>8.8</cvss3_base_score>
+<vpr_score>8.4</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="57582" pluginName="SSL Self-Signed Certificate &lt;img src=x onerror=&quot;alert(1)&quot;&gt;; drop table findings; --" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.4.19"><HostProperties>
+<tag name="host-ip">10.20.4.19</tag>
+<tag name="host-fqdn">app-09.northwind.internal</tag>
+<tag name="hostname">app-09</tag>
+<tag name="host-uuid">07dfc9b7-ecff-5f5d-aab2-7a5ecd05558d</tag>
+<tag name="operating-system">Red Hat Enterprise Linux 9</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="3" pluginID="182875" pluginName="curl SOCKS5 Heap Buffer Overflow (CVE-2023-38545)" pluginFamily="Misc.">
+<cve>CVE-2023-38545</cve>
+<cvss3_base_score>8.8</cvss3_base_score>
+<vpr_score>8.4</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="57582" pluginName="SSL Self-Signed Certificate &lt;img src=x onerror=&quot;alert(1)&quot;&gt;; drop table findings; --" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.4.20"><HostProperties>
+<tag name="host-ip">10.20.4.20</tag>
+<tag name="host-fqdn">app-10.northwind.internal</tag>
+<tag name="hostname">app-10</tag>
+<tag name="host-uuid">41782cf8-1c5e-519d-b903-ca97db42caea</tag>
+<tag name="operating-system">Red Hat Enterprise Linux 9</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="3" pluginID="182875" pluginName="curl SOCKS5 Heap Buffer Overflow (CVE-2023-38545)" pluginFamily="Misc.">
+<cve>CVE-2023-38545</cve>
+<cvss3_base_score>8.8</cvss3_base_score>
+<vpr_score>8.4</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="57582" pluginName="SSL Self-Signed Certificate &lt;img src=x onerror=&quot;alert(1)&quot;&gt;; drop table findings; --" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.5.11"><HostProperties>
+<tag name="host-ip">10.20.5.11</tag>
+<tag name="host-fqdn">db-01.northwind.internal</tag>
+<tag name="hostname">db-01</tag>
+<tag name="host-uuid">c63f413d-c7a9-5203-aa1b-6e39321d3018</tag>
+<tag name="operating-system">Debian 12</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="5432" svc_name="general" protocol="tcp" severity="3" pluginID="159088" pluginName="OpenSSL Infinite Loop in BN_mod_sqrt (CVE-2022-0778)" pluginFamily="Misc.">
+<cve>CVE-2022-0778</cve>
+<cvss3_base_score>7.5</cvss3_base_score>
+<vpr_score>7.1</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.5.12"><HostProperties>
+<tag name="host-ip">10.20.5.12</tag>
+<tag name="host-fqdn">db-02.northwind.internal</tag>
+<tag name="hostname">db-02</tag>
+<tag name="host-uuid">8f50c1dd-b742-53b8-9ec8-9267550e7e0d</tag>
+<tag name="operating-system">Debian 12</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="5432" svc_name="general" protocol="tcp" severity="3" pluginID="159088" pluginName="OpenSSL Infinite Loop in BN_mod_sqrt (CVE-2022-0778)" pluginFamily="Misc.">
+<cve>CVE-2022-0778</cve>
+<cvss3_base_score>7.5</cvss3_base_score>
+<vpr_score>7.1</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.5.13"><HostProperties>
+<tag name="host-ip">10.20.5.13</tag>
+<tag name="host-fqdn">db-03.northwind.internal</tag>
+<tag name="hostname">db-03</tag>
+<tag name="host-uuid">5208e61a-408c-5501-a9bb-524ff0c031ed</tag>
+<tag name="operating-system">Debian 12</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="5432" svc_name="general" protocol="tcp" severity="3" pluginID="159088" pluginName="OpenSSL Infinite Loop in BN_mod_sqrt (CVE-2022-0778)" pluginFamily="Misc.">
+<cve>CVE-2022-0778</cve>
+<cvss3_base_score>7.5</cvss3_base_score>
+<vpr_score>7.1</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.5.14"><HostProperties>
+<tag name="host-ip">10.20.5.14</tag>
+<tag name="host-fqdn">db-04.northwind.internal</tag>
+<tag name="hostname">db-04</tag>
+<tag name="host-uuid">064895aa-95c6-53a6-90c2-b2aebbea059a</tag>
+<tag name="operating-system">Debian 12</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="5432" svc_name="general" protocol="tcp" severity="3" pluginID="159088" pluginName="OpenSSL Infinite Loop in BN_mod_sqrt (CVE-2022-0778)" pluginFamily="Misc.">
+<cve>CVE-2022-0778</cve>
+<cvss3_base_score>7.5</cvss3_base_score>
+<vpr_score>7.1</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.0.9"><HostProperties>
+<tag name="host-ip">10.20.0.9</tag>
+<tag name="host-fqdn">fw-branch-01.northwind.internal</tag>
+<tag name="hostname">fw-branch-01</tag>
+<tag name="host-uuid">a47d406f-ef5a-5699-a0af-63f118373add</tag>
+<tag name="operating-system">Fortinet FortiOS 7.2.5</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="10443" svc_name="general" protocol="tcp" severity="4" pluginID="190349" pluginName="Fortinet FortiOS SSL VPN Out-of-Bounds Write (CVE-2024-21762)" pluginFamily="Misc.">
+<cve>CVE-2024-21762</cve>
+<cvss3_base_score>9.8</cvss3_base_score>
+<vpr_score>9.4</vpr_score>
+<exploit_available>true</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.0.1"><HostProperties>
+<tag name="host-ip">10.20.0.1</tag>
+<tag name="host-fqdn">fw-edge-01.northwind.internal</tag>
+<tag name="hostname">fw-edge-01</tag>
+<tag name="host-uuid">79d0f5a2-1507-5102-be8a-1bbfcfb6096e</tag>
+<tag name="operating-system">Palo Alto Networks PAN-OS 10.2.8</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="4" pluginID="193255" pluginName="Palo Alto Networks PAN-OS GlobalProtect Command Injection (CVE-2024-3400)" pluginFamily="Misc.">
+<cve>CVE-2024-3400</cve>
+<cvss3_base_score>10.0</cvss3_base_score>
+<vpr_score>9.6</vpr_score>
+<exploit_available>true</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.0.2"><HostProperties>
+<tag name="host-ip">10.20.0.2</tag>
+<tag name="host-fqdn">fw-edge-02.northwind.internal</tag>
+<tag name="hostname">fw-edge-02</tag>
+<tag name="host-uuid">98eb7a19-339b-5c8f-9e4f-7f501670e78d</tag>
+<tag name="operating-system">Palo Alto Networks PAN-OS 10.2.8</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="4" pluginID="193255" pluginName="Palo Alto Networks PAN-OS GlobalProtect Command Injection (CVE-2024-3400)" pluginFamily="Misc.">
+<cve>CVE-2024-3400</cve>
+<cvss3_base_score>10.0</cvss3_base_score>
+<vpr_score>9.6</vpr_score>
+<exploit_available>true</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.8.41"><HostProperties>
+<tag name="host-ip">10.20.8.41</tag>
+<tag name="host-fqdn">kiosk-01.northwind.internal</tag>
+<tag name="hostname">kiosk-01</tag>
+<tag name="host-uuid">81db63a7-f843-5157-91a8-75e917282a05</tag>
+<tag name="operating-system">Microsoft Windows 10 IoT</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="22" svc_name="general" protocol="tcp" severity="2" pluginID="187315" pluginName="SSH Terrapin Prefix Truncation Weakness (CVE-2023-48795)" pluginFamily="Misc.">
+<cve>CVE-2023-48795</cve>
+<cvss3_base_score>5.9</cvss3_base_score>
+<vpr_score>5.5</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="4" pluginID="205457" pluginName="Microsoft Windows TCP/IP IPv6 Remote Code Execution (CVE-2024-38063)" pluginFamily="Misc.">
+<cve>CVE-2024-38063</cve>
+<cvss3_base_score>9.8</cvss3_base_score>
+<vpr_score>9.4</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.8.42"><HostProperties>
+<tag name="host-ip">10.20.8.42</tag>
+<tag name="host-fqdn">kiosk-02.northwind.internal</tag>
+<tag name="hostname">kiosk-02</tag>
+<tag name="host-uuid">22a1ab2d-01f4-5bb3-ad93-dc1ef411013c</tag>
+<tag name="operating-system">Microsoft Windows 10 IoT</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="22" svc_name="general" protocol="tcp" severity="2" pluginID="187315" pluginName="SSH Terrapin Prefix Truncation Weakness (CVE-2023-48795)" pluginFamily="Misc.">
+<cve>CVE-2023-48795</cve>
+<cvss3_base_score>5.9</cvss3_base_score>
+<vpr_score>5.5</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.8.43"><HostProperties>
+<tag name="host-ip">10.20.8.43</tag>
+<tag name="host-fqdn">kiosk-03.northwind.internal</tag>
+<tag name="hostname">kiosk-03</tag>
+<tag name="host-uuid">abee8692-bf23-56b0-9f5e-db517953933f</tag>
+<tag name="operating-system">Microsoft Windows 10 IoT</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="22" svc_name="general" protocol="tcp" severity="2" pluginID="187315" pluginName="SSH Terrapin Prefix Truncation Weakness (CVE-2023-48795)" pluginFamily="Misc.">
+<cve>CVE-2023-48795</cve>
+<cvss3_base_score>5.9</cvss3_base_score>
+<vpr_score>5.5</vpr_score>
+<exploit_available>false</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.1.30"><HostProperties>
+<tag name="host-ip">10.20.1.30</tag>
+<tag name="host-fqdn">nextcloud-01.northwind.internal</tag>
+<tag name="hostname">nextcloud-01</tag>
+<tag name="host-uuid">e5e03343-9810-5d6a-a2eb-1fd099e4f774</tag>
+<tag name="operating-system">Ubuntu 24.04</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="4" pluginID="300123" pluginName="Nextcloud Collabora Online Built-in CODE Server Command Injection (CVE-2026-110447)" pluginFamily="Misc.">
+<cve>CVE-2026-110447</cve>
+<cvss3_base_score>9.2</cvss3_base_score>
+<vpr_score>8.8</vpr_score>
+<exploit_available>true</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.2.21"><HostProperties>
+<tag name="host-ip">10.20.2.21</tag>
+<tag name="host-fqdn">sp-01.northwind.internal</tag>
+<tag name="hostname">sp-01</tag>
+<tag name="host-uuid">5e8a2acb-83e6-5517-8611-f4c7749e494d</tag>
+<tag name="operating-system">Microsoft Windows Server 2019</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.2.22"><HostProperties>
+<tag name="host-ip">10.20.2.22</tag>
+<tag name="host-fqdn">sp-02.northwind.internal</tag>
+<tag name="hostname">sp-02</tag>
+<tag name="host-uuid">188ac3e3-a205-5252-9115-6b9bbd4df60e</tag>
+<tag name="operating-system">Microsoft Windows Server 2019</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="4" pluginID="242016" pluginName="Microsoft SharePoint Server Deserialization RCE (CVE-2025-53770)" pluginFamily="Misc.">
+<cve>CVE-2025-53770</cve>
+<cvss3_base_score>9.8</cvss3_base_score>
+<vpr_score>9.4</vpr_score>
+<exploit_available>true</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.0.20"><HostProperties>
+<tag name="host-ip">10.20.0.20</tag>
+<tag name="host-fqdn">vpn-gw-01.northwind.internal</tag>
+<tag name="hostname">vpn-gw-01</tag>
+<tag name="host-uuid">732b450b-8fa3-538f-98db-65c5812a1cc2</tag>
+<tag name="operating-system">Ivanti Connect Secure 22.4</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="4" pluginID="189135" pluginName="Ivanti Connect Secure Authentication Bypass and Command Injection" pluginFamily="Misc.">
+<cve>CVE-2023-46805</cve>
+<cve>CVE-2024-21887</cve>
+<cvss3_base_score>9.1</cvss3_base_score>
+<vpr_score>8.7</vpr_score>
+<exploit_available>true</exploit_available>
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.3.11"><HostProperties>
+<tag name="host-ip">10.20.3.11</tag>
+<tag name="host-fqdn">web-01.northwind.internal</tag>
+<tag name="hostname">web-01</tag>
+<tag name="host-uuid">94a6d7e7-3186-543e-98c0-39ed79ffd3e5</tag>
+<tag name="operating-system">Ubuntu 22.04</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="51192" pluginName="SSL Certificate Cannot Be Trusted" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="8443" svc_name="www" protocol="tcp" severity="2" pluginID="51192" pluginName="SSL Certificate Cannot Be Trusted" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="22" svc_name="general" protocol="tcp" severity="1" pluginID="153953" pluginName="SSH Weak Key Exchange Algorithms Enabled" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.3.12"><HostProperties>
+<tag name="host-ip">10.20.3.12</tag>
+<tag name="host-fqdn">web-02.northwind.internal</tag>
+<tag name="hostname">web-02</tag>
+<tag name="host-uuid">69b5843b-de93-5c1c-b8f6-e9405b71160d</tag>
+<tag name="operating-system">Ubuntu 22.04</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="51192" pluginName="SSL Certificate Cannot Be Trusted" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="8443" svc_name="www" protocol="tcp" severity="2" pluginID="51192" pluginName="SSL Certificate Cannot Be Trusted" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="22" svc_name="general" protocol="tcp" severity="1" pluginID="153953" pluginName="SSH Weak Key Exchange Algorithms Enabled" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+</ReportHost>
+<ReportHost name="10.20.3.13"><HostProperties>
+<tag name="host-ip">10.20.3.13</tag>
+<tag name="host-fqdn">web-03.northwind.internal</tag>
+<tag name="hostname">web-03</tag>
+<tag name="host-uuid">db6a49d8-d823-5cef-9b20-ea8c0d3bf617</tag>
+<tag name="operating-system">Ubuntu 22.04</tag>
+<tag name="HOST_START">Mon Oct 27 01:58:00 2026</tag>
+<tag name="HOST_END">2026-10-27 02:11:52</tag>
+</HostProperties>
+<ReportItem port="0" svc_name="general" protocol="tcp" severity="0" pluginID="19506" pluginName="Nessus Scan Information" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="443" svc_name="www" protocol="tcp" severity="2" pluginID="51192" pluginName="SSL Certificate Cannot Be Trusted" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="8443" svc_name="www" protocol="tcp" severity="2" pluginID="51192" pluginName="SSL Certificate Cannot Be Trusted" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solution>
+<plugin_output>Synthetic plugin output. Never read by Exposure Radio.</plugin_output>
+</ReportItem>
+<ReportItem port="22" svc_name="general" protocol="tcp" severity="1" pluginID="153953" pluginName="SSH Weak Key Exchange Algorithms Enabled" pluginFamily="Misc.">
+<description>Synthetic description text. Never read by Exposure Radio.</description>
+<solution>Synthetic solution text with a fake credential pattern: password=hunter2 (never read).</solutio

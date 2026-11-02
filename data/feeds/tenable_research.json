@@ -1,0 +1,39 @@
+{
+  "captured": "2026-11-02",
+  "source": "https://www.tenable.com/blog",
+  "note": "Publication dates are recorded only where they were confirmed; an empty value means the date was not verified and is not used.",
+  "items": [
+    {
+      "id": "tenable-blog-cve-2024-3400",
+      "kind": "blog",
+      "title": "CVE-2024-3400: Zero-Day Vulnerability in Palo Alto Networks PAN-OS GlobalProtect Gateway Exploited in the Wild",
+      "published": "",
+      "url": "https://www.tenable.com/blog/cve-2024-3400-zero-day-vulnerability-in-palo-alto-networks-pan-os-globalprotect-gateway",
+      "cves": ["CVE-2024-3400"]
+    },
+    {
+      "id": "tenable-blog-cve-2025-53770-faq",
+      "kind": "blog",
+      "title": "CVE-2025-53770: Frequently Asked Questions About Zero-Day SharePoint Vulnerability Exploitation",
+      "published": "2025-07-20",
+      "url": "https://www.tenable.com/blog/cve-2025-53770-frequently-asked-questions-about-zero-day-sharepoint-vulnerability-exploitation",
+      "cves": ["CVE-2025-53770", "CVE-2025-53771", "CVE-2025-49706"]
+    },
+    {
+      "id": "tenable-blog-citrixbleed-faq",
+      "kind": "blog",
+      "title": "Frequently Asked Questions for CitrixBleed (CVE-2023-4966)",
+      "published": "",
+      "url": "https://www.tenable.com/blog/frequently-asked-questions-for-citrixbleed-cve-2023-4966",
+      "cves": ["CVE-2023-4966"]
+    },
+    {
+      "id": "tenable-blog-cve-2023-4966",
+      "kind": "blog",
+      "title": "CVE-2023-4966: Citrix NetScaler ADC and NetScaler Gateway Information Disclosure Exploited in the Wild",
+      "published": "",
+      "url": "https://www.tenable.com/blog/cve-2023-4966-citrix-netscaler-adc-and-netscaler-gateway-information-disclosure-exploited-in",
+      "cves": ["CVE-2023-4966", "CVE-2023-4967"]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "description": "Maps asset tags from the export to the team that owns remediation. The first matching tag wins; assets without a match get the default owner so the ticket is never silently unassigned.",
+  "default": "UNASSIGNED - set an owner in data/owners.json",
+  "by_tag": {
+    "group:edge": "Network Engineering",
+    "group:vpn": "Network Engineering",
+    "group:web": "Platform Engineering",
+    "group:collab": "Workplace IT",
+    "group:sharepoint": "Workplace IT",
+    "group:db": "Data Platform",
+    "group:app": "Platform Engineering",
+    "group:build": "Developer Productivity",
+    "group:workstation": "End User Computing"
+  }
+}
