@@ -95,26 +95,103 @@
     </section>
 
     <section class="rundown panel" aria-labelledby="rundown-title">
-      <div class="panel-head">
-        <h2 id="rundown-title" class="label">UP NEXT · THIS HOUR'S RUNDOWN</h2>
-        <span id="rundown-total" class="panel-meta mono"></span>
+      <div class="panel-head rundown-head">
+        <div class="rundown-head-left">
+          <span class="rundown-bus-dot" aria-hidden="true"></span>
+          <h2 id="rundown-title" class="label">UP NEXT · THIS HOUR'S RUNDOWN</h2>
+          <span class="rundown-sub-chip">CLAIM-GATED SCHEDULE</span>
+        </div>
+        <div class="rundown-head-right">
+          <span class="rd-legend" aria-hidden="true">
+            <span class="rd-legend-item"><i class="rd-dot rd-dot-live"></i>ACTIVE</span>
+            <span class="rd-legend-item"><i class="rd-dot rd-dot-priority"></i>PRIORITY</span>
+          </span>
+          <span id="rundown-total" class="panel-meta mono rundown-total-pill"></span>
+        </div>
       </div>
       <ol id="rundown" class="rundown-list"></ol>
     </section>
   </div>
 
   <div class="device-foot">
-    <span>SELF-HOSTED · NO TRACKERS · NO THIRD-PARTY SCRIPTS</span>
-    <span id="foot-loc" class="mono"></span>
+    <span class="foot-spec"><i class="foot-dot" aria-hidden="true"></i>SELF-HOSTED · NO TRACKERS · NO THIRD-PARTY SCRIPTS</span>
+    <span id="foot-loc" class="mono foot-meta"></span>
   </div>
 </main>
 
+<section id="use-cases" class="use-cases-deck" aria-labelledby="use-cases-title">
+  <div class="use-cases-bar">
+    <div class="use-cases-bar-left">
+      <span class="tag tag-mint">OPERATIONAL USE CASES</span>
+      <h2 id="use-cases-title" class="use-cases-heading">How security &amp; IT teams deploy Exposure Radio</h2>
+    </div>
+    <span class="panel-meta mono">4 WORKFLOWS · ZERO EXTERNAL TELEMETRY</span>
+  </div>
+  <div class="use-cases-grid">
+    <article class="uc-card">
+      <div class="uc-top">
+        <span class="uc-num mono">01</span>
+        <span class="tag">MORNING STANDUP</span>
+      </div>
+      <h3 class="uc-title">9:00 AM Zero-Meeting Tenable Standup</h3>
+      <p class="uc-desc">Small IT teams press <strong>Tune In</strong> after the overnight scan window. Four spoken desks separate <em>new exposure</em> on existing hosts from <em>new visibility</em> on newly scanned hosts, confirm <em>verified fixes</em> by rescan, and surface <em>blind spots</em> where credentials failed.</p>
+      <div class="uc-foot mono">
+        <span>station pull → brief</span>
+        <span class="uc-metric">4 TENABLE DESKS</span>
+      </div>
+    </article>
+
+    <article class="uc-card uc-card-priority">
+      <div class="uc-top">
+        <span class="uc-num mono">02</span>
+        <span class="tag tag-priority">PRIORITY BREAK</span>
+      </div>
+      <h3 class="uc-title">CISA KEV &amp; Zero Wire Interruption</h3>
+      <p class="uc-desc">When a vulnerability on CISA's Known Exploited list lands on one of your machines, deterministic policy interrupts the music rotation. Open action cards attach keyless Cloudflare Zero Wire product-coverage caveats locally without sending tenant CVEs outbound.</p>
+      <div class="uc-foot mono">
+        <span>SQLite alert memory</span>
+        <span class="uc-metric">SILENT ON UNCHANGED</span>
+      </div>
+    </article>
+
+    <article class="uc-card">
+      <div class="uc-top">
+        <span class="uc-num mono">03</span>
+        <span class="tag tag-mint">CLAUDE CODE + MCP</span>
+      </div>
+      <h3 class="uc-title">Evidence-Gated AI Triage</h3>
+      <p class="uc-desc">Open the repository in Claude Code to load four read-only MCP tools from <code>.mcp.json</code>. The bundled <code>/exposure-briefing</code> skill checks every factual sentence against <code>check_claims</code> before answering and blocks unsupported counts or fixes.</p>
+      <div class="uc-foot mono">
+        <span>/exposure-briefing</span>
+        <span class="uc-metric">27/27 FALSE BLOCKED</span>
+      </div>
+    </article>
+
+    <article class="uc-card">
+      <div class="uc-top">
+        <span class="uc-num mono">04</span>
+        <span class="tag tag-quiet">DUAL-EDITION HANDOFF</span>
+      </div>
+      <h3 class="uc-title">Executive Brief &amp; Ticket Handoff</h3>
+      <p class="uc-desc">Generate a board-safe <strong>Executive</strong> broadcast and action card audited fail-closed against 304+ tenant hostnames, FQDNs, IPs, and asset IDs—alongside an <strong>Analyst</strong> remediation packet with per-asset owners and deadlines ready for Jira or Linear.</p>
+      <div class="uc-foot mono">
+        <span>exposure-radio audit</span>
+        <span class="uc-metric">0/304 TENANT LEAKS</span>
+      </div>
+    </article>
+  </div>
+</section>
+
 <footer class="site-foot">
-  <p>Open source · MIT · Your data stays on your station host</p>
+  <div class="site-foot-brand">
+    <span class="foot-mark" aria-hidden="true">ER</span>
+    <p><strong>Exposure Radio</strong> · Open source · MIT · Your data stays on your station host</p>
+  </div>
   <nav aria-label="Project">
     <a href="admin.html">Station console</a>
     <a href="briefing.html">Evidence &amp; claim gate</a>
-    <a href="https://github.com/Agent9AI/exposure-radio" rel="noopener">GitHub</a>
+    <a href="#use-cases">Use cases</a>
+    <a href="https://github.com/Agent9AI/exposure-radio" rel="noopener">GitHub ↗</a>
   </nav>
 </footer>
 

@@ -118,8 +118,7 @@
     const parts = [];
     if (st.as_of) parts.push(`AS OF ${String(st.as_of).replace(/(\d)T(\d)/, '$1 $2')}`);
     $('asof').textContent = parts.join(' · ');
-    const loc = st.location && st.location.label;
-    $('foot-loc').textContent = [loc, st.as_of ? `DATA AS OF ${String(st.as_of).replace(/(\d)T(\d)/, '$1 $2')}` : ''].filter(Boolean).join(' · ');
+    $('foot-loc').textContent = st.as_of ? `DATA AS OF ${String(st.as_of).replace(/(\d)T(\d)/, '$1 $2')}` : '';
     const total = state.rundown.reduce((a, s) => a + segDuration(s), 0);
     $('rundown-total').textContent = `${state.rundown.length} SEGMENTS · ${clock(total)}`;
   }
@@ -135,6 +134,7 @@
       const b = el('button', 'rd');
       b.type = 'button';
       b.dataset.index = String(i);
+      b.dataset.kind = seg.kind || 'segment';
       if (seg.priority) b.classList.add('is-priority');
       const num = el('span', 'rd-num', String(i + 1).padStart(2, '0'));
       const kind = el('span', 'rd-kind');
@@ -146,7 +146,7 @@
       const sub = seg.subtitle || (track ? track.artist : '');
       if (sub) text.append(el('span', 'rd-sub', sub));
       const dur = el('span', 'rd-dur');
-      dur.append(el('span', 'rd-now', 'NOW'), el('span', null, clock(segDuration(seg))));
+      dur.append(el('span', 'rd-now', 'NOW'), el('span', 'rd-time', clock(segDuration(seg))));
       b.append(num, kind, text, dur);
       b.setAttribute('aria-label', `${i + 1}. ${seg.priority ? 'Priority ' : ''}${kindLabel(seg.kind).toLowerCase()}: ${seg.title || 'Untitled'}. ${clock(segDuration(seg))}. Play now.`);
       b.addEventListener('click', () => jump(i));
@@ -158,11 +158,29 @@
       t.append(el('span'));
       tl.append(t);
     });
+    if (state.rundown.length % 2 === 1) {
+      const filler = el('li', 'rd-filler');
+      filler.setAttribute('aria-hidden', 'true');
+      const card = el('div', 'rd rd-standby-cell');
+      const num = el('span', 'rd-num', '↻');
+      const kind = el('span', 'rd-kind');
+      kind.append(el('span', 'tag tag-mint', 'AUTO-LOOP'));
+      const text = el('span', 'rd-text');
+      text.append(
+        el('span', 'rd-title', 'Top of the hour · Continuous watch'),
+        el('span', 'rd-sub', 'Repeats schedule · New KEV exposure interrupts immediately')
+      );
+      const dur = el('span', 'rd-dur');
+      dur.append(el('span', 'rd-time', '24/7'));
+      card.append(num, kind, text, dur);
+      filler.append(card);
+      list.append(filler);
+    }
     markRundown();
   }
 
   function markRundown() {
-    document.querySelectorAll('#rundown .rd').forEach(b => {
+    document.querySelectorAll('#rundown button.rd').forEach(b => {
       const i = Number(b.dataset.index);
       if (i === state.index && state.started) b.setAttribute('aria-current', 'true');
       else b.removeAttribute('aria-current');

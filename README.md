@@ -7,7 +7,7 @@ your machines interrupts the music.
 
 ![Exposure Radio listener](docs/qa/station-desktop.png)
 
-[Open the listener](web/index.html) · [Station console](web/admin.html) · [Tenable segments](docs/TENABLE-SEGMENTS.md) · [Google, bring your own](docs/GOOGLE.md) · [Evidence and claim gate](web/briefing.html)
+[Open the listener](web/index.html) · [Station console](web/admin.html) · [Operational use cases](docs/USE-CASES.md) · [Tenable segments](docs/TENABLE-SEGMENTS.md) · [Google, bring your own](docs/GOOGLE.md) · [Evidence and claim gate](web/briefing.html)
 
 ## Run it in two minutes
 
@@ -38,6 +38,19 @@ console at `/admin.html` uses the admin token the host prints at start.
 
 Why these Tenable segments keep a small team on the same page:
 [docs/TENABLE-SEGMENTS.md](docs/TENABLE-SEGMENTS.md).
+
+## Operational use cases
+
+| Workflow | Who it serves | How it runs | Guarantee |
+|---|---|---|---|
+| **1. 9:00 AM Zero-Meeting Standup** | Small IT & lean SecOps (2–15 engineers) | Schedule `station pull` + `brief` after the overnight Tenable scan; press **Tune In** | Separates *new exposure* on existing hosts from *new visibility* on newly scanned hosts |
+| **2. CISA KEV & Zero Wire Break-In** | Vulnerability & patch owners | Deterministic `BREAK_IN` policy interrupts music on newly exposed KEV findings | SQLite alert memory stays `SILENT` on unchanged evidence; local Zero Wire caveats |
+| **3. Claude Code & MCP Triage** | Security engineers & incident responders | `.mcp.json` loads 4 read-only tools + `/exposure-briefing` skill | Every factual sentence passes `check_claims` before output (`27/27` false claims blocked) |
+| **4. Executive vs. Analyst Handoff** | CISOs, IT directors, MSP account leads | `--edition executive` for leadership audio/card; `--edition analyst` for ticket tables | Fail-closed audit across `304` tenant identifiers (`0` hostnames, FQDNs, IPs, or UUIDs leaked) |
+| **5. Scanner Hygiene & Blind Spots** | Platform & scanner administrators | Coverage-aware delta checks `export-status.json` (`FINISHED`) and credentialed state | Incomplete exports confirm zero fixes; disappeared findings without a rescan are *unverified* |
+| **6. SOC / NOC Ambient Wallboard** | 24/7 operations desks & shift handovers | Loopback or SSO-fronted station with console queue, Learn rotation, and quiet hours | Zero third-party trackers; keys stay mode `0600` on the station host |
+
+Full workflow recipes, commands, and deployment patterns: **[docs/USE-CASES.md](docs/USE-CASES.md)**.
 
 ## Connect your own services
 
@@ -127,13 +140,27 @@ cd exposure-radio && claude
 
 Elsewhere: `claude mcp add exposure-radio -- python3 -m exposure_radio mcp`, run from the clone.
 
+## Architecture & repository layout
+
+![Exposure Radio architecture](docs/architecture.png)
+
+| Path | Responsibility |
+|---|---|
+| `exposure_radio/delta.py`, `ledger.py` | Coverage-aware Tenable VM export diffing and typed `(subject, predicate, value, source)` evidence ledger |
+| `exposure_radio/claims.py`, `gate.py`, `onair.py` | Controlled narration grammar (34 templates), reverse claim parser, and pre-speech script gate ([ADR-0001](docs/adr/0001-verified-claims-before-speech.md)) |
+| `exposure_radio/policy.py`, `rundown.py` | Deterministic `BREAK_IN` / `HEALTH` / `SCHEDULED` / `SILENT` policy, SQLite alert memory, and fail-closed redaction |
+| `exposure_radio/desks.py`, `zero_wire.py`, `tenable_api.py` | NWS weather, CISA KEV, Cloudflare Radar Zero Wire public context, and read-only Tenable VM export client |
+| `exposure_radio/station.py`, `mcp_server.py`, `analyst.py` | Loopback station host (`mode 0600` key store), read-only stdio MCP server, and bounded analyst adapter |
+| `web/index.html`, `web/admin.html`, `web/briefing.html` | Station listener, operator console, and interactive evidence & claim-gate inspector |
+| `docs/USE-CASES.md`, `CONTRIBUTING.md`, `SECURITY.md` | Operational workflow recipes, contributor verification guide, and security boundaries |
+
 ## Verification
 
 ```bash
 make check            # unit tests, adversarial gate demo, identifier audit
 ```
 
-See [security boundaries](SECURITY.md), [build evidence](docs/BUILDLOG.md) and
+See [operational use cases](docs/USE-CASES.md), [contributing guide](CONTRIBUTING.md), [security boundaries](SECURITY.md), [build evidence](docs/BUILDLOG.md) and
 [third-party notices](THIRD_PARTY_NOTICES.md). All tenant data in the sample is synthetic.
 
 MIT licensed.
