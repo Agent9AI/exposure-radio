@@ -8,7 +8,7 @@ Exposure Radio compares **yesterday's Tenable scan with today's** and tells the 
 
 **Why two exports?** A change briefing needs a before and an after. Exposure Radio takes two Tenable Vulnerability Management exports, the previous scan and the current one, and diffs them. A finding only counts as *fixed* when the current export is complete and a rescan confirmed it, so a finding that simply disappeared is reported as *unverified*. With a Tenable API key, `station pull` fetches each export for you.
 
-![Exposure Radio listener](docs/qa/station-desktop.png)
+![Exposure Radio listener](docs/station-hero.png)
 
 [Open the listener](web/index.html) · [Station console](web/admin.html) · [Operational use cases](docs/USE-CASES.md) · [Tenable segments](docs/TENABLE-SEGMENTS.md) · [Google, bring your own](docs/GOOGLE.md) · [Evidence and claim gate](web/briefing.html)
 
