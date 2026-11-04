@@ -18,7 +18,7 @@ is served live at `GET /api/station`.
     "location": {"label": "Washington, DC"} // from the admin address, label only
   },
   "hosts": [
-    {"id": "ava",  "name": "Ava",  "role": "Host",            "voice": "Kokoro af_heart"},
+    {"id": "avery",  "name": "Avery",  "role": "Host",            "voice": "Kokoro af_heart"},
     {"id": "cole", "name": "Cole", "role": "Exposure analyst", "voice": "Kokoro am_michael"}
   ],
   "providers": [
@@ -37,7 +37,7 @@ is served live at `GET /api/station`.
       "captions": "station/audio/seg-01.vtt",
       "priority": false,          // true = priority interruption (red treatment)
       "turns": [                  // spoken lines, in order, with timing inside the segment
-        {"host": "ava", "start": 0.0, "end": 3.1,
+        {"host": "avery", "start": 0.0, "end": 3.1,
          "text": "spoken words",  // what the voice said
          "caption": "display text", // what to show (may carry the CVE ID the voice did not read)
          "cites": ["F012"]}       // evidence ids (exposure kinds only)

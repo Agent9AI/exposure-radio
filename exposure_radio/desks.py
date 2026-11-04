@@ -86,7 +86,7 @@ def fetch_weather(lat: float, lon: float) -> dict:
 
 def weather_segment(snapshot: dict, label: str) -> dict:
     periods = snapshot["periods"][:2]
-    turns = [("ava", f"Weather and local for {label}.")]
+    turns = [("avery", f"Weather and local for {label}.")]
     for p in periods:
         kind = "high" if p["isDaytime"] else "low"
         wind = str(p.get("windSpeed") or "")
@@ -94,13 +94,13 @@ def weather_segment(snapshot: dict, label: str) -> dict:
         text = f"{name[:1].upper()}{name[1:].lower()}: {clean_text(p['shortForecast'], 80).lower()}, with a {kind} near {p['temperature']}."
         if wind and re.search(r"\b(1[5-9]|[2-9]\d)\b", wind):
             text = text[:-1] + f", and wind {wind.replace('mph', 'miles an hour')}."
-        turns.append(("ava", _say(text)))
+        turns.append(("avery", _say(text)))
     if snapshot["alerts"]:
         events = sorted({clean_text(a["event"], 60) for a in snapshot["alerts"] if a.get("event")})
-        turns.append(("ava", "The National Weather Service has " + _join([f"a {e}" for e in events]) +
+        turns.append(("avery", "The National Weather Service has " + _join([f"a {e}" for e in events]) +
                       " in effect for the area."))
     else:
-        turns.append(("ava", "No active Weather Service alerts for the area."))
+        turns.append(("avery", "No active Weather Service alerts for the area."))
     return {"kind": "weather", "title": f"Weather and local: {label}",
             "subtitle": f"National Weather Service, {snapshot['fetched'][:16].replace('T', ' ')}",
             "turns": _turns(turns),
@@ -141,26 +141,26 @@ def _product(v: dict) -> str:
 
 def news_segment(snapshot: dict) -> dict:
     recent = snapshot["kev_recent"]
-    turns = [("ava", "Security news. Here's what CISA flagged this week.")]
+    turns = [("avery", "Security news. Here's what CISA flagged this week.")]
     if recent:
         n = len(recent)
         names = list(dict.fromkeys(_product(v) for v in recent))
-        turns.append(("ava", f"{words(n).capitalize()} {'vulnerability' if n == 1 else 'vulnerabilities'} "
+        turns.append(("avery", f"{words(n).capitalize()} {'vulnerability' if n == 1 else 'vulnerabilities'} "
                              f"joined the known exploited list in the last {words(snapshot['days'])} days."))
         turns.append(("cole", "On the list: " + _join(names[:5]) + "."))
         if len(names) > 5:
             turns.append(("cole", f"Plus {words(len(names) - 5)} more on screen."))
         if any(v["ransomware"] for v in recent):
             turns.append(("cole", "At least one is tied to known ransomware campaigns."))
-        turns.append(("ava", "If any of those are in your environment, your exposure desk will call it out."))
+        turns.append(("avery", "If any of those are in your environment, your exposure desk will call it out."))
     else:
-        turns.append(("ava", "Nothing new joined the known exploited list this week."))
+        turns.append(("avery", "Nothing new joined the known exploited list this week."))
     briefs = snapshot.get("zero_wire", [])
     active = [b for b in briefs if b.get("status") == "Needs attention"]
     if active:
         turns.append(("cole", f"Cloudflare Zero Wire has {words(len(active))} {'briefing' if len(active) == 1 else 'briefings'} marked needs attention: " +
                       _join([b["title"] for b in active[:5]]) + "."))
-        turns.append(("ava", "Those are public briefings, not findings on our network. Open the news desk for "
+        turns.append(("avery", "Those are public briefings, not findings on our network. Open the news desk for "
                       "the sources and patch guidance. Matching open findings get context on their action cards."))
         turns.append(("cole", "Cloudflare coverage is a compensating control. It does not replace the vendor "
                       "patch or a rescan, and we have not verified coverage for this environment."))
@@ -191,7 +191,7 @@ def learn_segment(topic: dict) -> dict:
 # --- station framing ---------------------------------------------------------------------------
 
 def ident_segment(text: str, title: str = "Exposure Radio", subtitle: str = "") -> dict:
-    return {"kind": "ident", "title": title, "subtitle": subtitle, "turns": _turns([("ava", text)]),
+    return {"kind": "ident", "title": title, "subtitle": subtitle, "turns": _turns([("avery", text)]),
             "sources": []}
 
 

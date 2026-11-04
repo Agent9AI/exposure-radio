@@ -23,10 +23,10 @@ from .ledger import Ledger
 from .numbers import spoken as words
 
 HOSTS = {
-    "ava": {"name": "Ava", "role": "Host", "kokoro": "af_heart", "gemini": "en-us-jori"},
+    "avery": {"name": "Avery", "role": "Host", "kokoro": "af_heart", "gemini": "en-us-jori"},
     "cole": {"name": "Cole", "role": "Exposure analyst", "kokoro": "am_michael", "gemini": "en-us-podcaster-1"},
 }
-VOICE_HOST = {"ANCHOR": "ava", "ANALYST": "cole"}
+VOICE_HOST = {"ANCHOR": "avery", "ANALYST": "cole"}
 
 # Each CVE template has a first-mention and a later-mention rendition.
 # {ref} is "the <product> flaw" on first mention; later lines say "it".
@@ -83,15 +83,15 @@ SPOKEN: dict[str, str | tuple[str, str]] = {
 
 # Claim-free connective lines. Nothing here states a fact about the tenant.
 BANTER = {
-    "exposure_open": ("ava", "Morning, team. Ava here, with Cole on the exposure desk."),
-    "priority_hand": ("ava", "Cole, what are we looking at?"),
-    "card": ("ava", "The CVE, the affected machines and the owners are on your action card."),
-    "watch_open": ("ava", "What else is on the board, Cole?"),
+    "exposure_open": ("avery", "Morning, team. Avery here, with Cole on the exposure desk."),
+    "priority_hand": ("avery", "Cole, what are we looking at?"),
+    "card": ("avery", "The CVE, the affected machines and the owners are on your action card."),
+    "watch_open": ("avery", "What else is on the board, Cole?"),
     "watch_more": ("cole", "The rest of the list is on the action card, ranked."),
-    "watch_close": ("ava", "Good. Let's keep moving."),
-    "wins_open": ("ava", "Some good news now: the wins."),
-    "blind_open": ("ava", "Now the blind spots, because what we can't see matters too."),
-    "blind_close": ("cole", "That's the exposure desk. Back to you, Ava."),
+    "watch_close": ("avery", "Good. Let's keep moving."),
+    "wins_open": ("avery", "Some good news now: the wins."),
+    "blind_open": ("avery", "Now the blind spots, because what we can't see matters too."),
+    "blind_close": ("cole", "That's the exposure desk. Back to you, Avery."),
     "next_item": ("cole", "Also worth a look."),
 }
 

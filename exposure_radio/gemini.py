@@ -92,7 +92,7 @@ INTERACTIONS = "https://generativelanguage.googleapis.com/v1beta/interactions"
 class GeminiVoice:
     """Gemini 3.8 Flash TTS, one request per turn so captions keep exact timing."""
 
-    STYLE = {"ava": "warm, upbeat morning radio host talking to her own team",
+    STYLE = {"avery": "warm, upbeat morning radio host talking to her own team",
              "cole": "calm, friendly security analyst explaining to colleagues"}
 
     def __init__(self, api_key: str, voices: dict[str, str], model: str = TTS_MODEL,

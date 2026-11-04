@@ -1,9 +1,12 @@
-# Exposure Radio
+<p align="center"><img src="docs/logo.svg" width="96" alt="Exposure Radio logo"></p>
 
-**A security radio station for small IT teams.** Two hosts tell your team what changed in
-Tenable overnight, what to fix first, and what was verified fixed, between weather, CISA and Cloudflare Zero Wire
-news, short Learn segments and music. Anything on CISA's exploited list that lands on one of
-your machines interrupts the music.
+<h1 align="center">Exposure Radio</h1>
+
+<p align="center"><b>Your Tenable findings, read aloud as a morning radio show for small IT teams. Every spoken fact is checked against the scan data before it is voiced.</b></p>
+
+Exposure Radio compares **yesterday's Tenable scan with today's** and tells the team what changed: the one item to fix today, what is new, and what a rescan proved fixed. Two hosts, Avery and Cole, read it between weather, CISA and Cloudflare news, short Learn segments and music. If a vulnerability on CISA's known-exploited list shows up on one of your machines, it interrupts the music.
+
+**Why two exports?** A change briefing needs a before and an after. Exposure Radio takes two Tenable Vulnerability Management exports, the previous scan and the current one, and diffs them. A finding only counts as *fixed* when the current export is complete and a rescan confirmed it, so a finding that simply disappeared is reported as *unverified*. With a Tenable API key, `station pull` fetches each export for you.
 
 ![Exposure Radio listener](docs/qa/station-desktop.png)
 

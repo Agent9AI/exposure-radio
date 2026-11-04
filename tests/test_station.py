@@ -73,14 +73,14 @@ class OnAirTests(unittest.TestCase):
     def test_unknown_connective_line_is_refused(self):
         c, segs, today = _segments()
         seg = json.loads(json.dumps(segs[0]))
-        seg["turns"].insert(0, {"host": "ava", "text": "Everything is patched, relax.",
+        seg["turns"].insert(0, {"host": "avery", "text": "Everything is patched, relax.",
                                 "caption": "Everything is patched, relax.", "banter": "exposure_open"})
         with self.assertRaises(OnAirError):
             verify_segment(seg, c.ledger, c.kev, today)
 
     def test_connective_lines_carry_no_facts(self):
         for host, text in BANTER.values():
-            self.assertIn(host, ("ava", "cole"))
+            self.assertIn(host, ("avery", "cole"))
             self.assertNotRegex(text, r"\d|CVE-")
 
 
@@ -117,7 +117,7 @@ class DeskTests(unittest.TestCase):
         for topic in topics:
             seg = learn_segment(topic)
             self.assertTrue(seg["sources"])
-            self.assertTrue(all(t["host"] in ("ava", "cole") for t in seg["turns"]))
+            self.assertTrue(all(t["host"] in ("avery", "cole") for t in seg["turns"]))
 
 
 class StoreTests(unittest.TestCase):

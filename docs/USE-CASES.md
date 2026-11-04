@@ -35,7 +35,7 @@ This guide documents the six primary operational workflows teams use in producti
      --out latest-brief
    python3 -m exposure_radio station serve
    ```
-3. Press **Tune In** at `http://127.0.0.1:8080`. Between music breaks, two hosts (**Ava** and **Cole**) deliver four structured Tenable segments:
+3. Press **Tune In** at `http://127.0.0.1:8080`. Between music breaks, two hosts (**Avery** and **Cole**) deliver four structured Tenable segments:
    - **Priority (`02`):** The single item requiring action today, spoken in plain product names (*"the Ivanti Connect Secure flaw is open on two assets"*), never digit-by-digit CVE strings.
    - **Watch list (`04`):** Top-ranked movement since the last scan, ordering *new exposure* (a vulnerability appearing on an already-scanned machine) ahead of *new visibility* (a machine entering scan coverage).
    - **Wins (`09`):** Findings confirmed in the `FIXED` state by a completed rescan.

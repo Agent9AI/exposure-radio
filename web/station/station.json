@@ -12,8 +12,8 @@
   },
   "hosts": [
     {
-      "id": "ava",
-      "name": "Ava",
+      "id": "avery",
+      "name": "Avery",
       "role": "Host",
       "voice": "Kokoro af_heart"
     },
@@ -75,7 +75,7 @@
       "subtitle": "Morning edition",
       "turns": [
         {
-          "host": "ava",
+          "host": "avery",
           "text": "You're tuned to Exposure Radio. What changed on our network, what to fix first, and a little music while you work.",
           "caption": "You're tuned to Exposure Radio. What changed on our network, what to fix first, and a little music while you work.",
           "template": null,
@@ -107,9 +107,9 @@
       "title": "Priority: needs action today",
       "turns": [
         {
-          "host": "ava",
-          "text": "Morning, team. Ava here, with Cole on the exposure desk.",
-          "caption": "Morning, team. Ava here, with Cole on the exposure desk.",
+          "host": "avery",
+          "text": "Morning, team. Avery here, with Cole on the exposure desk.",
+          "caption": "Morning, team. Avery here, with Cole on the exposure desk.",
           "template": null,
           "subject": null,
           "cites": [],
@@ -118,7 +118,7 @@
           "end": 4.699
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "We're starting with a priority. One item needs action today: the Ivanti Connect Secure flaw.",
           "caption": "Priority bulletin: CVE-2026-118527 needs action today.",
           "template": "B_BREAK_IN",
@@ -132,7 +132,7 @@
           "end": 10.636
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Cole, what are we looking at?",
           "caption": "Cole, what are we looking at?",
           "template": null,
@@ -182,7 +182,7 @@
           "end": 24.796
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "The move today: follow CISA's required action, then rescan to confirm.",
           "caption": "Next step: follow CISA's required action for CVE-2026-118527, then rescan to confirm.",
           "template": "A_KEV_ACTION",
@@ -196,7 +196,7 @@
           "end": 29.699
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "The CVE, the affected machines and the owners are on your action card.",
           "caption": "The CVE, the affected machines and the owners are on your action card.",
           "template": null,
@@ -302,7 +302,7 @@
       "title": "The watch list",
       "turns": [
         {
-          "host": "ava",
+          "host": "avery",
           "text": "What else is on the board, Cole?",
           "caption": "What else is on the board, Cole?",
           "template": null,
@@ -374,7 +374,7 @@
           "end": 25.564
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Good. Let's keep moving.",
           "caption": "Good. Let's keep moving.",
           "template": null,
@@ -517,7 +517,7 @@
       "subtitle": "National Weather Service, 2026-11-03 18:51",
       "turns": [
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Weather and local for Washington, DC.",
           "caption": "Weather and local for Washington, DC.",
           "template": null,
@@ -528,7 +528,7 @@
           "end": 3.483
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Tonight: mostly clear then patchy fog, with a low near fifty-three.",
           "caption": "Tonight: mostly clear then patchy fog, with a low near fifty-three.",
           "template": null,
@@ -539,7 +539,7 @@
           "end": 7.564
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Wednesday: patchy fog then mostly sunny, with a high near seventy-six.",
           "caption": "Wednesday: patchy fog then mostly sunny, with a high near seventy-six.",
           "template": null,
@@ -550,7 +550,7 @@
           "end": 12.136
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "No active Weather Service alerts for the area.",
           "caption": "No active Weather Service alerts for the area.",
           "template": null,
@@ -587,7 +587,7 @@
       "subtitle": "Why a bigger number is not always worse news",
       "turns": [
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Cole, the finding count jumped this week. Should the team panic?",
           "caption": "Cole, the finding count jumped this week. Should the team panic?",
           "template": null,
@@ -620,7 +620,7 @@
           "end": 26.397
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "So a higher number can actually mean better coverage.",
           "caption": "So a higher number can actually mean better coverage.",
           "template": null,
@@ -642,7 +642,7 @@
           "end": 41.173
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "New exposure, new visibility, verified fixed, unverified. Four different stories, and this station keeps them apart for you.",
           "caption": "New exposure, new visibility, verified fixed, unverified. Four different stories, and this station keeps them apart for you.",
           "template": null,
@@ -692,7 +692,7 @@
       "subtitle": "Public context \u00b7 KEV 2026.11.03 \u00b7 Zero Wire 2026-11-04T05:53",
       "turns": [
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Security news. Here's what CISA flagged this week.",
           "caption": "Security news. Here's what CISA flagged this week.",
           "template": null,
@@ -703,7 +703,7 @@
           "end": 4.037
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Seven vulnerabilities joined the known exploited list in the last seven days.",
           "caption": "Seven vulnerabilities joined the known exploited list in the last seven days.",
           "template": null,
@@ -736,7 +736,7 @@
           "end": 22.372
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "If any of those are in your environment, your exposure desk will call it out.",
           "caption": "If any of those are in your environment, your exposure desk will call it out.",
           "template": null,
@@ -758,7 +758,7 @@
           "end": 42.695
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Those are public briefings, not findings on our network. Open the news desk for the sources and patch guidance. Matching open findings get context on their action cards.",
           "caption": "Those are public briefings, not findings on our network. Open the news desk for the sources and patch guidance. Matching open findings get context on their action cards.",
           "template": null,
@@ -939,7 +939,7 @@
       "title": "Wins: verified fixed",
       "turns": [
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Some good news now: the wins.",
           "caption": "Some good news now: the wins.",
           "template": null,
@@ -998,7 +998,7 @@
       "title": "Blind spots and coverage",
       "turns": [
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Now the blind spots, because what we can't see matters too.",
           "caption": "Now the blind spots, because what we can't see matters too.",
           "template": null,
@@ -1063,7 +1063,7 @@
           "end": 25.664
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Worth a look before the next cycle: the twelve newly scanned assets.",
           "caption": "Review the 12 newly scanned assets before the next cycle.",
           "template": "A_REVIEW_NEW",
@@ -1077,8 +1077,8 @@
         },
         {
           "host": "cole",
-          "text": "That's the exposure desk. Back to you, Ava.",
-          "caption": "That's the exposure desk. Back to you, Ava.",
+          "text": "That's the exposure desk. Back to you, Avery.",
+          "caption": "That's the exposure desk. Back to you, Avery.",
           "template": null,
           "subject": null,
           "cites": [],
@@ -1122,7 +1122,7 @@
       "subtitle": "What the exploit prediction score does and does not tell you",
       "turns": [
         {
-          "host": "ava",
+          "host": "avery",
           "text": "You'll hear us mention EPSS. Cole, what is it, in plain English?",
           "caption": "You'll hear us mention EPSS. Cole, what is it, in plain English?",
           "template": null,
@@ -1144,7 +1144,7 @@
           "end": 16.364
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "So a high score means we're about to get hacked?",
           "caption": "So a high score means we're about to get hacked?",
           "template": null,
@@ -1177,7 +1177,7 @@
           "end": 40.043
         },
         {
-          "host": "ava",
+          "host": "avery",
           "text": "Known exploited first, then likely to be exploited, then everything else. That's a plan a small team can actually follow.",
           "caption": "Known exploited first, then likely to be exploited, then everything else. That's a plan a small team can actually follow.",
           "template": null,
@@ -1231,7 +1231,7 @@
       "subtitle": "Back after the next scan",
       "turns": [
         {
-          "host": "ava",
+          "host": "avery",
           "text": "That's the hour on Exposure Radio. The next exposure briefing airs after the next scan, and anything on CISA's exploited list interrupts the music.",
           "caption": "That's the hour on Exposure Radio. The next exposure briefing airs after the next scan, and anything on CISA's exploited list interrupts the music.",
           "template": null,

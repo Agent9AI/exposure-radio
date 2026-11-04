@@ -131,10 +131,8 @@ button { cursor: pointer; }
 }
 .brand { display: flex; align-items: center; gap: 12px; min-width: 0; text-decoration: none; color: inherit; }
 .mark {
-  display: grid; place-items: center; flex: none; width: 40px; height: 40px;
-  border: 1px solid var(--teal-2); background: linear-gradient(180deg, #123532, #0b2220);
-  font-size: 15px; font-weight: 850; letter-spacing: .04em; color: #eef8f6;
-  box-shadow: 0 0 16px rgba(45,139,128,.25), inset 0 -2px 0 var(--amber);
+  display: block; flex: none; width: 40px; height: 40px; border-radius: 10px;
+  box-shadow: 0 0 18px rgba(240,168,58,.18), 0 0 0 1px rgba(47,141,130,.55);
 }
 .brand-text { display: grid; min-width: 0; }
 .brand-name { font-size: 14px; font-weight: 850; letter-spacing: .14em; white-space: nowrap; }
@@ -635,7 +633,7 @@ select.input { appearance: auto; }
   .bar-status { justify-self: end; flex-direction: column; align-items: flex-end; gap: 6px; }
   .bar-meta { display: none; }
   .brand-sub { display: none; }
-  .mark { width: 36px; height: 36px; font-size: 14px; }
+  .mark { width: 36px; height: 36px; }
   .brand-name { font-size: 12.5px; letter-spacing: .12em; white-space: normal; line-height: 1.2; }
   .device-body { padding: 12px; gap: 12px; }
   .timeline { left: 14px; right: 14px; bottom: 34px; }
