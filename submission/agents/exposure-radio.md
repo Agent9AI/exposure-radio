@@ -2,36 +2,37 @@
 name: "Exposure Radio"
 author: "Agent9AI"
 github_url: "https://github.com/Agent9AI/exposure-radio"
-description: "Turn Tenable exports into cited priority decisions, receipt-gated audio, and ticket-ready remediation handoffs."
+description: "A security radio station for small IT teams: two hosts brief what changed in Tenable, what to fix first and what was verified fixed, between weather, CISA and Cloudflare Zero Wire news, Learn segments and music."
 license: "MIT"
 tier: "contributed"
-tags: ["exposure-management", "audio", "evidence", "remediation", "read-only"]
+tags: ["exposure-management", "audio", "team-awareness", "evidence", "read-only"]
 domains: ["vulnerability-management", "security-operations"]
-integrations: ["Tenable", "Anthropic"]
-date_added: 2026-11-02
+integrations: ["Tenable", "GCP", "Anthropic"]
+date_added: 2026-11-04
+contribution_agreement_date: 2026-11-04T10:47:01Z
 works_with_tenable_hexa_mcp: false
 ---
 
 # Exposure Radio
 
-Exposure Radio compares two Tenable Vulnerability Management exports, combines them with local CISA KEV and FIRST EPSS evidence, and produces a cited priority briefing plus a remediation action card. A bounded analyst can select the rundown; deterministic policy controls interruptions and controlled templates produce speech.
+Small IT teams rarely hold a security standup. Exposure Radio gives them one they can hear while they work. It compares two Tenable Vulnerability Management exports and airs four short segments: a **Priority** interruption when something on CISA's exploited list lands on your machines, a **Watch list** that separates new exposure from new visibility, **Wins** verified by a rescan, and **Blind spots** for missed or uncredentialed scans. Weather, CISA and Cloudflare Zero Wire news, sixty-second Learn explainers and original music fill the hour.
 
 ## What it does
 
-- Distinguishes new exposure from newly scanned or newly credentialed visibility.
-- Retains missing or insufficiently rescanned findings as unverified; incomplete exports confirm no fixes.
-- Checks whole narration sentences against typed evidence before speech, binding audio and captions to the accepted script receipt.
-- Returns read-only tools through stdio MCP: exposure_briefing, check_claims, remediation_packet and explain_priority.
-- Supplies a synthetic sample, actual recorded analyst decisions, adversarial claim-gate demonstration and reproducible preparation benchmark.
+- Two hosts speak plainly ("the Ivanti Connect Secure flaw is open on one asset"); CVE IDs, owners and deadlines stay on screen and on a copyable action card.
+- Every tenant exposure line is rebuilt from typed evidence and compared word for word; its caption passes a claim gate that blocks 27 of 27 adversarial statements.
+- A station host serves the listener and a console for segments, queue, Learn topics and connections. Keys stay in a private file on the host; the browser only learns whether one is set.
+- Bring-your-own services: Tenable export API (read-only), Gemini voices and Search-grounded Learn suggestions, the official YouTube embedded player, keyless NWS weather and CISA feeds.
+- Keyless Cloudflare Zero Wire briefings add plain-language threat context and coverage caveats. Exact-CVE matches enrich open action cards locally; tenant CVEs never leave the host for this lookup. Public context does not change the evidence gate or establish that Cloudflare protects an environment.
+- Read-only MCP tools: exposure_briefing, check_claims, remediation_packet and explain_priority.
 
 ## Run
 
-Python 3.10+; standard library only for the core and recorded demonstration:
+Python 3.10+, standard library only:
 
 ```bash
-python3 -m exposure_radio demo
-python3 -m exposure_radio demo --analyst replay
+python3 -m exposure_radio station serve
 make check
 ```
 
-The repository includes the local listener, MP3, transcript and evidence. A live analyst uses the user's own Anthropic API key; optional speech generation uses local Kokoro and FFmpeg. Private analyst packets remain within the operator's data boundary. Hosted sample data is synthetic.
+The repository includes a pre-rendered sample hour built from synthetic Tenable exports, so it plays with no keys. Exposure segments use local voices unless the operator's Gemini project is on a paid tier.

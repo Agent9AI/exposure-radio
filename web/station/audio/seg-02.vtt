@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:01.200 --> 00:00:04.699
+<v Ava>Morning, team. Ava here, with Cole on the exposure desk.
+
+00:00:04.919 --> 00:00:10.636
+<v Ava>Priority bulletin: CVE-2026-118527 needs action today.
+
+00:00:10.856 --> 00:00:12.371
+<v Ava>Cole, what are we looking at?
+
+00:00:12.751 --> 00:00:19.620
+<v Cole>CISA listed CVE-2026-118527 as exploited since the last briefing.
+
+00:00:19.840 --> 00:00:22.037
+<v Cole>CVE-2026-118527 is open on 1 asset.
+
+00:00:22.257 --> 00:00:24.796
+<v Cole>Your internal deadline for CVE-2026-118527 is 2026-11-06.
+
+00:00:25.176 --> 00:00:29.699
+<v Ava>Next step: follow CISA&#x27;s required action for CVE-2026-118527, then rescan to confirm.
+
+00:00:29.919 --> 00:00:34.079
+<v Ava>The CVE, the affected machines and the owners are on your action card.

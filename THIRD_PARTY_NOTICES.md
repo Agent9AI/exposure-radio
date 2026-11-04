@@ -7,4 +7,18 @@ Exposure Radio source code is MIT licensed. External components retain their own
 - **Kokoro-82M:** optional local speech model, Apache-2.0, https://huggingface.co/hexgrad/Kokoro-82M. The included synthetic sample uses the `am_michael` and `af_heart` voices. Model weights and runtime are not included.
 - **kokoro-onnx:** optional runtime, MIT, https://github.com/thewh1teagle/kokoro-onnx. Its dependencies and FFmpeg retain their own licenses; none is required to run the core or play the included MP3.
 
+- **National Weather Service API and US Census Geocoder:** keyless US Government public data, https://www.weather.gov/documentation/services-web-api and https://geocoding.geo.census.gov/. Requests send a descriptive User-Agent as NWS asks.
+- **CISA advisories RSS:** public headlines and links from https://www.cisa.gov/cybersecurity-advisories/all.xml, attributed on screen.
+- **House beats, stinger and beds:** synthesized from scratch by `scripts/make_beats.py`; no samples or third-party recordings. MIT licensed with the project.
+- **Google services (optional):** Gemini, Lyria and the YouTube IFrame Player are used only with the operator's own account and are governed by Google's terms; see docs/GOOGLE.md.
+
 All tenant assets, addresses, owners and scanner findings in the demonstration were generated for the synthetic scenario. No customer export is included.
+
+## Cloudflare Zero Wire
+
+Public briefing metadata, summaries and product-coverage excerpts are attributed to
+Cloudforce One / Cloudflare Zero Wire and linked to the original Radar briefing.
+The bundled snapshot was retrieved on 4 November 2026 from
+https://radar.cloudflare.com/security/zero-wire/rss. Cloudflare content remains
+subject to its own terms and is not relicensed under this project's MIT license.
+No affiliation, endorsement, or verified customer protection is asserted.

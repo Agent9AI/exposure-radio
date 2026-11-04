@@ -1,115 +1,147 @@
 # Exposure Radio
 
-**Turn two Tenable exports into a cited priority briefing and a remediation handoff.**
-Hear what changed, distinguish new exposure from new visibility, and act on a checked action card.
+**A security radio station for small IT teams.** Two hosts tell your team what changed in
+Tenable overnight, what to fix first, and what was verified fixed, between weather, CISA and Cloudflare Zero Wire
+news, short Learn segments and music. Anything on CISA's exploited list that lands on one of
+your machines interrupts the music.
 
-[Listen to the 90-second priority break](web/assets/briefing.mp3) · [Full station episode](web/assets/full-briefing.mp3) · [Read the transcript](web/assets/briefing.vtt) · [Inspect the evidence](web/data/facts.json)
+![Exposure Radio listener](docs/qa/station-desktop.png)
 
-![Exposure Radio listener](docs/qa/desktop.png)
+[Open the listener](web/index.html) · [Station console](web/admin.html) · [Tenable segments](docs/TENABLE-SEGMENTS.md) · [Google, bring your own](docs/GOOGLE.md) · [Evidence and claim gate](web/briefing.html)
 
-## Run in two minutes
+## Run it in two minutes
 
-Python 3.10+ is sufficient. The core, demo, replay and MCP server use only the standard library.
+Python 3.10+ only. The station, the console, the demo and the MCP server use the standard library.
 
 ```bash
 git clone https://github.com/Agent9AI/exposure-radio
 cd exposure-radio
-python3 -m exposure_radio demo
-python3 -m exposure_radio demo --analyst replay
-make check
-python3 -m http.server 8080 --bind 127.0.0.1 --directory web
+python3 -m exposure_radio station serve
 ```
 
-Open **http://127.0.0.1:8080** for the listener, transcript, evidence drawer, action-card download and claim-gate demonstration. The included MP3 plays without a model key, network feed or TTS installation.
+Open **http://127.0.0.1:8080**, press **Tune in**, and the sample hour plays: exposure
+briefings, weather, news, Learn and house beats, all pre-rendered, no key required. The
+console at `/admin.html` uses the admin token the host prints at start.
 
-## The decision, then the evidence
+## What's on air
 
-The synthetic scenario compares **455 findings with 545 findings across 76 assets**. It uses a pinned CISA KEV catalog and FIRST EPSS snapshot dated 30 October 2026.
+| Segment | What the team hears | Source |
+|---|---|---|
+| **Priority** | One item that needs action today, and the next step | Two Tenable VM exports + CISA KEV |
+| **Watch list** | What moved since the last scan, new exposure before new visibility | Tenable VM + FIRST EPSS |
+| **Wins** | Findings verified fixed by a rescan | Tenable VM |
+| **Blind spots** | Missed scans, lost credentials, newly visible machines | Tenable VM |
+| **Weather and local** | Forecast and active alerts for the station's address | National Weather Service (keyless) |
+| **Security news** | CISA exploited-list additions and active Zero Wire briefings | CISA + Cloudflare Radar |
+| **Learn** | Sixty-second explainers: EPSS, KEV, exposure versus visibility | Bundled topics, or Gemini suggestions you approve |
+| **Music** | Original house beats; your own YouTube playlists or Lyria tracks if connected | MIT-licensed `scripts/make_beats.py` |
 
-| Situation | Result |
-|---|---|
-| A previously unscanned segment enters coverage | New visibility, distinct from a regression |
-| An asset misses its scan or loses authenticated coverage | Unverified exposure; no confirmed fix |
-| An exploited vulnerability is newly discovered or reopens | A priority interruption with cited next steps |
-| Identical evidence is processed again | Silence; no duplicate alert |
-| A verified fix closes an announced exposure | The same exposure can alert again if it reopens |
+Why these Tenable segments keep a small team on the same page:
+[docs/TENABLE-SEGMENTS.md](docs/TENABLE-SEGMENTS.md).
 
-The private analyst card includes affected assets and owners. The executive card and public sample exclude tenant identifiers. Notification previews use generic text and an opaque reference.
+## Connect your own services
 
-## A bounded analyst, a deterministic producer
-
-The optional analyst reads allowlisted facts through `list_candidates`, `get_facts` and `check_claims`, then submits a ranked rundown. Code retains the interruption decision and policy lead. The model cannot write remediation state, execute scanner instructions or put free text into speech.
-
-The recorded demonstration contains a model's actual tool decisions on synthetic evidence, including a rejected false count and corrected cited claims. Replay recomputes tool results and fails over to the template edition if evidence differs. Its model and transport are recorded in [the trace](exposure_radio/data/demo/analyst-trace.json); provider token usage was not measured.
-
-For a live API-backed analyst, explicitly opt in with your own Anthropic key:
+Everything optional is bring-your-own. The project ships no keys and no shared quota.
 
 ```bash
-export EXPOSURE_RADIO_MODEL=claude-sonnet-5-5
-# Set ANTHROPIC_API_KEY in your environment; never put it in a file in this repository.
-python3 -m exposure_radio demo --analyst anthropic
+python3 -m exposure_radio station keys set tenable   # read-only VM export access
+python3 -m exposure_radio station pull               # one complete export, loader-ready
+python3 -m exposure_radio station keys set gemini    # broadcast voices, Learn suggestions
 ```
 
-The API adapter counts input before dispatch and reserves output within its configured budget. The default loop permits six model steps, eight read-only tool calls, one revision and 90 seconds. Provider failure or invalid output selects the checked template edition. The optional command adapter is an operator-trusted process; configure its own native tools and provider spending controls separately.
+Keys live in a private settings file on the station host (mode 600). The browser console
+only ever learns *whether* a key is set. Gemini's free tier may use content to improve
+Google products, so exposure segments stay on local voices unless you mark the Gemini
+project as paid. A Google AI Pro subscription's monthly Cloud credit can pay for that:
+[step-by-step setup](docs/GOOGLE.md#using-a-google-ai-pro-subscription).
 
-![Evidence and authority flow](docs/architecture.png)
+YouTube plays only in the official embedded player, with the video visible. The station
+never downloads or strips YouTube audio.
 
-## Facts must pass before speech
+## Hosts that sound like colleagues
+
+The hosts say "the Ivanti Connect Secure flaw is open on one asset", not a CVE number
+read digit by digit. Identifiers, owners and deadlines are on screen and on the action
+card, where they can be copied into a ticket.
+
+Tenant speech is evidence-bound. Each exposure line is a fixed rendition of a template
+sentence, rebuilt from the evidence ledger and compared word for word before any voice
+engine runs. The caption under it is the canonical sentence, and that caption passes the
+claim gate:
 
 1. Exports and public feeds produce typed `(subject, predicate, value, source)` facts.
-2. Model submissions require exact public fact citations already returned by a tool.
-3. Controlled templates render narration; the entire sentence is parsed and checked again.
-4. A receipt binds the script, voices and ledger. The audio renderer rechecks it before loading TTS.
-5. The site builder verifies the audio hash, receipt and exact caption text before publishing data.
+2. Every caption is template output, parsed back into claims and checked against the ledger.
+3. Every spoken line is rebuilt from the same template and values; one changed word refuses the segment.
+4. Connective lines ("Cole, what are we looking at?") come from a fixed list and may not contain numbers or identifiers.
+5. The audio renderer repeats the check immediately before text-to-speech.
 
-`make gate-demo` rejects **27 of 27 adversarial statements**, accepts **five true controls**, and refuses a script with a false line inserted. Cases include wrong fixed counts, negation, phonetic number tricks, multiple-CVE claims, scanner instructions and unsupported all-clears. Free text outside the controlled grammar cannot authorize speech.
+`make gate-demo` rejects **27 of 27 adversarial statements** and accepts five true
+controls. `tests/test_station.py` covers spoken-line drift, false captions, unknown
+connective lines, key masking, admin-token enforcement and host-header checks.
 
-## Use your own Tenable VM exports
+## Build your own station hour
 
-Place each complete export in its own directory:
-
-```text
-export-status.json   assets.json   vulns/chunk-1.json   vulns/chunk-2.json ...
+```bash
+# Kokoro voices (local, free): pip install kokoro-onnx numpy soundfile, plus FFmpeg
+python3 scripts/make_beats.py --out web/station/music
+python3 scripts/build_station.py --model kokoro-v1.0.onnx --voices voices-v1.0.bin \
+  --address "1600 Pennsylvania Ave NW, Washington, DC 20500"
 ```
 
-Include OPEN, REOPENED and FIXED states. The loader validates completion metadata, chunks and asset scan timestamps. Incomplete evidence confirms no fixes.
+`--offline` replays the saved weather and news snapshots. `--plan-only` writes the rundown
+without audio. The data contract the listener reads is in [docs/STATION.md](docs/STATION.md).
+
+## Use your own Tenable exports directly
 
 ```bash
 python3 -m exposure_radio brief --prev exports/day1 --curr exports/day2 \
   --kev feeds/kev-current.json --prev-kev feeds/kev-previous.json \
   --epss feeds/epss.csv.gz --state private-state.sqlite3 --out private-brief
-python3 -m exposure_radio check --strict --text "CVE-2024-3400 is fixed on 20 assets."
 ```
 
-The last command is an intentional negative control and exits with status 1. An actual previous KEV catalog establishes changes in membership; export dates alone cannot establish when a same-day feed changed. Internal remediation deadlines and CISA catalog dates are separate fields.
+Each export directory holds `export-status.json`, `assets.json` and `vulns/chunk-N.json`,
+exactly what `station pull` writes. Incomplete evidence confirms no fixes.
 
-## Use as MCP tools
+## Agents and MCP
+
+An optional bounded analyst reads allowlisted facts through `list_candidates`, `get_facts`
+and `check_claims`, then submits a ranked rundown. Code keeps the interruption decision.
+The model cannot write remediation state or put free text into speech.
+`python3 -m exposure_radio demo --analyst replay` replays a recorded run;
+`--analyst anthropic` uses your own key.
+
+`python3 -m exposure_radio mcp` exposes four read-only tools: `exposure_briefing`,
+`check_claims`, `remediation_packet` and `explain_priority`.
+
+## Verification
 
 ```bash
-python3 -m exposure_radio mcp
+make check            # unit tests, adversarial gate demo, identifier audit
 ```
 
-Configure that command in an MCP client with this repository as its working directory. The four read-only tools are `exposure_briefing`, `check_claims`, `remediation_packet` and `explain_priority`. Custom export directories must remain within `EXPOSURE_RADIO_DATA_ROOT`; symbolic-link exports are refused. Use executive editions for model-safe results, and request private analyst packets only within your own data boundary.
-
-## Verification and audio
-
-```bash
-make check
-python3 scripts/build_site.py
-python3 scripts/benchmark.py --runs 5
-```
-
-The [recorded preparation benchmark](docs/benchmark.json) measures cited script and action-card generation plus an unchanged rerun: **2.06 seconds median across five runs** on an ARM64 Raspberry Pi. It measures software preparation, with no claimed human-time multiplier.
-
-Audio uses local Kokoro voices and two-pass normalization. [The manifest](web/assets/audio.json) records the exact script receipt, audio hash, duration, loudness and true peak. To render your own sample, install `kokoro-onnx`, `numpy`, `soundfile` and FFmpeg in a separate environment, supply the model and voice files, then run:
-
-```bash
-python3 scripts/render_audio.py --model /path/to/kokoro.onnx \
-  --voices /path/to/voices.bin --output rendered-audio
-```
-
-For private exports, add `--prev exports/day1 --curr exports/day2 --kev feeds/kev-current.json` and, when available, `--prev-kev` and `--epss`. The same strict speech gate applies.
-
-The core does not install or download those dependencies. See [security boundaries](SECURITY.md), [build evidence](docs/BUILDLOG.md) and [third-party notices](THIRD_PARTY_NOTICES.md).
+See [security boundaries](SECURITY.md), [build evidence](docs/BUILDLOG.md) and
+[third-party notices](THIRD_PARTY_NOTICES.md). All tenant data in the sample is synthetic.
 
 MIT licensed.
+
+## Zero Wire public context
+
+Cloudflare Zero Wire is connected without an account or API key. The news desk
+reads active public briefings alongside CISA KEV; its drawer includes the briefing
+summary, Cloudflare product-coverage caveats and source link. Open action cards
+receive context only for an exact CVE match, joined locally. Zero Wire never
+changes KEV membership, priority, verified-fix status or tenant narration.
+No tenant CVEs are sent to Cloudflare. Agent assessment prompts remain links for
+operator review and are never executed by the station.
+
+Public feeds are fetched only while building an edition. The bundled snapshot
+and audio work offline; the drawer shows the retrieval time. Rebuild with
+`python3 scripts/build_station.py --offline --model MODEL --voices VOICES`
+to replay that snapshot. Omit `--offline` to refresh public data.
+Use `--only seg-08` to revoice the news desk while preserving hash-checked,
+unchanged scripts and audio in the other segments.
+
+The built-in HTTP station is intended for loopback use. Its optional LAN mode
+has no TLS and is suitable only inside an independently secured transport;
+settings are readable to listeners. Do not publish the admin console or use
+real tenant data on an unsecured LAN.

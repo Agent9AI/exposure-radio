@@ -1,0 +1,96 @@
+{
+  "recorded_at": "2026-11-04T11:08:10.759655+00:00",
+  "base_station_commit": "9358334286a822403c1d608de4127c00a7012aae",
+  "tests": {
+    "count": 118,
+    "passed": 118,
+    "adversarial_blocked": 27,
+    "adversarial_total": 27,
+    "identifier_terms": 304,
+    "identifier_leaks": 0
+  },
+  "zero_wire": {
+    "feed_items": 6,
+    "needs_attention": 5,
+    "tenant_CVEs_sent": 0,
+    "live_sample_card_matches": 0,
+    "news_audio_seconds": 65.72,
+    "news_integrated_lufs": -16.52,
+    "news_true_peak_dbtp": -1.8,
+    "voice": "Kokoro (local)",
+    "all_audio_hashes_verified": true
+  },
+  "browser": {
+    "desktop": {
+      "newsBriefingVisible": true,
+      "coverageCaveat": true,
+      "briefingLinks": 11,
+      "connectionVisible": true,
+      "overflow": false,
+      "playback": {
+        "time": 4.371156,
+        "paused": false,
+        "duration": 65.684943,
+        "error": null
+      },
+      "errors": [],
+      "http": [],
+      "outbound": []
+    },
+    "mobile": {
+      "newsBriefingVisible": true,
+      "coverageCaveat": true,
+      "briefingLinks": 11,
+      "connectionVisible": true,
+      "overflow": false,
+      "playback": {
+        "time": 2.50195,
+        "paused": false,
+        "duration": 65.684943,
+        "error": null
+      },
+      "errors": [],
+      "http": [],
+      "outbound": []
+    },
+    "actionCardFixture": {
+      "visible": true,
+      "copyIncludesBoundary": true,
+      "copyIncludesSource": true
+    }
+  },
+  "agreement": {
+    "accepted_by": "Terry Richards",
+    "statement": "I agree with the contribution agreement.",
+    "captured_request_time": "2026-11-04T10:47:01Z",
+    "run": "20261104T104701Z-Dx6RrU"
+  },
+  "independent_build_comparison": {
+    "local_fable_worktree_commit": "d984931",
+    "state": "scaffold only; no completed independent cloud build available"
+  },
+  "submission": "pending repository-binding confirmation; no Exchange PR created",
+  "clean_source": {
+    "source_commit": "5e41e3f",
+    "make_check_exit": 0,
+    "tests": 118,
+    "adversarial_blocked": 27,
+    "identifier_leaks": 0
+  },
+  "scanner_positive_control": {
+    "findings": 2,
+    "types": [
+      "generic-api-key",
+      "github-pat"
+    ],
+    "purpose": "synthetic controls confirm scanners still detect unrelated credentials; only three exact historical test fingerprints excluded"
+  },
+  "history_scan": {
+    "source_commit": "5e41e3f",
+    "scope": "all reachable Git history",
+    "scanner": "Gitleaks 8.30.1",
+    "findings": 0,
+    "known_fixture_fingerprints_excluded": 3,
+    "limitations": "Git patch scanning excludes binary media contents."
+  }
+}

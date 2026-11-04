@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "exposure-radio"
-version = "0.5.0"
+version = "0.6.0"
 description = "Turns two Tenable exports into a verified, spoken priority briefing and a ticket-ready action card."
 readme = "README.md"
 license = { text = "MIT" }
@@ -24,4 +24,4 @@ exposure-radio = "exposure_radio.cli:main"
 include = ["exposure_radio*"]
 
 [tool.setuptools.package-data]
-exposure_radio = ["data/feeds/*.json", "data/demo/*.json", "data/demo/*/*.json", "data/demo/*/vulns/*.json"]
+exposure_radio = ["data/learn/*.json", "data/feeds/*.json", "data/demo/*.json", "data/demo/*/*.json", "data/demo/*/vulns/*.json"]

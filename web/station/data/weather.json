@@ -1,0 +1,36 @@
+{
+  "fetched": "2026-11-03T18:51-05:00",
+  "place": "Washington, DC",
+  "periods": [
+    {
+      "name": "Tonight",
+      "isDaytime": false,
+      "temperature": 53,
+      "temperatureUnit": "F",
+      "shortForecast": "Mostly Clear then Patchy Fog",
+      "windSpeed": "5 mph",
+      "windDirection": "S"
+    },
+    {
+      "name": "Wednesday",
+      "isDaytime": true,
+      "temperature": 76,
+      "temperatureUnit": "F",
+      "shortForecast": "Patchy Fog then Mostly Sunny",
+      "windSpeed": "2 to 9 mph",
+      "windDirection": "S"
+    },
+    {
+      "name": "Wednesday Night",
+      "isDaytime": false,
+      "temperature": 63,
+      "temperatureUnit": "F",
+      "shortForecast": "Mostly Cloudy then Chance Light Rain",
+      "windSpeed": "7 mph",
+      "windDirection": "S"
+    }
+  ],
+  "alerts": [],
+  "source": "https://api.weather.gov/gridpoints/LWX/97,71/forecast",
+  "label": "Washington, DC"
+}

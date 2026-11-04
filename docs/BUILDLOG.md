@@ -60,3 +60,33 @@ The first-play priority break is 89.184 seconds by FFprobe (89.153 seconds after
 The encoded priority break measures -16.53 LUFS and -1.83 dBTP at 48 kHz; the Kokoro synthesis rate is 24 kHz. Desktop playback progressed in 376 ms and mobile playback in 313 ms. Both browser checks passed responsive layout, transcript/citation expansion, clipboard, download, full-episode/caption links, and zero JavaScript or HTTP errors. These figures verify playback and signal levels; no comparative listening score is claimed.
 
 The official Exchange Agent schema validator accepted the listing draft using its current Python 3.14 environment. Agreement acceptance, public visibility, Exchange submission and Discord posting remain the publication checkpoint recorded in `submission/RELEASE-CHECKLIST.md`.
+
+## 4 November — Zero Wire integration and security preflight
+
+Cloudflare Zero Wire RSS is fetched once as public data, parsed with bounded
+standard-library XML/HTML readers and cached with its retrieval timestamp.
+Six briefings parse; five Needs attention titles air alongside CISA KEV.
+The source drawer retains patch guidance and product-control caveats.
+Open action cards receive context only for exact local CVE matches; public
+briefings cannot change priorities, KEV membership or verified-fix claims.
+The current synthetic tenant has zero matching cards; no match was manufactured.
+Assessment prompts remain source links and are never executed.
+
+The news segment was re-rendered in local Kokoro at 65.72 seconds, -16.52 LUFS
+and -1.8 dBTP. All remaining scripts and audio hashes were verified before reuse.
+All spoken segments retain the same local voice engine. The suite passes
+118 tests, rejects 27/27 adversarial claims and finds zero leaks across
+304 tenant identifiers. Desktop/mobile browser playback and context display
+pass with no overflow, console errors, failed HTTP requests or outbound calls.
+
+Security preflight restricted Tenable credentials to the official origin,
+refused redirects and made raw exports private (700 directories, 600 files).
+Three secret-scan findings were traced to one nonfunctional masking-test key;
+only those exact historical fingerprints are excluded, and the current fixture
+is shortened. The local Fable worktree remains a scaffold; no completed
+independent cloud build is asserted.
+
+Terry's explicit agreement acceptance was captured in authenticated request
+20261104T104701Z-Dx6RrU. The listing uses that request-capture timestamp.
+Current upstream Agent schema validation passes. Exchange repository
+confirmation remains a separate checkpoint under Terry's standing binding rule.

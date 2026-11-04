@@ -1,12 +1,15 @@
-# Publication checkpoint
+# Publication checkpoint — 4 November 2026
 
-The listing in `agents/exposure-radio.md` is a draft for the CyberAgents Exchange. The repository remains private while final review is completed.
+- [x] Compare the integrated branch with the local Fable worktree: the latter contains only scaffold commit d984931; no completed independent cloud build is available.
+- [x] Verify 118 tests, 27/27 rejected adversarial claims and zero leaks across 304 tenant identifiers.
+- [x] Verify all station audio hashes and desktop/mobile playback, context drawer and connection entry.
+- [x] Record Terry Richards' actual agreement acceptance from authenticated GO + ZERO WIRE request 20261104T104701Z-Dx6RrU, captured at 2026-11-04T10:47:01Z.
+- [x] Validate the listing against the current upstream Agent schema.
+- [x] Complete the full-history scan at 5e41e3f: zero findings after excluding three exact historical nonfunctional fixture fingerprints; clean-source make check passes 118 tests.
+- [ ] Merge the approved station release, make the project public and verify anonymous README/media access.
+- [ ] Confirm the Exchange fork/upstream repository binding, then open one listing PR with the required acceptance statement.
+- [ ] Share the resulting PR URL in the designated SWARM channel through an authorized posting path.
 
-- [ ] Confirm the integrated branch and independent cloud build have been compared.
-- [ ] Review the final audio, browser evidence, full-history secret scan and clean-checkout verification.
-- [ ] Record the contributor's actual acceptance of the current Contribution Agreement; add that real acceptance timestamp to the listing.
-- [ ] Make the repository public and verify its README, sample assets, license and clone access anonymously.
-- [ ] Open one Exchange listing pull request with the required acceptance statement.
-- [ ] Post the resulting pull-request URL in the designated SWARM channel.
-
-Do not manufacture agreement timestamps, review claims, performance results or publication receipts. Submission target: Wednesday 4 November, 12:00 Eastern, ahead of the recorded 14:00 Eastern deadline.
+The agreement is accepted. Do not ask Terry to accept it again. No Exchange PR
+or Discord post has been sent by this release task. Submission target is
+4 November before the recorded 14:00 Eastern deadline.

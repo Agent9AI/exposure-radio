@@ -1,0 +1,4 @@
+# Exact historical fingerprints of the nonfunctional secret-masking test fixture.
+9358334286a822403c1d608de4127c00a7012aae:tests/test_station.py:generic-api-key:132
+9358334286a822403c1d608de4127c00a7012aae:tests/test_station.py:generic-api-key:139
+9358334286a822403c1d608de4127c00a7012aae:tests/test_station.py:generic-api-key:151

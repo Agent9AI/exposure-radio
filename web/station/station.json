@@ -1,0 +1,1350 @@
+{
+  "version": 1,
+  "generator": "exposure-radio 0.6.0",
+  "station": {
+    "name": "Exposure Radio",
+    "tagline": "Your team's security station",
+    "edition": "Synthetic sample",
+    "as_of": "2026-10-30 20:00 UTC",
+    "location": {
+      "label": "Washington, DC"
+    }
+  },
+  "hosts": [
+    {
+      "id": "ava",
+      "name": "Ava",
+      "role": "Host",
+      "voice": "Kokoro af_heart"
+    },
+    {
+      "id": "cole",
+      "name": "Cole",
+      "role": "Exposure analyst",
+      "voice": "Kokoro am_michael"
+    }
+  ],
+  "providers": [
+    {
+      "id": "tenable",
+      "label": "Tenable Vulnerability Management",
+      "status": "sample",
+      "detail": "Bundled synthetic exports. Add API keys on the station host to go live."
+    },
+    {
+      "id": "gemini",
+      "label": "Google Gemini",
+      "status": "available",
+      "detail": "Optional. Broadcast voices and Learn topic suggestions with your own API key."
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "status": "available",
+      "detail": "Optional. Your own playlists in the official embedded player, video visible."
+    },
+    {
+      "id": "nws",
+      "label": "National Weather Service",
+      "status": "connected",
+      "detail": "Keyless public data for Washington, DC."
+    },
+    {
+      "id": "cisa",
+      "label": "CISA Known Exploited Vulnerabilities",
+      "status": "connected",
+      "detail": "Public feeds, catalog 2026.11.03."
+    },
+    {
+      "id": "zero-wire",
+      "label": "Cloudflare Zero Wire",
+      "status": "connected",
+      "detail": "Keyless public Radar feed \u00b7 6 briefings \u00b7 snapshot 2026-11-04T05:53-05:00. No tenant data sent."
+    },
+    {
+      "id": "lyria",
+      "label": "Google Lyria music",
+      "status": "off",
+      "detail": "Optional, paid per song. House beats play by default."
+    }
+  ],
+  "rundown": [
+    {
+      "kind": "ident",
+      "title": "Exposure Radio",
+      "subtitle": "Morning edition",
+      "turns": [
+        {
+          "host": "ava",
+          "text": "You're tuned to Exposure Radio. What changed on our network, what to fix first, and a little music while you work.",
+          "caption": "You're tuned to Exposure Radio. What changed on our network, what to fix first, and a little music while you work.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 2.6,
+          "end": 8.936
+        }
+      ],
+      "sources": [],
+      "id": "seg-01",
+      "priority": false,
+      "track": null,
+      "card": null,
+      "audio": "station/audio/seg-01.mp3",
+      "duration": 9.38,
+      "sha256": "a94270f3a440075cd1b42c6c77dc9d4c00100807c244fcbb612af8781940f18a",
+      "captions": "station/audio/seg-01.vtt",
+      "voice": "Kokoro (local)",
+      "measure": {
+        "integrated_lufs": -16.6,
+        "true_peak_dbtp": -2.46
+      }
+    },
+    {
+      "kind": "exposure",
+      "priority": true,
+      "title": "Priority: needs action today",
+      "turns": [
+        {
+          "host": "ava",
+          "text": "Morning, team. Ava here, with Cole on the exposure desk.",
+          "caption": "Morning, team. Ava here, with Cole on the exposure desk.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": "exposure_open",
+          "start": 1.2,
+          "end": 4.699
+        },
+        {
+          "host": "ava",
+          "text": "We're starting with a priority. One item needs action today: the Ivanti Connect Secure flaw.",
+          "caption": "Priority bulletin: CVE-2026-118527 needs action today.",
+          "template": "B_BREAK_IN",
+          "subject": null,
+          "cites": [
+            "F013",
+            "F012"
+          ],
+          "banter": null,
+          "start": 4.919,
+          "end": 10.636
+        },
+        {
+          "host": "ava",
+          "text": "Cole, what are we looking at?",
+          "caption": "Cole, what are we looking at?",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": "priority_hand",
+          "start": 10.856,
+          "end": 12.371
+        },
+        {
+          "host": "cole",
+          "text": "CISA added it to the known exploited list since our last briefing. That means attackers are already using it.",
+          "caption": "CISA listed CVE-2026-118527 as exploited since the last briefing.",
+          "template": "C_KEV_NEW",
+          "subject": "CVE-2026-118527",
+          "cites": [
+            "F230"
+          ],
+          "banter": null,
+          "start": 12.751,
+          "end": 19.62
+        },
+        {
+          "host": "cole",
+          "text": "It's open on one asset right now.",
+          "caption": "CVE-2026-118527 is open on 1 asset.",
+          "template": "C_OPEN",
+          "subject": "CVE-2026-118527",
+          "cites": [
+            "F223"
+          ],
+          "banter": null,
+          "start": 19.84,
+          "end": 22.037
+        },
+        {
+          "host": "cole",
+          "text": "Our internal deadline is November sixth.",
+          "caption": "Your internal deadline for CVE-2026-118527 is 2026-11-06.",
+          "template": "C_DUE",
+          "subject": "CVE-2026-118527",
+          "cites": [
+            "F235"
+          ],
+          "banter": null,
+          "start": 22.257,
+          "end": 24.796
+        },
+        {
+          "host": "ava",
+          "text": "The move today: follow CISA's required action, then rescan to confirm.",
+          "caption": "Next step: follow CISA's required action for CVE-2026-118527, then rescan to confirm.",
+          "template": "A_KEV_ACTION",
+          "subject": "CVE-2026-118527",
+          "cites": [
+            "F229",
+            "F223"
+          ],
+          "banter": null,
+          "start": 25.176,
+          "end": 29.699
+        },
+        {
+          "host": "ava",
+          "text": "The CVE, the affected machines and the owners are on your action card.",
+          "caption": "The CVE, the affected machines and the owners are on your action card.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": "card",
+          "start": 29.919,
+          "end": 34.079
+        }
+      ],
+      "id": "seg-02",
+      "subtitle": "Exposure desk \u00b7 synthetic Tenable exports",
+      "sources": [
+        {
+          "label": "CISA KEV catalog",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+        },
+        {
+          "label": "FIRST EPSS",
+          "url": "https://www.first.org/epss/"
+        },
+        {
+          "label": "Evidence ledger (synthetic tenant)",
+          "url": "data/facts.json"
+        }
+      ],
+      "track": null,
+      "card": {
+        "cve": "CVE-2026-118527",
+        "name": "Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability",
+        "severity": "critical",
+        "why_now": [
+          "newly listed by CISA"
+        ],
+        "open_assets": 1,
+        "new_exposure_assets": 0,
+        "new_visibility_assets": 0,
+        "unverified_assets": 0,
+        "fixed_assets": 0,
+        "internal_deadline": "2026-11-06",
+        "overdue_assets": 0,
+        "oldest_open_days": 9,
+        "owners": [],
+        "kev": {
+          "listed": true,
+          "date_added": "2026-10-30",
+          "known_ransomware_use": false,
+          "required_action": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA s Forensics Triage Requirements (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discont\u2026",
+          "catalog_due_date": "2026-11-13",
+          "catalog_due_date_note": "KEV catalog metadata; your deadline is the internal SLA date."
+        },
+        "epss_percent": null,
+        "next_steps": [
+          "Follow CISA's required action for CVE-2026-118527, then rescan the affected assets to confirm."
+        ],
+        "evidence": [
+          "F221",
+          "F222",
+          "F223",
+          "F224",
+          "F225",
+          "F226",
+          "F227",
+          "F228",
+          "F229",
+          "F230",
+          "F231",
+          "F232",
+          "F233",
+          "F234",
+          "F235",
+          "F236",
+          "F238"
+        ]
+      },
+      "watch": [],
+      "audio": "station/audio/seg-02.mp3",
+      "duration": 35.71,
+      "sha256": "b14cd89936c92765ef575bfba6ef9d165561a37612b77d6129442eed06bfe32a",
+      "captions": "station/audio/seg-02.vtt",
+      "voice": "Kokoro (local)",
+      "measure": {
+        "integrated_lufs": -16.55,
+        "true_peak_dbtp": -1.36
+      }
+    },
+    {
+      "kind": "music",
+      "title": "Patch Night",
+      "subtitle": "Exposure Radio house beats",
+      "track": "beat-01",
+      "audio": "station/music/beat-01.mp3",
+      "duration": 87.25,
+      "turns": [],
+      "sources": [],
+      "id": "seg-03",
+      "priority": false,
+      "card": null
+    },
+    {
+      "kind": "exposure",
+      "priority": false,
+      "title": "The watch list",
+      "turns": [
+        {
+          "host": "ava",
+          "text": "What else is on the board, Cole?",
+          "caption": "What else is on the board, Cole?",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": "watch_open",
+          "start": 1.2,
+          "end": 2.715
+        },
+        {
+          "host": "cole",
+          "text": "Since the last scan, exposure grew by four priority findings on machines we already scan.",
+          "caption": "Exposure grew by 4 priority findings on assets that were already being scanned.",
+          "template": "T_EXPOSURE_GREW",
+          "subject": null,
+          "cites": [
+            "F003"
+          ],
+          "banter": null,
+          "start": 3.095,
+          "end": 9.004
+        },
+        {
+          "host": "cole",
+          "text": "The Broadcom VMware ESX flaw showed up on three assets we were already scanning.",
+          "caption": "CVE-2026-41709 newly appeared on 3 assets that were already being scanned.",
+          "template": "C_NEW_EXPOSURE",
+          "subject": "CVE-2026-41709",
+          "cites": [
+            "F245"
+          ],
+          "banter": null,
+          "start": 9.224,
+          "end": 14.643
+        },
+        {
+          "host": "cole",
+          "text": "Also worth a look.",
+          "caption": "Also worth a look.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": "next_item",
+          "start": 14.863,
+          "end": 16.335
+        },
+        {
+          "host": "cole",
+          "text": "The Apache Log4j2 flaw turned up on two assets we only just started scanning.",
+          "caption": "CVE-2021-44228 was found on 2 assets newly scanned or newly credentialed.",
+          "template": "C_NEW_VISIBILITY",
+          "subject": "CVE-2021-44228",
+          "cites": [
+            "F059"
+          ],
+          "banter": null,
+          "start": 16.555,
+          "end": 22.443
+        },
+        {
+          "host": "cole",
+          "text": "The rest of the list is on the action card, ranked.",
+          "caption": "The rest of the list is on the action card, ranked.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": "watch_more",
+          "start": 22.663,
+          "end": 25.564
+        },
+        {
+          "host": "ava",
+          "text": "Good. Let's keep moving.",
+          "caption": "Good. Let's keep moving.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": "watch_close",
+          "start": 25.944,
+          "end": 27.288
+        }
+      ],
+      "id": "seg-04",
+      "subtitle": "Exposure desk \u00b7 synthetic Tenable exports",
+      "sources": [
+        {
+          "label": "CISA KEV catalog",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+        },
+        {
+          "label": "FIRST EPSS",
+          "url": "https://www.first.org/epss/"
+        },
+        {
+          "label": "Evidence ledger (synthetic tenant)",
+          "url": "data/facts.json"
+        }
+      ],
+      "track": null,
+      "card": {
+        "cve": "CVE-2026-41709",
+        "name": "Broadcom VMWare ESX Insufficient Logging Vulnerability",
+        "severity": "critical",
+        "why_now": [
+          "newly appeared on scanned assets"
+        ],
+        "open_assets": 3,
+        "new_exposure_assets": 3,
+        "new_visibility_assets": 0,
+        "unverified_assets": 0,
+        "fixed_assets": 0,
+        "internal_deadline": "2026-11-06",
+        "overdue_assets": 0,
+        "oldest_open_days": 0,
+        "owners": [],
+        "kev": {
+          "listed": true,
+          "date_added": "2026-10-28",
+          "known_ransomware_use": false,
+          "required_action": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA s Forensics Triage Requirements (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discont\u2026",
+          "catalog_due_date": "2026-11-11",
+          "catalog_due_date_note": "KEV catalog metadata; your deadline is the internal SLA date."
+        },
+        "epss_percent": null,
+        "next_steps": [
+          "Follow CISA's required action for CVE-2026-41709, then rescan the affected assets to confirm."
+        ],
+        "evidence": [
+          "F239",
+          "F240",
+          "F241",
+          "F242",
+          "F243",
+          "F244",
+          "F245",
+          "F246",
+          "F247",
+          "F248",
+          "F249",
+          "F250",
+          "F251",
+          "F252",
+          "F253",
+          "F254",
+          "F256"
+        ]
+      },
+      "watch": [
+        {
+          "cve": "CVE-2021-44228",
+          "name": "Apache Log4j2 Remote Code Execution Vulnerability",
+          "severity": "critical",
+          "why_now": [
+            "found on newly scanned or newly credentialed assets"
+          ],
+          "open_assets": 2,
+          "new_exposure_assets": 0,
+          "new_visibility_assets": 2,
+          "unverified_assets": 0,
+          "fixed_assets": 0,
+          "internal_deadline": "2026-11-06",
+          "overdue_assets": 0,
+          "oldest_open_days": 0,
+          "owners": [],
+          "kev": {
+            "listed": true,
+            "date_added": "2021-12-10",
+            "known_ransomware_use": true,
+            "required_action": "For all affected software assets for which updates exist, the only acceptable remediation actions are: 1) Apply updates; OR 2) remove affected assets from agency networks. Temporary mitigations using one of the measures provided at https://www.cisa.gov/uscert/ed-22-02-apache-log4j-recommended-mitig\u2026",
+            "catalog_due_date": "2021-12-24",
+            "catalog_due_date_note": "KEV catalog metadata; your deadline is the internal SLA date."
+          },
+          "epss_percent": 100,
+          "next_steps": [
+            "Follow CISA's required action for CVE-2021-44228, then rescan the affected assets to confirm."
+          ],
+          "evidence": [
+            "F052",
+            "F053",
+            "F054",
+            "F055",
+            "F056",
+            "F057",
+            "F058",
+            "F059",
+            "F060",
+            "F061",
+            "F062",
+            "F063",
+            "F064",
+            "F065",
+            "F066",
+            "F067",
+            "F068",
+            "F070"
+          ]
+        }
+      ],
+      "audio": "station/audio/seg-04.mp3",
+      "duration": 28.92,
+      "sha256": "3a898575318e330471ac866193758e65e468ebc4a7f28e4c47a6cbcd8fbfd163",
+      "captions": "station/audio/seg-04.vtt",
+      "voice": "Kokoro (local)",
+      "measure": {
+        "integrated_lufs": -16.35,
+        "true_peak_dbtp": -1.86
+      }
+    },
+    {
+      "kind": "weather",
+      "title": "Weather and local: Washington, DC",
+      "subtitle": "National Weather Service, 2026-11-03 18:51",
+      "turns": [
+        {
+          "host": "ava",
+          "text": "Weather and local for Washington, DC.",
+          "caption": "Weather and local for Washington, DC.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 1.2,
+          "end": 3.483
+        },
+        {
+          "host": "ava",
+          "text": "Tonight: mostly clear then patchy fog, with a low near fifty-three.",
+          "caption": "Tonight: mostly clear then patchy fog, with a low near fifty-three.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 3.703,
+          "end": 7.564
+        },
+        {
+          "host": "ava",
+          "text": "Wednesday: patchy fog then mostly sunny, with a high near seventy-six.",
+          "caption": "Wednesday: patchy fog then mostly sunny, with a high near seventy-six.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 7.784,
+          "end": 12.136
+        },
+        {
+          "host": "ava",
+          "text": "No active Weather Service alerts for the area.",
+          "caption": "No active Weather Service alerts for the area.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 12.356,
+          "end": 14.788
+        }
+      ],
+      "sources": [
+        {
+          "label": "National Weather Service forecast",
+          "url": "https://api.weather.gov/gridpoints/LWX/97,71/forecast"
+        }
+      ],
+      "id": "seg-05",
+      "priority": false,
+      "track": null,
+      "card": null,
+      "audio": "station/audio/seg-05.mp3",
+      "duration": 16.43,
+      "sha256": "c374d2181d7a2069cea0f9259283a92a98b624d1a129aeb232e8c65d31f7ede3",
+      "captions": "station/audio/seg-05.vtt",
+      "voice": "Kokoro (local)",
+      "measure": {
+        "integrated_lufs": -16.7,
+        "true_peak_dbtp": -1.88
+      }
+    },
+    {
+      "kind": "learn",
+      "title": "Learn: New exposure, or new visibility?",
+      "subtitle": "Why a bigger number is not always worse news",
+      "turns": [
+        {
+          "host": "ava",
+          "text": "Cole, the finding count jumped this week. Should the team panic?",
+          "caption": "Cole, the finding count jumped this week. Should the team panic?",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 1.2,
+          "end": 4.592
+        },
+        {
+          "host": "cole",
+          "text": "Not yet. First ask where the new findings came from. If they're on machines we've been scanning all along, that's new exposure. Something changed, and it needs a look.",
+          "caption": "Not yet. First ask where the new findings came from. If they're on machines we've been scanning all along, that's new exposure. Something changed, and it needs a look.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 4.972,
+          "end": 15.425
+        },
+        {
+          "host": "cole",
+          "text": "But if they're on machines we only just started scanning, or just gave the scanner credentials for, that's new visibility. The risk was already there. We can finally see it.",
+          "caption": "But if they're on machines we only just started scanning, or just gave the scanner credentials for, that's new visibility. The risk was already there. We can finally see it.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 15.645,
+          "end": 26.397
+        },
+        {
+          "host": "ava",
+          "text": "So a higher number can actually mean better coverage.",
+          "caption": "So a higher number can actually mean better coverage.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 26.777,
+          "end": 29.679
+        },
+        {
+          "host": "cole",
+          "text": "Exactly. And the reverse is the trap. When a finding disappears from a machine that missed its scan, that's not a fix. It's unverified until a rescan proves it.",
+          "caption": "Exactly. And the reverse is the trap. When a finding disappears from a machine that missed its scan, that's not a fix. It's unverified until a rescan proves it.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 30.059,
+          "end": 41.173
+        },
+        {
+          "host": "ava",
+          "text": "New exposure, new visibility, verified fixed, unverified. Four different stories, and this station keeps them apart for you.",
+          "caption": "New exposure, new visibility, verified fixed, unverified. Four different stories, and this station keeps them apart for you.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 41.553,
+          "end": 49.169
+        }
+      ],
+      "sources": [
+        {
+          "label": "Tenable Vulnerability Management: vulnerability states",
+          "url": "https://docs.tenable.com/vulnerability-management/Content/Explore/Findings/VulnerabilityStates.htm"
+        }
+      ],
+      "id": "seg-06",
+      "priority": false,
+      "track": null,
+      "card": null,
+      "audio": "station/audio/seg-06.mp3",
+      "duration": 50.81,
+      "sha256": "97dab0642581b743976214cd00251287192e29a3d3bd6659300229936c88f5c2",
+      "captions": "station/audio/seg-06.vtt",
+      "voice": "Kokoro (local)",
+      "measure": {
+        "integrated_lufs": -16.53,
+        "true_peak_dbtp": -1.75
+      }
+    },
+    {
+      "kind": "music",
+      "title": "Zero Day Drive",
+      "subtitle": "Exposure Radio house beats",
+      "track": "beat-02",
+      "audio": "station/music/beat-02.mp3",
+      "duration": 88.03,
+      "turns": [],
+      "sources": [],
+      "id": "seg-07",
+      "priority": false,
+      "card": null
+    },
+    {
+      "kind": "news",
+      "title": "Security news: CISA + Zero Wire",
+      "subtitle": "Public context \u00b7 KEV 2026.11.03 \u00b7 Zero Wire 2026-11-04T05:53",
+      "turns": [
+        {
+          "host": "ava",
+          "text": "Security news. Here's what CISA flagged this week.",
+          "caption": "Security news. Here's what CISA flagged this week.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 1.2,
+          "end": 4.037
+        },
+        {
+          "host": "ava",
+          "text": "Seven vulnerabilities joined the known exploited list in the last seven days.",
+          "caption": "Seven vulnerabilities joined the known exploited list in the last seven days.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 4.257,
+          "end": 8.801
+        },
+        {
+          "host": "cole",
+          "text": "On the list: WordPress Core, Ivanti Connect Secure, GitLab Community Edition, Cisco Secure Firewall ASA Software, and Broadcom VMware ESX.",
+          "caption": "On the list: WordPress Core, Ivanti Connect Secure, GitLab Community Edition, Cisco Secure Firewall ASA Software, and Broadcom VMware ESX.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 9.181,
+          "end": 20.445
+        },
+        {
+          "host": "cole",
+          "text": "Plus one more on screen.",
+          "caption": "Plus one more on screen.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 20.665,
+          "end": 22.372
+        },
+        {
+          "host": "ava",
+          "text": "If any of those are in your environment, your exposure desk will call it out.",
+          "caption": "If any of those are in your environment, your exposure desk will call it out.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 22.752,
+          "end": 26.741
+        },
+        {
+          "host": "cole",
+          "text": "Cloudflare Zero Wire has five briefings marked needs attention: Linux IPv4 TCP use-after-free, php2shell, eMudhra certificate compromise, node2shell, and Citrix NetScaler command execution.",
+          "caption": "Cloudflare Zero Wire has five briefings marked needs attention: Linux IPv4 TCP use-after-free, php2shell, eMudhra certificate compromise, node2shell, and Citrix NetScaler command execution.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 27.121,
+          "end": 42.695
+        },
+        {
+          "host": "ava",
+          "text": "Those are public briefings, not findings on our network. Open the news desk for the sources and patch guidance. Matching open findings get context on their action cards.",
+          "caption": "Those are public briefings, not findings on our network. Open the news desk for the sources and patch guidance. Matching open findings get context on their action cards.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 43.075,
+          "end": 53.421
+        },
+        {
+          "host": "cole",
+          "text": "Cloudflare coverage is a compensating control. It does not replace the vendor patch or a rescan, and we have not verified coverage for this environment.",
+          "caption": "Cloudflare coverage is a compensating control. It does not replace the vendor patch or a rescan, and we have not verified coverage for this environment.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 53.801,
+          "end": 64.105
+        }
+      ],
+      "sources": [
+        {
+          "label": "CISA KEV catalog 2026.11.03",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+        },
+        {
+          "label": "Zero Wire: Linux IPv4 TCP use-after-free",
+          "url": "https://radar.cloudflare.com/security/zero-wire/linux-ipv4-tcp-use-after-free"
+        },
+        {
+          "label": "Zero Wire: php2shell",
+          "url": "https://radar.cloudflare.com/security/zero-wire/php2shell"
+        },
+        {
+          "label": "Zero Wire: eMudhra certificate compromise",
+          "url": "https://radar.cloudflare.com/security/zero-wire/emudhra-certificate-compromise"
+        },
+        {
+          "label": "Zero Wire: node2shell",
+          "url": "https://radar.cloudflare.com/security/zero-wire/node2shell"
+        },
+        {
+          "label": "Zero Wire: Citrix NetScaler command execution",
+          "url": "https://radar.cloudflare.com/security/zero-wire/citrix-netscaler-command-execution"
+        }
+      ],
+      "zero_wire": [
+        {
+          "title": "Linux IPv4 TCP use-after-free",
+          "url": "https://radar.cloudflare.com/security/zero-wire/linux-ipv4-tcp-use-after-free",
+          "status": "Needs attention",
+          "cves": [
+            "CVE-2026-98432"
+          ],
+          "summary": "Prioritize patching. Atlas updated its distribution review to report fixed RHEL kernels and remaining vendor-specific patch gaps. Check the running host kernel against your distribution's CVE advisory, apply its fixed kernel, and complete the required reboot or vendor-supported activation procedure. Verify that the fix is active, including on container hosts and Kubernetes nodes.",
+          "cloudflare_coverage": "Magic Transit customers can use Cloudflare Network Firewall to reduce exposure by filtering IPv4 TCP packets carrying IP options before they reach their infrastructure. Coverage depends on routing and firewall configuration and does not replace kernel patching.",
+          "has_agent_prompt": true,
+          "published": "Sun, 01 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "php2shell",
+          "url": "https://radar.cloudflare.com/security/zero-wire/php2shell",
+          "status": "Needs attention",
+          "cves": [
+            "CVE-2026-109618",
+            "CVE-2026-109619",
+            "CVE-2026-115560"
+          ],
+          "summary": "Prioritize patching. Cloudflare reported that PHP CTF submissions helped harden php2shell WAF protections and create new detections. Patch the PHP runtime using the original security advisory and separately review PHP's session upload progress advisory for CVE-2026-115560. Keep compensating controls in place while patching, and ask managed hosting providers to confirm each issue's status.",
+          "cloudflare_coverage": "Cloudflare has WAF rules for known php2shell exploit patterns. They are a compensating control, not a fix for the vulnerable PHP runtime. Review your WAF configuration to determine whether you are protected. Paid plans Free plans",
+          "has_agent_prompt": true,
+          "published": "Fri, 30 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "eMudhra certificate compromise",
+          "url": "https://radar.cloudflare.com/security/zero-wire/emudhra-certificate-compromise",
+          "status": "Needs attention",
+          "cves": [],
+          "summary": "Review trust settings. Cloudflare published follow-up research on forged certificates, client patching progress, and the limitations of its measurements. Identify systems that rely on the affected certificate chain, update trust stores and client software according to the official response, and review customer-managed origins, mutual TLS, and container images.",
+          "cloudflare_coverage": "No WAF rules are applicable to this certificate-trust incident.",
+          "has_agent_prompt": false,
+          "published": "Fri, 30 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "node2shell",
+          "url": "https://radar.cloudflare.com/security/zero-wire/node2shell",
+          "status": "Needs attention",
+          "cves": [
+            "CVE-2026-111497"
+          ],
+          "summary": "Assess your exposure. Cloudflare documented two WAF rules and their default Log action. Identify every Brotli decoder in running runtimes, dependencies, and container images, then use each vendor's security guidance to update or otherwise remove the vulnerable decoder.",
+          "cloudflare_coverage": "Cloudflare has WAF rules for documented Node2Shell request patterns. They default to Log and customers must configure them to Block if blocking mitigation is needed. Review your WAF configuration to determine whether you are protected. Paid plans",
+          "has_agent_prompt": false,
+          "published": "Sun, 25 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Citrix NetScaler command execution",
+          "url": "https://radar.cloudflare.com/security/zero-wire/citrix-netscaler-command-execution",
+          "status": "Needs attention",
+          "cves": [
+            "CVE-2026-88771"
+          ],
+          "summary": "Prioritize patching. Cloudflare published defense-in-depth guidance while distinguishing web authentication from other gateway traffic. Use Citrix's bulletin to identify and update affected appliances. Treat suspected compromise separately from patching, and review exposed gateway services and incident-response guidance.",
+          "cloudflare_coverage": "Cloudflare has a WAF rule for the documented NetScaler HTTP exploit path. Review your WAF configuration to determine whether you are protected. Paid plans",
+          "has_agent_prompt": false,
+          "published": "Mon, 19 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "WordPress SQL injection and RCE",
+          "url": "https://radar.cloudflare.com/security/zero-wire/wordpress-sql-injection-rce",
+          "status": "Reference",
+          "cves": [
+            "CVE-2026-60137",
+            "CVE-2026-63030"
+          ],
+          "summary": "Update affected systems. Cloudflare updated its response with vulnerability and remediation guidance. Confirm WordPress update status against the vendor release and patch guidance. Keep any compensating controls in place while remediation is completed.",
+          "cloudflare_coverage": "Cloudflare has WAF rules for documented WordPress exploit paths. They are a compensating control, not a replacement for updating WordPress. Review your WAF configuration to determine whether you are protected. Paid plans",
+          "has_agent_prompt": false,
+          "published": "Mon, 20 Jul 2026 00:00:00 GMT"
+        }
+      ],
+      "zero_wire_fetched": "2026-11-04T05:53-05:00",
+      "items": [
+        {
+          "cve": "CVE-2026-119977",
+          "product": "WordPress Core",
+          "added": "2026-11-03"
+        },
+        {
+          "cve": "CVE-2026-118527",
+          "product": "Ivanti Connect Secure",
+          "added": "2026-10-30"
+        },
+        {
+          "cve": "CVE-2026-111357",
+          "product": "Ivanti Connect Secure",
+          "added": "2026-10-30"
+        },
+        {
+          "cve": "CVE-2026-97229",
+          "product": "GitLab Community Edition",
+          "added": "2026-10-29"
+        },
+        {
+          "cve": "CVE-2026-76418",
+          "product": "Cisco Secure Firewall ASA Software",
+          "added": "2026-10-29"
+        },
+        {
+          "cve": "CVE-2026-41709",
+          "product": "Broadcom VMware ESX",
+          "added": "2026-10-28"
+        },
+        {
+          "cve": "CVE-2026-46300",
+          "product": "Linux Kernel",
+          "added": "2026-10-28"
+        }
+      ],
+      "id": "seg-08",
+      "priority": false,
+      "track": null,
+      "card": null,
+      "voice": "Kokoro (local)",
+      "measure": {
+        "integrated_lufs": -16.52,
+        "true_peak_dbtp": -1.8
+      },
+      "audio": "station/audio/seg-08.mp3",
+      "duration": 65.72,
+      "sha256": "d66aa2f9518b32fa0482186a20103b3d1a78f0a4d3279cf77076c177797a3abd",
+      "captions": "station/audio/seg-08.vtt"
+    },
+    {
+      "kind": "wins",
+      "priority": false,
+      "title": "Wins: verified fixed",
+      "turns": [
+        {
+          "host": "ava",
+          "text": "Some good news now: the wins.",
+          "caption": "Some good news now: the wins.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": "wins_open",
+          "start": 1.2,
+          "end": 2.971
+        },
+        {
+          "host": "cole",
+          "text": "Fourteen priority findings were verified fixed by a rescan. Nice work, everyone.",
+          "caption": "14 priority findings were verified fixed by a rescan.",
+          "template": "T_FIXED",
+          "subject": null,
+          "cites": [
+            "F006"
+          ],
+          "banter": null,
+          "start": 3.351,
+          "end": 9.132
+        }
+      ],
+      "id": "seg-09",
+      "subtitle": "Exposure desk \u00b7 synthetic Tenable exports",
+      "sources": [
+        {
+          "label": "CISA KEV catalog",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+        },
+        {
+          "label": "FIRST EPSS",
+          "url": "https://www.first.org/epss/"
+        },
+        {
+          "label": "Evidence ledger (synthetic tenant)",
+          "url": "data/facts.json"
+        }
+      ],
+      "track": null,
+      "card": null,
+      "watch": [],
+      "audio": "station/audio/seg-09.mp3",
+      "duration": 10.76,
+      "sha256": "edd25b3d7a6684d05af7b93742cf9e7915f0b1e1e4baedd3f8bb2d75a65b27c6",
+      "captions": "station/audio/seg-09.vtt",
+      "voice": "Kokoro (local)",
+      "measure": {
+        "integrated_lufs": -16.7,
+        "true_peak_dbtp": -1.88
+      }
+    },
+    {
+      "kind": "blindspots",
+      "priority": false,
+      "title": "Blind spots and coverage",
+      "turns": [
+        {
+          "host": "ava",
+          "text": "Now the blind spots, because what we can't see matters too.",
+          "caption": "Now the blind spots, because what we can't see matters too.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": "blind_open",
+          "start": 1.2,
+          "end": 4.315
+        },
+        {
+          "host": "cole",
+          "text": "Eleven assets missed this scan cycle.",
+          "caption": "11 assets missed this scan cycle.",
+          "template": "T_MISSED",
+          "subject": null,
+          "cites": [
+            "F008"
+          ],
+          "banter": null,
+          "start": 4.695,
+          "end": 6.999
+        },
+        {
+          "host": "cole",
+          "text": "That leaves three open priority findings we can't verify, so they're not counted as fixed.",
+          "caption": "3 open priority findings on missed assets are unverified, not fixed.",
+          "template": "T_UNVERIFIED",
+          "subject": null,
+          "cites": [
+            "F007"
+          ],
+          "banter": null,
+          "start": 7.219,
+          "end": 13.043
+        },
+        {
+          "host": "cole",
+          "text": "We scanned sixty-five of seventy-six known assets this cycle.",
+          "caption": "This cycle scanned 65 of 76 known assets.",
+          "template": "T_COVERAGE",
+          "subject": null,
+          "cites": [
+            "F009",
+            "F010"
+          ],
+          "banter": null,
+          "start": 13.263,
+          "end": 17.273
+        },
+        {
+          "host": "cole",
+          "text": "Visibility's up: twelve newly scanned assets brought in two priority findings. That's us seeing more, not things getting worse.",
+          "caption": "Visibility grew: 2 priority findings came from 12 newly scanned or newly credentialed assets.",
+          "template": "T_VISIBILITY",
+          "subject": null,
+          "cites": [
+            "F004",
+            "F005"
+          ],
+          "banter": null,
+          "start": 17.493,
+          "end": 25.664
+        },
+        {
+          "host": "ava",
+          "text": "Worth a look before the next cycle: the twelve newly scanned assets.",
+          "caption": "Review the 12 newly scanned assets before the next cycle.",
+          "template": "A_REVIEW_NEW",
+          "subject": null,
+          "cites": [
+            "F005"
+          ],
+          "banter": null,
+          "start": 26.044,
+          "end": 29.841
+        },
+        {
+          "host": "cole",
+          "text": "That's the exposure desk. Back to you, Ava.",
+          "caption": "That's the exposure desk. Back to you, Ava.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": "blind_close",
+          "start": 30.221,
+          "end": 33.037
+        }
+      ],
+      "id": "seg-10",
+      "subtitle": "Exposure desk \u00b7 synthetic Tenable exports",
+      "sources": [
+        {
+          "label": "CISA KEV catalog",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+        },
+        {
+          "label": "FIRST EPSS",
+          "url": "https://www.first.org/epss/"
+        },
+        {
+          "label": "Evidence ledger (synthetic tenant)",
+          "url": "data/facts.json"
+        }
+      ],
+      "track": null,
+      "card": null,
+      "watch": [],
+      "audio": "station/audio/seg-10.mp3",
+      "duration": 34.69,
+      "sha256": "fa7d5af15d19fcfedc8e71feef8f8cc29dc95272ab99b156cdd7d4d17fdb805d",
+      "captions": "station/audio/seg-10.vtt",
+      "voice": "Kokoro (local)",
+      "measure": {
+        "integrated_lufs": -16.53,
+        "true_peak_dbtp": -1.79
+      }
+    },
+    {
+      "kind": "learn",
+      "title": "Learn: EPSS in sixty seconds",
+      "subtitle": "What the exploit prediction score does and does not tell you",
+      "turns": [
+        {
+          "host": "ava",
+          "text": "You'll hear us mention EPSS. Cole, what is it, in plain English?",
+          "caption": "You'll hear us mention EPSS. Cole, what is it, in plain English?",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 1.2,
+          "end": 4.656
+        },
+        {
+          "host": "cole",
+          "text": "It's the Exploit Prediction Scoring System, run by FIRST. Every day it estimates the chance that a vulnerability sees exploitation activity somewhere in the next thirty days.",
+          "caption": "It's the Exploit Prediction Scoring System, run by FIRST. Every day it estimates the chance that a vulnerability sees exploitation activity somewhere in the next thirty days.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 5.036,
+          "end": 16.364
+        },
+        {
+          "host": "ava",
+          "text": "So a high score means we're about to get hacked?",
+          "caption": "So a high score means we're about to get hacked?",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 16.744,
+          "end": 19.176
+        },
+        {
+          "host": "cole",
+          "text": "No, and that's the common mistake. It describes activity across the internet, not the odds that your environment gets breached. It's a signal for ordering work.",
+          "caption": "No, and that's the common mistake. It describes activity across the internet, not the odds that your environment gets breached. It's a signal for ordering work.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 19.556,
+          "end": 30.009
+        },
+        {
+          "host": "cole",
+          "text": "Use it alongside CISA's known exploited list, which tells you attacks are already happening, and alongside what the asset actually does for the business.",
+          "caption": "Use it alongside CISA's known exploited list, which tells you attacks are already happening, and alongside what the asset actually does for the business.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 30.229,
+          "end": 40.043
+        },
+        {
+          "host": "ava",
+          "text": "Known exploited first, then likely to be exploited, then everything else. That's a plan a small team can actually follow.",
+          "caption": "Known exploited first, then likely to be exploited, then everything else. That's a plan a small team can actually follow.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 40.423,
+          "end": 47.676
+        }
+      ],
+      "sources": [
+        {
+          "label": "FIRST: Exploit Prediction Scoring System",
+          "url": "https://www.first.org/epss/"
+        },
+        {
+          "label": "FIRST: EPSS model and user guide",
+          "url": "https://www.first.org/epss/user-guide"
+        }
+      ],
+      "id": "seg-11",
+      "priority": false,
+      "track": null,
+      "card": null,
+      "audio": "station/audio/seg-11.mp3",
+      "duration": 49.32,
+      "sha256": "dbb07725cd042b64ee2a3d45edfb9561c8fb8f428a812948f407b2b69e22d8e3",
+      "captions": "station/audio/seg-11.vtt",
+      "voice": "Kokoro (local)",
+      "measure": {
+        "integrated_lufs": -16.5,
+        "true_peak_dbtp": -1.78
+      }
+    },
+    {
+      "kind": "music",
+      "title": "Blue Team Bounce",
+      "subtitle": "Exposure Radio house beats",
+      "track": "beat-03",
+      "audio": "station/music/beat-03.mp3",
+      "duration": 86.33,
+      "turns": [],
+      "sources": [],
+      "id": "seg-12",
+      "priority": false,
+      "card": null
+    },
+    {
+      "kind": "ident",
+      "title": "Sign-off",
+      "subtitle": "Back after the next scan",
+      "turns": [
+        {
+          "host": "ava",
+          "text": "That's the hour on Exposure Radio. The next exposure briefing airs after the next scan, and anything on CISA's exploited list interrupts the music.",
+          "caption": "That's the hour on Exposure Radio. The next exposure briefing airs after the next scan, and anything on CISA's exploited list interrupts the music.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 2.6,
+          "end": 11.603
+        }
+      ],
+      "sources": [],
+      "id": "seg-13",
+      "priority": false,
+      "track": null,
+      "card": null,
+      "audio": "station/audio/seg-13.mp3",
+      "duration": 12.04,
+      "sha256": "c3d726451ba281c0355743efed89f1a0359ec0dcf1ba3ff11ac8605ce72b49b2",
+      "captions": "station/audio/seg-13.vtt",
+      "voice": "Kokoro (local)",
+      "measure": {
+        "integrated_lufs": -16.68,
+        "true_peak_dbtp": -1.93
+      }
+    }
+  ],
+  "music": {
+    "tracks": [
+      {
+        "id": "beat-01",
+        "title": "Patch Night",
+        "artist": "Exposure Radio house beats",
+        "audio": "station/music/beat-01.mp3",
+        "duration": 87.25,
+        "bpm": 150,
+        "key": "C# minor",
+        "license": "MIT, generated by scripts/make_beats.py"
+      },
+      {
+        "id": "beat-02",
+        "title": "Zero Day Drive",
+        "artist": "Exposure Radio house beats",
+        "audio": "station/music/beat-02.mp3",
+        "duration": 88.03,
+        "bpm": 160,
+        "key": "F minor",
+        "license": "MIT, generated by scripts/make_beats.py"
+      },
+      {
+        "id": "beat-03",
+        "title": "Blue Team Bounce",
+        "artist": "Exposure Radio house beats",
+        "audio": "station/music/beat-03.mp3",
+        "duration": 86.33,
+        "bpm": 140,
+        "key": "A minor",
+        "license": "MIT, generated by scripts/make_beats.py"
+      }
+    ],
+    "stingers": [
+      {
+        "id": "ident",
+        "title": "Exposure Radio Ident",
+        "artist": "Exposure Radio house beats",
+        "audio": "station/music/ident.mp3",
+        "duration": 3.63,
+        "bpm": 150,
+        "key": "C# minor",
+        "license": "MIT, generated by scripts/make_beats.py"
+      }
+    ],
+    "beds": [
+      {
+        "id": "bed-news",
+        "title": "Newsroom Bed",
+        "artist": "Exposure Radio house beats",
+        "audio": "station/music/bed-news.mp3",
+        "duration": 60.03,
+        "bpm": 128,
+        "key": "D minor",
+        "license": "MIT, generated by scripts/make_beats.py",
+        "loop": true
+      },
+      {
+        "id": "bed-learn",
+        "title": "Study Hall Bed",
+        "artist": "Exposure Radio house beats",
+        "audio": "station/music/bed-learn.mp3",
+        "duration": 60.03,
+        "bpm": 96,
+        "key": "C minor",
+        "license": "MIT, generated by scripts/make_beats.py",
+        "loop": true
+      }
+    ]
+  },
+  "learn": {
+    "topics": [
+      {
+        "id": "visibility-vs-exposure",
+        "title": "New exposure, or new visibility?",
+        "status": "queued"
+      },
+      {
+        "id": "epss",
+        "title": "EPSS in sixty seconds",
+        "status": "queued"
+      },
+      {
+        "id": "kev",
+        "title": "What CISA's exploited list really tells you",
+        "status": "suggested"
+      }
+    ]
+  }
+}

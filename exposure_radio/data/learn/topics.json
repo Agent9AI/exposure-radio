@@ -1,0 +1,57 @@
+{
+  "note": "Bundled Learn topics. Each one is short, public and reviewed. A Gemini key can suggest more (see docs/GOOGLE.md); suggestions are queued for an operator, never aired unreviewed.",
+  "topics": [
+    {
+      "id": "visibility-vs-exposure",
+      "title": "New exposure, or new visibility?",
+      "subtitle": "Why a bigger number is not always worse news",
+      "status": "queued",
+      "turns": [
+        {"host": "ava", "text": "Cole, the finding count jumped this week. Should the team panic?"},
+        {"host": "cole", "text": "Not yet. First ask where the new findings came from. If they're on machines we've been scanning all along, that's new exposure. Something changed, and it needs a look."},
+        {"host": "cole", "text": "But if they're on machines we only just started scanning, or just gave the scanner credentials for, that's new visibility. The risk was already there. We can finally see it."},
+        {"host": "ava", "text": "So a higher number can actually mean better coverage."},
+        {"host": "cole", "text": "Exactly. And the reverse is the trap. When a finding disappears from a machine that missed its scan, that's not a fix. It's unverified until a rescan proves it."},
+        {"host": "ava", "text": "New exposure, new visibility, verified fixed, unverified. Four different stories, and this station keeps them apart for you."}
+      ],
+      "sources": [
+        {"label": "Tenable Vulnerability Management: vulnerability states", "url": "https://docs.tenable.com/vulnerability-management/Content/Explore/Findings/VulnerabilityStates.htm"}
+      ]
+    },
+    {
+      "id": "epss",
+      "title": "EPSS in sixty seconds",
+      "subtitle": "What the exploit prediction score does and does not tell you",
+      "status": "queued",
+      "turns": [
+        {"host": "ava", "text": "You'll hear us mention EPSS. Cole, what is it, in plain English?"},
+        {"host": "cole", "text": "It's the Exploit Prediction Scoring System, run by FIRST. Every day it estimates the chance that a vulnerability sees exploitation activity somewhere in the next thirty days."},
+        {"host": "ava", "text": "So a high score means we're about to get hacked?"},
+        {"host": "cole", "text": "No, and that's the common mistake. It describes activity across the internet, not the odds that your environment gets breached. It's a signal for ordering work."},
+        {"host": "cole", "text": "Use it alongside CISA's known exploited list, which tells you attacks are already happening, and alongside what the asset actually does for the business."},
+        {"host": "ava", "text": "Known exploited first, then likely to be exploited, then everything else. That's a plan a small team can actually follow."}
+      ],
+      "sources": [
+        {"label": "FIRST: Exploit Prediction Scoring System", "url": "https://www.first.org/epss/"},
+        {"label": "FIRST: EPSS model and user guide", "url": "https://www.first.org/epss/user-guide"}
+      ]
+    },
+    {
+      "id": "kev",
+      "title": "What CISA's exploited list really tells you",
+      "subtitle": "The strongest public signal that attackers are using a bug",
+      "status": "suggested",
+      "turns": [
+        {"host": "ava", "text": "Every briefing starts with CISA's known exploited list. Why does it get top billing?"},
+        {"host": "cole", "text": "Because it's evidence, not a prediction. CISA only adds a vulnerability when there's reliable proof it's being exploited and there's clear guidance to fix it."},
+        {"host": "ava", "text": "And it's not just for government agencies?"},
+        {"host": "cole", "text": "Agencies get formal deadlines. For everyone else, it's free, it updates often, and it's the shortest list of things attackers are using right now."},
+        {"host": "ava", "text": "So when something on that list shows up on one of our machines, it jumps the queue."},
+        {"host": "cole", "text": "Every time. That's why the station will interrupt the music for it."}
+      ],
+      "sources": [
+        {"label": "CISA Known Exploited Vulnerabilities catalog", "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"}
+      ]
+    }
+  ]
+}
