@@ -116,10 +116,10 @@
     ed.textContent = st.edition || '';
     ed.hidden = !st.edition;
     const parts = [];
-    if (st.as_of) parts.push(`AS OF ${String(st.as_of).replace('T', ' ')}`);
+    if (st.as_of) parts.push(`AS OF ${String(st.as_of).replace(/(\d)T(\d)/, '$1 $2')}`);
     $('asof').textContent = parts.join(' · ');
     const loc = st.location && st.location.label;
-    $('foot-loc').textContent = [loc, st.as_of ? `DATA AS OF ${String(st.as_of).replace('T', ' ')}` : ''].filter(Boolean).join(' · ');
+    $('foot-loc').textContent = [loc, st.as_of ? `DATA AS OF ${String(st.as_of).replace(/(\d)T(\d)/, '$1 $2')}` : ''].filter(Boolean).join(' · ');
     const total = state.rundown.reduce((a, s) => a + segDuration(s), 0);
     $('rundown-total').textContent = `${state.rundown.length} SEGMENTS · ${clock(total)}`;
   }
