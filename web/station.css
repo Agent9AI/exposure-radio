@@ -529,3 +529,6 @@ select.input { appearance: auto; }
   .tune, .square-button, .knob-cap { border: 1px solid ButtonText; }
   .knob-ticks i.on { background: Highlight; }
 }
+
+.zero-wire-brief { border-top: 1px solid var(--line-2); margin-top: 18px; padding-top: 16px; display: grid; gap: 8px; }
+.zero-wire-title { margin: 0; font-size: 17px; font-weight: 750; line-height: 1.35; }

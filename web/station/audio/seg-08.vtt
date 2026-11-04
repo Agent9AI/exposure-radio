@@ -15,5 +15,11 @@ WEBVTT
 00:00:22.752 --> 00:00:26.741
 <v Ava>If any of those are in your environment, your exposure desk will call it out.
 
-00:00:27.121 --> 00:00:36.209
-<v Cole>The newest CISA advisories cover Subnet Solutions PowerSYSTEM Center and Hitachi Energy TRO600 series products.
+00:00:27.121 --> 00:00:42.695
+<v Cole>Cloudflare Zero Wire has five briefings marked needs attention: Linux IPv4 TCP use-after-free, php2shell, eMudhra certificate compromise, node2shell, and Citrix NetScaler command execution.
+
+00:00:43.075 --> 00:00:53.421
+<v Ava>Those are public briefings, not findings on our network. Open the news desk for the sources and patch guidance. Matching open findings get context on their action cards.
+
+00:00:53.801 --> 00:01:04.105
+<v Cole>Cloudflare coverage is a compensating control. It does not replace the vendor patch or a rescan, and we have not verified coverage for this environment.

@@ -27,7 +27,9 @@ from exposure_radio import __version__  # noqa: E402
 from exposure_radio.desks import (fetch_news, fetch_weather, geocode, ident_segment, learn_segment,  # noqa: E402
                                   learn_topics, news_segment, weather_segment)
 from exposure_radio.onair import HOSTS, build_segments, verify_segment  # noqa: E402
-from exposure_radio.pipeline import run_cycle  # noqa: E402
+from exposure_radio.pipeline import run_cycle
+from exposure_radio.zero_wire import enrich_card
+from exposure_radio.rundown import find_leaks, RedactionError  # noqa: E402
 
 WEB = ROOT / "web"
 OUT = WEB / "station"
@@ -151,8 +153,11 @@ def main() -> None:
     p.add_argument("--offline", action="store_true", help="reuse web/station/data snapshots")
     p.add_argument("--plan-only", action="store_true", help="write station.json without rendering audio")
     p.add_argument("--out", type=Path, default=ROOT / "web" / "station", help="output directory (default web/station)")
+    p.add_argument("--only", help="render only this segment ID; reuse other audio only when its script is unchanged")
     args = p.parse_args()
     OUT = args.out
+    previous = json.loads((OUT / "station.json").read_text()) if args.only else None
+    old_segments = {s["id"]: s for s in previous["rundown"]} if previous else {}
     if not args.plan_only and not (args.model and args.voices):
         p.error("--model and --voices are required unless --plan-only")
 
@@ -161,7 +166,6 @@ def main() -> None:
     cycle = run_cycle(edition="executive", commit=False)
     today = cycle.ledger.clock.date()
     exposure = build_segments(cycle.episode.lines, cycle.ledger, cycle.kev, cycle.decision.kind, today=today)
-    items = {i["cve"]: i for i in cycle.episode.card["items"]}
 
     snap_w, snap_n = OUT / "data" / "weather.json", OUT / "data" / "news.json"
     if args.offline:
@@ -173,6 +177,11 @@ def main() -> None:
         news = fetch_news()
         snap_w.write_text(json.dumps(weather, indent=2) + "\n", encoding="utf-8")
         snap_n.write_text(json.dumps(news, indent=2) + "\n", encoding="utf-8")
+
+    card = enrich_card(cycle.episode.card, news)
+    if find_leaks(json.dumps(card), cycle.ledger):
+        raise RedactionError("public context failed the executive identifier check")
+    items = {i["cve"]: i for i in card["items"]}
 
     tracks_file = OUT / "music" / "tracks.json"
     music = json.loads(tracks_file.read_text()) if tracks_file.exists() else {"tracks": []}
@@ -207,6 +216,8 @@ def main() -> None:
                       subtitle="Back after the next scan"),
     ]
     rundown = [s for s in rundown if s]
+    if args.only and args.only not in {f"seg-{i:02}" for i in range(1, len(rundown) + 1)}:
+        raise ValueError("--only must name an existing segment ID")
     for i, seg in enumerate(rundown, 1):
         seg["id"] = f"seg-{i:02}"
         seg.setdefault("priority", False)
@@ -242,6 +253,16 @@ def main() -> None:
                 tenant = seg["kind"] in ("exposure", "wins", "blindspots")
                 if tenant:
                     verify_segment(seg, cycle.ledger, cycle.kev, today)   # fresh gate right before TTS
+                if args.only and seg["id"] != args.only:
+                    old = old_segments.get(seg["id"], {})
+                    script = lambda s: [(t["host"], t["text"], t["caption"]) for t in s.get("turns", [])]
+                    if script(seg) != script(old) or not old.get("sha256"):
+                        raise ValueError(f"{seg['id']}: cannot reuse audio for a changed or missing script")
+                    if hashlib.sha256((WEB / old["audio"]).read_bytes()).hexdigest() != old["sha256"]:
+                        raise ValueError(f"{seg['id']}: existing audio hash mismatch")
+                    for key in ("audio", "duration", "sha256", "captions", "voice", "measure", "turns"):
+                        seg[key] = old[key]
+                    continue
                 use_cloud = cloud is not None and (not tenant or args.gemini_tier == "paid" or args.synthetic_sample)
                 seg["voice"] = "Kokoro (local)"
                 if use_cloud:
@@ -266,8 +287,11 @@ def main() -> None:
          "detail": "Optional. Your own playlists in the official embedded player, video visible."},
         {"id": "nws", "label": "National Weather Service", "status": "connected",
          "detail": f"Keyless public data for {weather.get('label') or weather['place']}."},
-        {"id": "cisa", "label": "CISA KEV and advisories", "status": "connected",
+        {"id": "cisa", "label": "CISA Known Exploited Vulnerabilities", "status": "connected",
          "detail": f"Public feeds, catalog {news.get('catalog_version')}."},
+        {"id": "zero-wire", "label": "Cloudflare Zero Wire",
+         "status": "connected" if news.get("zero_wire") else "unavailable",
+         "detail": f"Keyless public Radar feed · {len(news.get('zero_wire', []))} briefings · snapshot {news.get('zero_wire_fetched', 'unavailable')}. No tenant data sent."},
         {"id": "lyria", "label": "Google Lyria music", "status": "off",
          "detail": "Optional, paid per song. House beats play by default."},
     ]

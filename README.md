@@ -1,7 +1,7 @@
 # Exposure Radio
 
 **A security radio station for small IT teams.** Two hosts tell your team what changed in
-Tenable overnight, what to fix first, and what was verified fixed, between weather, CISA
+Tenable overnight, what to fix first, and what was verified fixed, between weather, CISA and Cloudflare Zero Wire
 news, short Learn segments and music. Anything on CISA's exploited list that lands on one of
 your machines interrupts the music.
 
@@ -32,7 +32,7 @@ console at `/admin.html` uses the admin token the host prints at start.
 | **Wins** | Findings verified fixed by a rescan | Tenable VM |
 | **Blind spots** | Missed scans, lost credentials, newly visible machines | Tenable VM |
 | **Weather and local** | Forecast and active alerts for the station's address | National Weather Service (keyless) |
-| **Security news** | What joined CISA's exploited list this week, and new advisories | CISA public feeds |
+| **Security news** | CISA exploited-list additions and active Zero Wire briefings | CISA + Cloudflare Radar |
 | **Learn** | Sixty-second explainers: EPSS, KEV, exposure versus visibility | Bundled topics, or Gemini suggestions you approve |
 | **Music** | Original house beats; your own YouTube playlists or Lyria tracks if connected | MIT-licensed `scripts/make_beats.py` |
 
@@ -64,7 +64,7 @@ The hosts say "the Ivanti Connect Secure flaw is open on one asset", not a CVE n
 read digit by digit. Identifiers, owners and deadlines are on screen and on the action
 card, where they can be copied into a ticket.
 
-Speech is still evidence-bound. Each spoken line is a fixed rendition of a template
+Tenant speech is evidence-bound. Each exposure line is a fixed rendition of a template
 sentence, rebuilt from the evidence ledger and compared word for word before any voice
 engine runs. The caption under it is the canonical sentence, and that caption passes the
 claim gate:
@@ -123,3 +123,25 @@ See [security boundaries](SECURITY.md), [build evidence](docs/BUILDLOG.md) and
 [third-party notices](THIRD_PARTY_NOTICES.md). All tenant data in the sample is synthetic.
 
 MIT licensed.
+
+## Zero Wire public context
+
+Cloudflare Zero Wire is connected without an account or API key. The news desk
+reads active public briefings alongside CISA KEV; its drawer includes the briefing
+summary, Cloudflare product-coverage caveats and source link. Open action cards
+receive context only for an exact CVE match, joined locally. Zero Wire never
+changes KEV membership, priority, verified-fix status or tenant narration.
+No tenant CVEs are sent to Cloudflare. Agent assessment prompts remain links for
+operator review and are never executed by the station.
+
+Public feeds are fetched only while building an edition. The bundled snapshot
+and audio work offline; the drawer shows the retrieval time. Rebuild with
+`python3 scripts/build_station.py --offline --model MODEL --voices VOICES`
+to replay that snapshot. Omit `--offline` to refresh public data.
+Use `--only seg-08` to revoice the news desk while preserving hash-checked,
+unchanged scripts and audio in the other segments.
+
+The built-in HTTP station is intended for loopback use. Its optional LAN mode
+has no TLS and is suitable only inside an independently secured transport;
+settings are readable to listeners. Do not publish the admin console or use
+real tenant data on an unsecured LAN.

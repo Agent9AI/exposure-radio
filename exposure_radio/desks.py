@@ -6,7 +6,7 @@ and no key. Every segment carries the sources it was written from.
 
 - Weather and local alerts: US National Weather Service (api.weather.gov) and
   the US Census geocoder. Both are free, keyless public-domain services.
-- News: the CISA Known Exploited Vulnerabilities feed and CISA advisories.
+- News: the CISA Known Exploited Vulnerabilities feed and Cloudflare Zero Wire briefings.
 - Learn: bundled topics, or topics a Gemini key suggests (see ``gemini.py``).
 
 Snapshots are written next to the station so a build can be replayed offline.
@@ -24,6 +24,7 @@ from pathlib import Path
 
 from .numbers import spoken as words
 from .sanitize import clean_text
+from .zero_wire import URL as ZERO_WIRE_URL, parse_feed
 
 UA = "ExposureRadio/0.6 (+https://github.com/Agent9AI/exposure-radio)"
 DATA = Path(__file__).parent / "data"
@@ -114,25 +115,21 @@ def fetch_news(days: int = 7) -> dict:
     cutoff = (date.fromisoformat(released) - timedelta(days=days)).isoformat()
     recent = sorted((v for v in kev.get("vulnerabilities", []) if str(v.get("dateAdded", "")) > cutoff),
                     key=lambda v: v["dateAdded"], reverse=True)
-    advisories = []
+    zero_wire, zero_wire_status = [], "unavailable"
     try:
-        root = ET.fromstring(fetch(ADVISORIES_URL, accept="application/rss+xml"))
-        for item in root.iter("item"):
-            if "known exploited" in (item.findtext("title") or "").lower():
-                continue   # already covered by the KEV feed
-            advisories.append({"title": clean_text(item.findtext("title"), 120),
-                               "link": clean_text(item.findtext("link"), 200)})
-            if len(advisories) == 3:
-                break
-    except (ET.ParseError, OSError):
-        advisories = []
+        zero_wire = parse_feed(fetch(ZERO_WIRE_URL, accept="application/rss+xml"))
+        zero_wire_status = "connected" if zero_wire else "empty"
+    except (ET.ParseError, OSError, ValueError):
+        pass  # KEV still airs; offline builds reuse the saved snapshot explicitly.
     return {"fetched": datetime.now().astimezone().isoformat(timespec="minutes"),
             "catalog_version": kev.get("catalogVersion"), "released": released, "days": days,
             "kev_recent": [{"cve": v["cveID"], "vendor": clean_text(v.get("vendorProject"), 60),
                             "product": clean_text(v.get("product"), 80), "added": v["dateAdded"],
                             "ransomware": v.get("knownRansomwareCampaignUse") == "Known"}
                            for v in recent],
-            "advisories": advisories}
+            "advisories": [], "zero_wire": zero_wire,
+            "zero_wire_status": zero_wire_status,
+            "zero_wire_fetched": datetime.now().astimezone().isoformat(timespec="minutes")}
 
 
 def _product(v: dict) -> str:
@@ -158,14 +155,25 @@ def news_segment(snapshot: dict) -> dict:
         turns.append(("ava", "If any of those are in your environment, your exposure desk will call it out."))
     else:
         turns.append(("ava", "Nothing new joined the known exploited list this week."))
-    if snapshot["advisories"]:
-        turns.append(("cole", "The newest CISA advisories cover " +
-                      _join([a["title"] for a in snapshot["advisories"][:2]]) + "."))
+    briefs = snapshot.get("zero_wire", [])
+    active = [b for b in briefs if b.get("status") == "Needs attention"]
+    if active:
+        turns.append(("cole", f"Cloudflare Zero Wire has {words(len(active))} {'briefing' if len(active) == 1 else 'briefings'} marked needs attention: " +
+                      _join([b["title"] for b in active[:5]]) + "."))
+        turns.append(("ava", "Those are public briefings, not findings on our network. Open the news desk for "
+                      "the sources and patch guidance. Matching open findings get context on their action cards."))
+        turns.append(("cole", "Cloudflare coverage is a compensating control. It does not replace the vendor "
+                      "patch or a rescan, and we have not verified coverage for this environment."))
+    elif snapshot.get("zero_wire_status") == "unavailable":
+        turns.append(("cole", "Zero Wire is unavailable for this edition. The CISA briefing is still here."))
     sources = [{"label": f"CISA KEV catalog {snapshot['catalog_version']}",
                 "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"}]
-    sources += [{"label": a["title"], "url": a["link"]} for a in snapshot["advisories"][:2]]
-    return {"kind": "news", "title": "Security news: this week at CISA",
-            "subtitle": f"KEV catalog {snapshot['catalog_version']}", "turns": _turns(turns), "sources": sources,
+    sources += [{"label": "Zero Wire: " + b["title"], "url": b["url"]} for b in active]
+    fetched = snapshot.get("zero_wire_fetched", "")
+    return {"kind": "news", "title": "Security news: CISA + Zero Wire",
+            "subtitle": f"Public context · KEV {snapshot['catalog_version']} · Zero Wire {fetched[:16]}",
+            "turns": _turns(turns), "sources": sources,
+            "zero_wire": briefs, "zero_wire_fetched": fetched,
             "items": [{"cve": v["cve"], "product": _product(v), "added": v["added"]} for v in recent[:10]]}
 
 

@@ -76,3 +76,16 @@ is served live at `GET /api/station`.
 Without the host (static hosting), the admin console runs in demo mode: changes
 persist in `localStorage` only and secret fields are disabled with a note that
 keys live on the station host, never in a browser.
+
+## Zero Wire context
+
+The news segment includes `zero_wire` briefings and `zero_wire_fetched`. Each briefing
+has a title, status, CVEs from RSS category tags, summary, source URL, product coverage
+and a boolean indicating that an assessment prompt is available at the source.
+No prompt text is executed or loaded into the analyst.
+
+An open action-card item receives `zero_wire` only on an exact local CVE match, with
+`briefings`, `boundary`, `fetched` and `source`. This is public context outside the
+tenant evidence ledger. Unmatched, fixed and unverified-only findings receive no
+coverage assertion. The news drawer still shows every public briefing, including
+reference items and incidents without CVEs. The console needs no key or toggle.

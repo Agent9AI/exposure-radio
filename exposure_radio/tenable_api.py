@@ -19,6 +19,7 @@ import os
 import time
 import urllib.error
 import urllib.request
+import urllib.parse
 from pathlib import Path
 
 DEFAULT_HOST = "https://cloud.tenable.com"
@@ -29,10 +30,18 @@ class TenableError(RuntimeError):
     pass
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
 class Client:
     def __init__(self, access_key: str, secret_key: str, host: str = DEFAULT_HOST, timeout: float = 60.0):
-        if not host.startswith("https://"):
-            raise TenableError("the Tenable host must use https")
+        parsed = urllib.parse.urlsplit(host)
+        if (parsed.scheme != "https" or parsed.hostname != "cloud.tenable.com"
+                or parsed.port not in (None, 443) or parsed.username or parsed.password
+                or parsed.path not in ("", "/") or parsed.query or parsed.fragment):
+            raise TenableError("the Tenable host must be https://cloud.tenable.com")
         if not access_key or not secret_key:
             raise TenableError("Tenable access and secret keys are required")
         self.host, self.timeout = host.rstrip("/"), timeout
@@ -50,7 +59,7 @@ class Client:
                 "X-ApiKeys": self._auth, "Accept": "application/json", "Content-Type": "application/json",
                 "User-Agent": "ExposureRadio/0.6 (Integration/1.0)"})
             try:
-                with urllib.request.urlopen(req, timeout=self.timeout) as resp:  # noqa: S310 - https only
+                with urllib.request.build_opener(_NoRedirect()).open(req, timeout=self.timeout) as resp:  # noqa: S310 - https only
                     return json.loads(resp.read() or b"null")
             except urllib.error.HTTPError as exc:
                 if exc.code == 429 or exc.code >= 500:
@@ -81,7 +90,21 @@ def _wait(client: Client, kind: str, uuid: str, poll: float, limit: float) -> di
 def pull(out_dir: str | Path, client: Client, poll: float = 10.0, limit: float = 1800.0) -> dict:
     """Write one complete snapshot directory and return a short summary."""
     out = Path(out_dir)
-    (out / "vulns").mkdir(parents=True, exist_ok=True)
+    out.mkdir(parents=True, exist_ok=True, mode=0o700)
+    os.chmod(out, 0o700)
+    (out / "vulns").mkdir(exist_ok=True, mode=0o700)
+    os.chmod(out / "vulns", 0o700)
+
+    def write_private(path: Path, content: str) -> None:
+        fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC | os.O_NOFOLLOW, 0o600)
+        try:
+            os.fchmod(fd, 0o600)
+            with os.fdopen(fd, "w", encoding="utf-8") as fh:
+                fd = -1
+                fh.write(content)
+        finally:
+            if fd >= 0:
+                os.close(fd)
     vuln_uuid = client.request("POST", "/vulns/export", {
         "num_assets": 50, "include_unlicensed": False,
         "filters": {"state": STATES, "severity": ["low", "medium", "high", "critical"]}})["export_uuid"]
@@ -92,14 +115,14 @@ def pull(out_dir: str | Path, client: Client, poll: float = 10.0, limit: float =
     for n in status.get("chunks_available", []):
         chunk = client.request("GET", f"/vulns/export/{vuln_uuid}/chunks/{int(n)}")
         findings += len(chunk or [])
-        (out / "vulns" / f"chunk-{int(n)}.json").write_text(json.dumps(chunk), encoding="utf-8")
+        write_private(out / "vulns" / f"chunk-{int(n)}.json", json.dumps(chunk))
     astatus = _wait(client, "assets", asset_uuid, poll, limit)
     assets = []
     for n in astatus.get("chunks_available", []):
         assets.extend(client.request("GET", f"/assets/export/{asset_uuid}/chunks/{int(n)}") or [])
-    (out / "assets.json").write_text(json.dumps(assets), encoding="utf-8")
+    write_private(out / "assets.json", json.dumps(assets))
     status.setdefault("filters", {"state": STATES})
     # The loader treats this file as the completion record; write it last.
-    (out / "export-status.json").write_text(json.dumps(status, indent=1), encoding="utf-8")
+    write_private(out / "export-status.json", json.dumps(status, indent=1))
     return {"out": str(out), "findings": findings, "assets": len(assets),
             "chunks": len(status.get("chunks_available", []))}

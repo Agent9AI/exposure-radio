@@ -1,5 +1,5 @@
 {
-  "fetched": "2026-11-03T18:51-05:00",
+  "fetched": "2026-11-04T05:53-05:00",
   "catalog_version": "2026.11.03",
   "released": "2026-11-03",
   "days": 7,
@@ -54,18 +54,82 @@
       "ransomware": false
     }
   ],
-  "advisories": [
+  "advisories": [],
+  "zero_wire": [
     {
-      "title": "Subnet Solutions PowerSYSTEM Center",
-      "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-307-01"
+      "title": "Linux IPv4 TCP use-after-free",
+      "url": "https://radar.cloudflare.com/security/zero-wire/linux-ipv4-tcp-use-after-free",
+      "status": "Needs attention",
+      "cves": [
+        "CVE-2026-98432"
+      ],
+      "summary": "Prioritize patching. Atlas updated its distribution review to report fixed RHEL kernels and remaining vendor-specific patch gaps. Check the running host kernel against your distribution's CVE advisory, apply its fixed kernel, and complete the required reboot or vendor-supported activation procedure. Verify that the fix is active, including on container hosts and Kubernetes nodes.",
+      "cloudflare_coverage": "Magic Transit customers can use Cloudflare Network Firewall to reduce exposure by filtering IPv4 TCP packets carrying IP options before they reach their infrastructure. Coverage depends on routing and firewall configuration and does not replace kernel patching.",
+      "has_agent_prompt": true,
+      "published": "Sun, 01 Nov 2026 00:00:00 GMT"
     },
     {
-      "title": "Hitachi Energy TRO600 series products",
-      "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-302-02"
+      "title": "php2shell",
+      "url": "https://radar.cloudflare.com/security/zero-wire/php2shell",
+      "status": "Needs attention",
+      "cves": [
+        "CVE-2026-109618",
+        "CVE-2026-109619",
+        "CVE-2026-115560"
+      ],
+      "summary": "Prioritize patching. Cloudflare reported that PHP CTF submissions helped harden php2shell WAF protections and create new detections. Patch the PHP runtime using the original security advisory and separately review PHP's session upload progress advisory for CVE-2026-115560. Keep compensating controls in place while patching, and ask managed hosting providers to confirm each issue's status.",
+      "cloudflare_coverage": "Cloudflare has WAF rules for known php2shell exploit patterns. They are a compensating control, not a fix for the vulnerable PHP runtime. Review your WAF configuration to determine whether you are protected. Paid plans Free plans",
+      "has_agent_prompt": true,
+      "published": "Fri, 30 Oct 2026 00:00:00 GMT"
     },
     {
-      "title": "Siemens Mendix SAML Module",
-      "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-302-01"
+      "title": "eMudhra certificate compromise",
+      "url": "https://radar.cloudflare.com/security/zero-wire/emudhra-certificate-compromise",
+      "status": "Needs attention",
+      "cves": [],
+      "summary": "Review trust settings. Cloudflare published follow-up research on forged certificates, client patching progress, and the limitations of its measurements. Identify systems that rely on the affected certificate chain, update trust stores and client software according to the official response, and review customer-managed origins, mutual TLS, and container images.",
+      "cloudflare_coverage": "No WAF rules are applicable to this certificate-trust incident.",
+      "has_agent_prompt": false,
+      "published": "Fri, 30 Oct 2026 00:00:00 GMT"
+    },
+    {
+      "title": "node2shell",
+      "url": "https://radar.cloudflare.com/security/zero-wire/node2shell",
+      "status": "Needs attention",
+      "cves": [
+        "CVE-2026-111497"
+      ],
+      "summary": "Assess your exposure. Cloudflare documented two WAF rules and their default Log action. Identify every Brotli decoder in running runtimes, dependencies, and container images, then use each vendor's security guidance to update or otherwise remove the vulnerable decoder.",
+      "cloudflare_coverage": "Cloudflare has WAF rules for documented Node2Shell request patterns. They default to Log and customers must configure them to Block if blocking mitigation is needed. Review your WAF configuration to determine whether you are protected. Paid plans",
+      "has_agent_prompt": false,
+      "published": "Sun, 25 Oct 2026 00:00:00 GMT"
+    },
+    {
+      "title": "Citrix NetScaler command execution",
+      "url": "https://radar.cloudflare.com/security/zero-wire/citrix-netscaler-command-execution",
+      "status": "Needs attention",
+      "cves": [
+        "CVE-2026-88771"
+      ],
+      "summary": "Prioritize patching. Cloudflare published defense-in-depth guidance while distinguishing web authentication from other gateway traffic. Use Citrix's bulletin to identify and update affected appliances. Treat suspected compromise separately from patching, and review exposed gateway services and incident-response guidance.",
+      "cloudflare_coverage": "Cloudflare has a WAF rule for the documented NetScaler HTTP exploit path. Review your WAF configuration to determine whether you are protected. Paid plans",
+      "has_agent_prompt": false,
+      "published": "Mon, 19 Oct 2026 00:00:00 GMT"
+    },
+    {
+      "title": "WordPress SQL injection and RCE",
+      "url": "https://radar.cloudflare.com/security/zero-wire/wordpress-sql-injection-rce",
+      "status": "Reference",
+      "cves": [
+        "CVE-2026-60137",
+        "CVE-2026-63030"
+      ],
+      "summary": "Update affected systems. Cloudflare updated its response with vulnerability and remediation guidance. Confirm WordPress update status against the vendor release and patch guidance. Keep any compensating controls in place while remediation is completed.",
+      "cloudflare_coverage": "Cloudflare has WAF rules for documented WordPress exploit paths. They are a compensating control, not a replacement for updating WordPress. Review your WAF configuration to determine whether you are protected. Paid plans",
+      "has_agent_prompt": false,
+      "published": "Mon, 20 Jul 2026 00:00:00 GMT"
     }
-  ]
+  ],
+  "zero_wire_status": "connected",
+  "zero_wire_fetched": "2026-11-04T05:53-05:00"
 }

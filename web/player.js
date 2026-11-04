@@ -635,6 +635,10 @@
     if (c.internal_deadline) lines.push(`Internal deadline: ${c.internal_deadline}`);
     if (c.owners) lines.push(`Owner: ${c.owners.length ? c.owners.join(', ') : 'unassigned'}`);
     if (c.next_steps && c.next_steps.length) { lines.push('Next steps:'); c.next_steps.forEach(s => lines.push(`  - ${s}`)); }
+    if (c.zero_wire) {
+      lines.push('', 'Cloudflare Zero Wire · public context', c.zero_wire.boundary);
+      c.zero_wire.briefings.forEach(b => lines.push(b.title, b.cloudflare_coverage || '', b.url));
+    }
     if (c.evidence && c.evidence.length) lines.push(`Evidence: ${c.evidence.join(', ')}`);
     const watch = Array.isArray(seg.watch) ? seg.watch.filter(Boolean) : [];
     if (watch.length) {
@@ -654,6 +658,25 @@
     try { ok = document.execCommand('copy'); } catch (_) { ok = false; }
     ta.remove();
     return ok;
+  }
+  function zeroWireContext(briefings, boundary, fetched) {
+    const b = block('Cloudflare Zero Wire · public context');
+    if (fetched) b.append(el('p', 'watch-meta', `Snapshot ${fetched}`));
+    if (boundary) b.append(el('p', null, boundary));
+    briefings.forEach(brief => {
+      const section = el('section', 'zero-wire-brief');
+      section.append(el('h4', 'zero-wire-title', brief.title), el('p', 'watch-meta', brief.status));
+      if (brief.summary) section.append(el('p', null, brief.summary));
+      if (brief.cloudflare_coverage) {
+        section.append(el('h4', 'label', 'Cloudflare product coverage'), el('p', null, brief.cloudflare_coverage));
+      }
+      if (/^https:\/\/radar\.cloudflare\.com\/security\/zero-wire\/[a-z0-9-]+$/.test(brief.url || '')) {
+        const a = el('a', null, brief.has_agent_prompt ? 'Read briefing & read-only assessment prompt ↗' : 'Read briefing & sources ↗');
+        a.href = brief.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; section.append(a);
+      }
+      b.append(section);
+    });
+    return b;
   }
   function openDrawer() {
     const seg = current();
@@ -688,6 +711,7 @@
         c.next_steps.forEach(s => ol.append(el('li', null, s)));
         b.append(ol); body.append(b);
       }
+      if (c.zero_wire) body.append(zeroWireContext(c.zero_wire.briefings, c.zero_wire.boundary, c.zero_wire.fetched));
       if (c.evidence && c.evidence.length) {
         const b = block(`Evidence · ${c.evidence.length} ledger entries`); const ids = el('div', 'ids');
         c.evidence.forEach(id => ids.append(el('span', null, id)));
@@ -708,9 +732,14 @@
         if (w.why_now && w.why_now.length) meta.push(w.why_now.join('; '));
         if (w.internal_deadline) meta.push(`due ${w.internal_deadline}`);
         if (meta.length) li.append(el('p', 'watch-meta', meta.join(' · ')));
+        if (w.zero_wire) li.append(zeroWireContext(w.zero_wire.briefings, w.zero_wire.boundary, w.zero_wire.fetched));
         ul.append(li);
       });
       b.append(ul); body.append(b);
+    }
+    if (Array.isArray(seg.zero_wire) && seg.zero_wire.length) {
+      body.append(zeroWireContext(seg.zero_wire,
+        'Public briefings do not establish exposure on this network. Compensating controls do not replace patching and a rescan. Coverage is not verified for this environment.', seg.zero_wire_fetched));
     }
     if (seg.sources && seg.sources.length) {
       const b = block('Sources'); const ul = el('ul', 'sources');

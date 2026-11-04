@@ -13,3 +13,12 @@ Exposure Radio source code is MIT licensed. External components retain their own
 - **Google services (optional):** Gemini, Lyria and the YouTube IFrame Player are used only with the operator's own account and are governed by Google's terms; see docs/GOOGLE.md.
 
 All tenant assets, addresses, owners and scanner findings in the demonstration were generated for the synthetic scenario. No customer export is included.
+
+## Cloudflare Zero Wire
+
+Public briefing metadata, summaries and product-coverage excerpts are attributed to
+Cloudforce One / Cloudflare Zero Wire and linked to the original Radar briefing.
+The bundled snapshot was retrieved on 4 November 2026 from
+https://radar.cloudflare.com/security/zero-wire/rss. Cloudflare content remains
+subject to its own terms and is not relicensed under this project's MIT license.
+No affiliation, endorsement, or verified customer protection is asserted.

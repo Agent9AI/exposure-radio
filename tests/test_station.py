@@ -129,16 +129,16 @@ class StoreTests(unittest.TestCase):
         self.tmp.cleanup()
 
     def test_keys_are_masked_and_private(self):
-        self.store.set_keys("gemini", {"api_key": "AIza-test-key-123456"})
+        self.store.set_keys("gemini", {"api_key": "fixture-key"})
         settings = self.store.settings()
         self.assertEqual(settings["keys"]["gemini"], {"configured": True})
-        self.assertNotIn("AIza-test-key-123456", json.dumps(settings))
+        self.assertNotIn("fixture-key", json.dumps(settings))
         self.assertEqual(stat.S_IMODE(os.stat(self.store.path).st_mode), 0o600)
 
     def test_settings_update_keeps_secrets(self):
-        self.store.set_keys("gemini", {"api_key": "AIza-test-key-123456"})
+        self.store.set_keys("gemini", {"api_key": "fixture-key"})
         self.store.update({"gemini": {"tier": "paid"}, "segments": {"music": {"enabled": False, "per_hour": 0}}})
-        self.assertEqual(self.store.secret("gemini")["api_key"], "AIza-test-key-123456")
+        self.assertEqual(self.store.secret("gemini")["api_key"], "fixture-key")
         self.assertEqual(self.store.settings()["gemini"]["tier"], "paid")
 
     def test_rejects_unknown_or_bad_settings(self):
@@ -148,7 +148,7 @@ class StoreTests(unittest.TestCase):
                 self.store.update(bad)
 
     def test_exposure_stays_local_on_free_tier(self):
-        self.store.set_keys("gemini", {"api_key": "AIza-test-key-123456"})
+        self.store.set_keys("gemini", {"api_key": "fixture-key"})
         self.store.update({"voices": {"engine": "gemini"}})
         s = self.store.settings()
         self.assertTrue(station.cloud_voice_allowed(s, "news"))

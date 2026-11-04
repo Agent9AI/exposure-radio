@@ -40,6 +40,8 @@
       fields: [], hint: 'Add a video from On air › Add a YouTube item. Nothing is downloaded or played in the background.' },
     { id: 'nws', title: 'National Weather Service', blurb: 'Public forecast API. No key needed.',
       fields: [{ path: 'station.address', label: 'Station address', type: 'text', placeholder: 'Street, city or ZIP' }] },
+    { id: 'zero-wire', title: 'Cloudflare Zero Wire', blurb: 'Keyless public briefings on Cloudflare Radar. Connected with the bundled snapshot; no setup required.',
+      fields: [], note: 'Public context joins open CVEs locally. No tenant CVEs sent to Cloudflare. Product coverage is not verified for your environment; patch and rescan remain required.' },
     { id: 'lyria', title: 'Lyria music', blurb: 'Optional generated instrumentals. Paid per song.',
       fields: [{ path: 'lyria.enabled', label: 'Generate music with Lyria', type: 'toggle' }],
       note: 'Uses your Gemini key. Billed per song by Google with no free tier, so it stays off unless you turn it on.' }

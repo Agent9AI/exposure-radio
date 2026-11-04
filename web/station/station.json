@@ -51,9 +51,15 @@
     },
     {
       "id": "cisa",
-      "label": "CISA KEV and advisories",
+      "label": "CISA Known Exploited Vulnerabilities",
       "status": "connected",
       "detail": "Public feeds, catalog 2026.11.03."
+    },
+    {
+      "id": "zero-wire",
+      "label": "Cloudflare Zero Wire",
+      "status": "connected",
+      "detail": "Keyless public Radar feed \u00b7 6 briefings \u00b7 snapshot 2026-11-04T05:53-05:00. No tenant data sent."
     },
     {
       "id": "lyria",
@@ -85,15 +91,15 @@
       "priority": false,
       "track": null,
       "card": null,
+      "audio": "station/audio/seg-01.mp3",
+      "duration": 9.38,
+      "sha256": "a94270f3a440075cd1b42c6c77dc9d4c00100807c244fcbb612af8781940f18a",
+      "captions": "station/audio/seg-01.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.6,
         "true_peak_dbtp": -2.46
-      },
-      "audio": "station/audio/seg-01.mp3",
-      "duration": 9.38,
-      "sha256": "a94270f3a440075cd1b42c6c77dc9d4c00100807c244fcbb612af8781940f18a",
-      "captions": "station/audio/seg-01.vtt"
+      }
     },
     {
       "kind": "exposure",
@@ -267,15 +273,15 @@
         ]
       },
       "watch": [],
+      "audio": "station/audio/seg-02.mp3",
+      "duration": 35.71,
+      "sha256": "b14cd89936c92765ef575bfba6ef9d165561a37612b77d6129442eed06bfe32a",
+      "captions": "station/audio/seg-02.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.55,
         "true_peak_dbtp": -1.36
-      },
-      "audio": "station/audio/seg-02.mp3",
-      "duration": 35.71,
-      "sha256": "b14cd89936c92765ef575bfba6ef9d165561a37612b77d6129442eed06bfe32a",
-      "captions": "station/audio/seg-02.vtt"
+      }
     },
     {
       "kind": "music",
@@ -495,15 +501,15 @@
           ]
         }
       ],
+      "audio": "station/audio/seg-04.mp3",
+      "duration": 28.92,
+      "sha256": "3a898575318e330471ac866193758e65e468ebc4a7f28e4c47a6cbcd8fbfd163",
+      "captions": "station/audio/seg-04.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.35,
         "true_peak_dbtp": -1.86
-      },
-      "audio": "station/audio/seg-04.mp3",
-      "duration": 28.92,
-      "sha256": "3a898575318e330471ac866193758e65e468ebc4a7f28e4c47a6cbcd8fbfd163",
-      "captions": "station/audio/seg-04.vtt"
+      }
     },
     {
       "kind": "weather",
@@ -565,15 +571,15 @@
       "priority": false,
       "track": null,
       "card": null,
+      "audio": "station/audio/seg-05.mp3",
+      "duration": 16.43,
+      "sha256": "c374d2181d7a2069cea0f9259283a92a98b624d1a129aeb232e8c65d31f7ede3",
+      "captions": "station/audio/seg-05.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.7,
         "true_peak_dbtp": -1.88
-      },
-      "audio": "station/audio/seg-05.mp3",
-      "duration": 16.43,
-      "sha256": "c374d2181d7a2069cea0f9259283a92a98b624d1a129aeb232e8c65d31f7ede3",
-      "captions": "station/audio/seg-05.vtt"
+      }
     },
     {
       "kind": "learn",
@@ -657,15 +663,15 @@
       "priority": false,
       "track": null,
       "card": null,
+      "audio": "station/audio/seg-06.mp3",
+      "duration": 50.81,
+      "sha256": "97dab0642581b743976214cd00251287192e29a3d3bd6659300229936c88f5c2",
+      "captions": "station/audio/seg-06.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.53,
         "true_peak_dbtp": -1.75
-      },
-      "audio": "station/audio/seg-06.mp3",
-      "duration": 50.81,
-      "sha256": "97dab0642581b743976214cd00251287192e29a3d3bd6659300229936c88f5c2",
-      "captions": "station/audio/seg-06.vtt"
+      }
     },
     {
       "kind": "music",
@@ -682,8 +688,8 @@
     },
     {
       "kind": "news",
-      "title": "Security news: this week at CISA",
-      "subtitle": "KEV catalog 2026.11.03",
+      "title": "Security news: CISA + Zero Wire",
+      "subtitle": "Public context \u00b7 KEV 2026.11.03 \u00b7 Zero Wire 2026-11-04T05:53",
       "turns": [
         {
           "host": "ava",
@@ -742,14 +748,36 @@
         },
         {
           "host": "cole",
-          "text": "The newest CISA advisories cover Subnet Solutions PowerSYSTEM Center and Hitachi Energy TRO600 series products.",
-          "caption": "The newest CISA advisories cover Subnet Solutions PowerSYSTEM Center and Hitachi Energy TRO600 series products.",
+          "text": "Cloudflare Zero Wire has five briefings marked needs attention: Linux IPv4 TCP use-after-free, php2shell, eMudhra certificate compromise, node2shell, and Citrix NetScaler command execution.",
+          "caption": "Cloudflare Zero Wire has five briefings marked needs attention: Linux IPv4 TCP use-after-free, php2shell, eMudhra certificate compromise, node2shell, and Citrix NetScaler command execution.",
           "template": null,
           "subject": null,
           "cites": [],
           "banter": null,
           "start": 27.121,
-          "end": 36.209
+          "end": 42.695
+        },
+        {
+          "host": "ava",
+          "text": "Those are public briefings, not findings on our network. Open the news desk for the sources and patch guidance. Matching open findings get context on their action cards.",
+          "caption": "Those are public briefings, not findings on our network. Open the news desk for the sources and patch guidance. Matching open findings get context on their action cards.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 43.075,
+          "end": 53.421
+        },
+        {
+          "host": "cole",
+          "text": "Cloudflare coverage is a compensating control. It does not replace the vendor patch or a rescan, and we have not verified coverage for this environment.",
+          "caption": "Cloudflare coverage is a compensating control. It does not replace the vendor patch or a rescan, and we have not verified coverage for this environment.",
+          "template": null,
+          "subject": null,
+          "cites": [],
+          "banter": null,
+          "start": 53.801,
+          "end": 64.105
         }
       ],
       "sources": [
@@ -758,14 +786,102 @@
           "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
         },
         {
-          "label": "Subnet Solutions PowerSYSTEM Center",
-          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-307-01"
+          "label": "Zero Wire: Linux IPv4 TCP use-after-free",
+          "url": "https://radar.cloudflare.com/security/zero-wire/linux-ipv4-tcp-use-after-free"
         },
         {
-          "label": "Hitachi Energy TRO600 series products",
-          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-302-02"
+          "label": "Zero Wire: php2shell",
+          "url": "https://radar.cloudflare.com/security/zero-wire/php2shell"
+        },
+        {
+          "label": "Zero Wire: eMudhra certificate compromise",
+          "url": "https://radar.cloudflare.com/security/zero-wire/emudhra-certificate-compromise"
+        },
+        {
+          "label": "Zero Wire: node2shell",
+          "url": "https://radar.cloudflare.com/security/zero-wire/node2shell"
+        },
+        {
+          "label": "Zero Wire: Citrix NetScaler command execution",
+          "url": "https://radar.cloudflare.com/security/zero-wire/citrix-netscaler-command-execution"
         }
       ],
+      "zero_wire": [
+        {
+          "title": "Linux IPv4 TCP use-after-free",
+          "url": "https://radar.cloudflare.com/security/zero-wire/linux-ipv4-tcp-use-after-free",
+          "status": "Needs attention",
+          "cves": [
+            "CVE-2026-98432"
+          ],
+          "summary": "Prioritize patching. Atlas updated its distribution review to report fixed RHEL kernels and remaining vendor-specific patch gaps. Check the running host kernel against your distribution's CVE advisory, apply its fixed kernel, and complete the required reboot or vendor-supported activation procedure. Verify that the fix is active, including on container hosts and Kubernetes nodes.",
+          "cloudflare_coverage": "Magic Transit customers can use Cloudflare Network Firewall to reduce exposure by filtering IPv4 TCP packets carrying IP options before they reach their infrastructure. Coverage depends on routing and firewall configuration and does not replace kernel patching.",
+          "has_agent_prompt": true,
+          "published": "Sun, 01 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "php2shell",
+          "url": "https://radar.cloudflare.com/security/zero-wire/php2shell",
+          "status": "Needs attention",
+          "cves": [
+            "CVE-2026-109618",
+            "CVE-2026-109619",
+            "CVE-2026-115560"
+          ],
+          "summary": "Prioritize patching. Cloudflare reported that PHP CTF submissions helped harden php2shell WAF protections and create new detections. Patch the PHP runtime using the original security advisory and separately review PHP's session upload progress advisory for CVE-2026-115560. Keep compensating controls in place while patching, and ask managed hosting providers to confirm each issue's status.",
+          "cloudflare_coverage": "Cloudflare has WAF rules for known php2shell exploit patterns. They are a compensating control, not a fix for the vulnerable PHP runtime. Review your WAF configuration to determine whether you are protected. Paid plans Free plans",
+          "has_agent_prompt": true,
+          "published": "Fri, 30 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "eMudhra certificate compromise",
+          "url": "https://radar.cloudflare.com/security/zero-wire/emudhra-certificate-compromise",
+          "status": "Needs attention",
+          "cves": [],
+          "summary": "Review trust settings. Cloudflare published follow-up research on forged certificates, client patching progress, and the limitations of its measurements. Identify systems that rely on the affected certificate chain, update trust stores and client software according to the official response, and review customer-managed origins, mutual TLS, and container images.",
+          "cloudflare_coverage": "No WAF rules are applicable to this certificate-trust incident.",
+          "has_agent_prompt": false,
+          "published": "Fri, 30 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "node2shell",
+          "url": "https://radar.cloudflare.com/security/zero-wire/node2shell",
+          "status": "Needs attention",
+          "cves": [
+            "CVE-2026-111497"
+          ],
+          "summary": "Assess your exposure. Cloudflare documented two WAF rules and their default Log action. Identify every Brotli decoder in running runtimes, dependencies, and container images, then use each vendor's security guidance to update or otherwise remove the vulnerable decoder.",
+          "cloudflare_coverage": "Cloudflare has WAF rules for documented Node2Shell request patterns. They default to Log and customers must configure them to Block if blocking mitigation is needed. Review your WAF configuration to determine whether you are protected. Paid plans",
+          "has_agent_prompt": false,
+          "published": "Sun, 25 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Citrix NetScaler command execution",
+          "url": "https://radar.cloudflare.com/security/zero-wire/citrix-netscaler-command-execution",
+          "status": "Needs attention",
+          "cves": [
+            "CVE-2026-88771"
+          ],
+          "summary": "Prioritize patching. Cloudflare published defense-in-depth guidance while distinguishing web authentication from other gateway traffic. Use Citrix's bulletin to identify and update affected appliances. Treat suspected compromise separately from patching, and review exposed gateway services and incident-response guidance.",
+          "cloudflare_coverage": "Cloudflare has a WAF rule for the documented NetScaler HTTP exploit path. Review your WAF configuration to determine whether you are protected. Paid plans",
+          "has_agent_prompt": false,
+          "published": "Mon, 19 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "WordPress SQL injection and RCE",
+          "url": "https://radar.cloudflare.com/security/zero-wire/wordpress-sql-injection-rce",
+          "status": "Reference",
+          "cves": [
+            "CVE-2026-60137",
+            "CVE-2026-63030"
+          ],
+          "summary": "Update affected systems. Cloudflare updated its response with vulnerability and remediation guidance. Confirm WordPress update status against the vendor release and patch guidance. Keep any compensating controls in place while remediation is completed.",
+          "cloudflare_coverage": "Cloudflare has WAF rules for documented WordPress exploit paths. They are a compensating control, not a replacement for updating WordPress. Review your WAF configuration to determine whether you are protected. Paid plans",
+          "has_agent_prompt": false,
+          "published": "Mon, 20 Jul 2026 00:00:00 GMT"
+        }
+      ],
+      "zero_wire_fetched": "2026-11-04T05:53-05:00",
       "items": [
         {
           "cve": "CVE-2026-119977",
@@ -809,12 +925,12 @@
       "card": null,
       "voice": "Kokoro (local)",
       "measure": {
-        "integrated_lufs": -16.6,
-        "true_peak_dbtp": -1.75
+        "integrated_lufs": -16.52,
+        "true_peak_dbtp": -1.8
       },
       "audio": "station/audio/seg-08.mp3",
-      "duration": 37.85,
-      "sha256": "33ae8de826ae88b485c530c8090d5b93d5287886271a88687e8ee80b4caf2850",
+      "duration": 65.72,
+      "sha256": "d66aa2f9518b32fa0482186a20103b3d1a78f0a4d3279cf77076c177797a3abd",
       "captions": "station/audio/seg-08.vtt"
     },
     {
@@ -866,15 +982,15 @@
       "track": null,
       "card": null,
       "watch": [],
+      "audio": "station/audio/seg-09.mp3",
+      "duration": 10.76,
+      "sha256": "edd25b3d7a6684d05af7b93742cf9e7915f0b1e1e4baedd3f8bb2d75a65b27c6",
+      "captions": "station/audio/seg-09.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.7,
         "true_peak_dbtp": -1.88
-      },
-      "audio": "station/audio/seg-09.mp3",
-      "duration": 10.76,
-      "sha256": "edd25b3d7a6684d05af7b93742cf9e7915f0b1e1e4baedd3f8bb2d75a65b27c6",
-      "captions": "station/audio/seg-09.vtt"
+      }
     },
     {
       "kind": "blindspots",
@@ -990,15 +1106,15 @@
       "track": null,
       "card": null,
       "watch": [],
+      "audio": "station/audio/seg-10.mp3",
+      "duration": 34.69,
+      "sha256": "fa7d5af15d19fcfedc8e71feef8f8cc29dc95272ab99b156cdd7d4d17fdb805d",
+      "captions": "station/audio/seg-10.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.53,
         "true_peak_dbtp": -1.79
-      },
-      "audio": "station/audio/seg-10.mp3",
-      "duration": 34.69,
-      "sha256": "fa7d5af15d19fcfedc8e71feef8f8cc29dc95272ab99b156cdd7d4d17fdb805d",
-      "captions": "station/audio/seg-10.vtt"
+      }
     },
     {
       "kind": "learn",
@@ -1086,15 +1202,15 @@
       "priority": false,
       "track": null,
       "card": null,
+      "audio": "station/audio/seg-11.mp3",
+      "duration": 49.32,
+      "sha256": "dbb07725cd042b64ee2a3d45edfb9561c8fb8f428a812948f407b2b69e22d8e3",
+      "captions": "station/audio/seg-11.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.5,
         "true_peak_dbtp": -1.78
-      },
-      "audio": "station/audio/seg-11.mp3",
-      "duration": 49.32,
-      "sha256": "dbb07725cd042b64ee2a3d45edfb9561c8fb8f428a812948f407b2b69e22d8e3",
-      "captions": "station/audio/seg-11.vtt"
+      }
     },
     {
       "kind": "music",
@@ -1131,15 +1247,15 @@
       "priority": false,
       "track": null,
       "card": null,
+      "audio": "station/audio/seg-13.mp3",
+      "duration": 12.04,
+      "sha256": "c3d726451ba281c0355743efed89f1a0359ec0dcf1ba3ff11ac8605ce72b49b2",
+      "captions": "station/audio/seg-13.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.68,
         "true_peak_dbtp": -1.93
-      },
-      "audio": "station/audio/seg-13.mp3",
-      "duration": 12.04,
-      "sha256": "c3d726451ba281c0355743efed89f1a0359ec0dcf1ba3ff11ac8605ce72b49b2",
-      "captions": "station/audio/seg-13.vtt"
+      }
     }
   ],
   "music": {
