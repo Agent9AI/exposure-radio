@@ -24,7 +24,7 @@ Small IT teams rarely hold a security standup. Exposure Radio gives them one the
 - A station host serves the listener and a console for segments, queue, Learn topics and connections. Keys stay in a private file on the host; the browser only learns whether one is set.
 - Bring-your-own services: Tenable export API (read-only), Gemini voices and Search-grounded Learn suggestions, the official YouTube embedded player, keyless NWS weather and CISA feeds.
 - Keyless Cloudflare Zero Wire briefings add plain-language threat context and coverage caveats. Exact-CVE matches enrich open action cards locally; tenant CVEs never leave the host for this lookup. Public context does not change the evidence gate or establish that Cloudflare protects an environment.
-- Read-only MCP tools: exposure_briefing, check_claims, remediation_packet and explain_priority.
+- Read-only MCP tools: exposure_briefing, check_claims, remediation_packet and explain_priority. Open the clone in Claude Code and they load from `.mcp.json`, with an exposure-briefing skill that runs every factual sentence through check_claims before answering.
 
 ## Run
 
