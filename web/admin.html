@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#060809">
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Station console · Exposure Radio</title>
+<link rel="stylesheet" href="station.css">
+<script src="admin.js" defer></script>
+</head>
+<body class="console">
+<a class="skip" href="#console-main">Skip to the console</a>
+
+<main id="console-main" class="device" aria-labelledby="console-title">
+  <header class="device-bar">
+    <a class="brand" href="index.html" aria-label="Exposure Radio listener">
+      <span class="mark" aria-hidden="true">ER</span>
+      <span class="brand-text">
+        <span id="console-title" class="brand-name">STATION CONSOLE</span>
+        <span id="console-station" class="brand-sub">Exposure Radio</span>
+      </span>
+    </a>
+    <div class="bar-status">
+      <span id="mode-pill" class="pill pill-standby"><span class="pill-dot" aria-hidden="true"></span><span id="mode-text">CONNECTING</span></span>
+    </div>
+    <div class="bar-meta"><a class="btn btn-small" href="index.html">Open listener</a></div>
+  </header>
+
+  <div id="demo-banner" class="banner" role="note" hidden>
+    <span class="tag">DEMO MODE</span>
+    <p>No station host answered, so this console is running on the bundled sample. Changes are saved in this browser only. <strong>Keys are entered on the station host, never stored in a browser.</strong></p>
+  </div>
+  <p id="load-error" class="banner banner-error" role="alert" hidden></p>
+
+  <div class="console-body">
+    <div class="tabs" role="tablist" aria-label="Console sections">
+      <button class="tab" role="tab" id="tab-onair" aria-controls="p-onair" aria-selected="true" data-hash="on-air"><span class="tab-num mono">01</span>On air</button>
+      <button class="tab" role="tab" id="tab-segments" aria-controls="p-segments" aria-selected="false" tabindex="-1" data-hash="segments"><span class="tab-num mono">02</span>Segments</button>
+      <button class="tab" role="tab" id="tab-learn" aria-controls="p-learn" aria-selected="false" tabindex="-1" data-hash="learn"><span class="tab-num mono">03</span>Learn</button>
+      <button class="tab" role="tab" id="tab-connections" aria-controls="p-connections" aria-selected="false" tabindex="-1" data-hash="connections"><span class="tab-num mono">04</span>Connections</button>
+      <button class="tab" role="tab" id="tab-settings" aria-controls="p-settings" aria-selected="false" tabindex="-1" data-hash="settings"><span class="tab-num mono">05</span>Settings</button>
+    </div>
+
+    <!-- On air -->
+    <section id="p-onair" class="tabpanel" role="tabpanel" aria-labelledby="tab-onair" tabindex="0">
+      <div class="onair-grid">
+        <div class="panel onair-now">
+          <div class="panel-head"><h2 id="now-label" class="label">TOP OF THE RUNDOWN</h2><span id="now-where" class="panel-meta mono"></span></div>
+          <div class="onair-body">
+            <div class="onair-tags"><span id="now-kind" class="tag">STATION</span><span id="now-pri" class="tag tag-priority" hidden>PRIORITY</span></div>
+            <p id="now-title" class="onair-title">Loading…</p>
+            <p id="now-sub" class="onair-sub"></p>
+          </div>
+        </div>
+        <div class="panel onair-cue">
+          <div class="panel-head"><h2 class="label">PRIORITY</h2></div>
+          <div class="onair-body">
+            <p class="onair-sub">Play the lead exposure briefing right after the current segment.</p>
+            <button id="cue" class="btn btn-primary btn-wide" type="button">Cue a briefing now</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2 class="label">QUEUE</h2><span id="queue-meta" class="panel-meta mono"></span></div>
+        <ol id="queue" class="queue"></ol>
+        <form id="yt-form" class="yt-form" novalidate>
+          <span class="label" id="yt-label">Add a YouTube item (video ID)</span>
+          <label class="visually-hidden" for="yt-id">YouTube video ID or link</label>
+          <input id="yt-id" name="yt-id" class="input mono" type="text" maxlength="200" placeholder="Video ID, e.g. M7lc1UVf-VE" autocomplete="off" spellcheck="false" aria-describedby="yt-help">
+          <label class="visually-hidden" for="yt-title">Title (optional)</label>
+          <input id="yt-title" name="yt-title" class="input" type="text" maxlength="100" placeholder="Title (optional)" autocomplete="off">
+          <button class="btn" type="submit">Add to queue</button>
+          <p id="yt-help" class="note">Plays in the official YouTube player in the listener's signal window, fully visible, and advances when the video ends.</p>
+        </form>
+        <div class="panel-actions">
+          <button id="queue-reset" class="btn btn-small" type="button" hidden>Restore the original rundown</button>
+        </div>
+      </div>
+      <p id="onair-status" class="status" role="status"></p>
+    </section>
+
+    <!-- Segments -->
+    <section id="p-segments" class="tabpanel" role="tabpanel" aria-labelledby="tab-segments" tabindex="0" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2 class="label">WHAT AIRS EACH HOUR</h2><span class="panel-meta">Times per hour</span></div>
+        <ul id="seg-list" class="rows"></ul>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2 class="label">RULES</h2></div>
+        <ul class="rows">
+          <li class="row">
+            <div class="row-text"><span class="row-title" id="qh-label">Quiet hours</span><span class="row-sub">Only priority findings air between these times. Set both to the same time to turn quiet hours off.</span></div>
+            <div class="row-ctl qh">
+              <label class="time"><span class="visually-hidden">Quiet hours start</span><input id="qh-start" name="qh-start" type="time" value="22:00"></label>
+              <span class="muted" aria-hidden="true">to</span>
+              <label class="time"><span class="visually-hidden">Quiet hours end</span><input id="qh-end" name="qh-end" type="time" value="06:00"></label>
+            </div>
+          </li>
+          <li class="row">
+            <div class="row-text"><span class="row-title" id="pi-label">Priority findings interrupt music</span><span class="row-sub">A new priority item cuts in instead of waiting for the next break.</span></div>
+            <div class="row-ctl"><button id="pi-on" class="switch" type="button" role="switch" aria-checked="true" aria-labelledby="pi-label"><span></span></button></div>
+          </li>
+        </ul>
+      </div>
+      <div class="save-row"><button id="seg-save" class="btn btn-primary" type="button">Save segments</button><span id="seg-status" class="status" role="status"></span></div>
+    </section>
+
+    <!-- Learn -->
+    <section id="p-learn" class="tabpanel" role="tabpanel" aria-labelledby="tab-learn" tabindex="0" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2 class="label">LEARN TOPICS</h2><span id="learn-meta" class="panel-meta mono"></span></div>
+        <form id="learn-form" class="learn-form" novalidate>
+          <label for="learn-title" class="visually-hidden">New topic</label>
+          <input id="learn-title" name="learn-title" class="input" type="text" maxlength="120" placeholder="Add a topic, e.g. How to read a CVSS vector" autocomplete="off">
+          <button class="btn" type="submit">Add topic</button>
+          <button id="learn-suggest" class="btn" type="button">Suggest trending topics</button>
+        </form>
+        <ul id="learn-list" class="rows"></ul>
+        <div id="learn-grounding" class="grounding" hidden></div>
+      </div>
+      <p id="learn-status" class="status" role="status"></p>
+    </section>
+
+    <!-- Connections -->
+    <section id="p-connections" class="tabpanel" role="tabpanel" aria-labelledby="tab-connections" tabindex="0" hidden>
+      <p id="secret-note" class="banner banner-quiet" hidden><span class="tag tag-quiet">KEYS</span><span>Keys are entered on the station host, never stored in a browser. Secret fields are disabled here.</span></p>
+      <form id="conn-form" novalidate><div id="conn-grid" class="conn-grid"></div></form>
+      <div class="save-row"><button id="conn-save" class="btn btn-primary" type="button">Save connections</button><span id="conn-status" class="status" role="status"></span></div>
+    </section>
+
+    <!-- Settings -->
+    <section id="p-settings" class="tabpanel" role="tabpanel" aria-labelledby="tab-settings" tabindex="0" hidden>
+      <div class="panel">
+        <div class="panel-head"><h2 class="label">STATION</h2></div>
+        <div class="form-grid">
+          <label class="field"><span>Station name</span><input id="set-name" name="set-name" class="input" type="text" maxlength="60" autocomplete="off"></label>
+          <div class="field"><span>Edition</span><p class="readout"><span id="set-edition" class="chip chip-edition">Synthetic sample</span><span class="note">Switches to Live when Tenable is connected.</span></p></div>
+          <label class="field field-wide"><span>Station address <em>for weather and local news</em></span><input id="set-address" name="set-address" class="input" type="text" maxlength="160" autocomplete="off" placeholder="Street, city or ZIP"></label>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2 class="label">HOSTS &amp; VOICES</h2></div>
+        <div id="host-list" class="host-list"></div>
+      </div>
+      <div class="save-row"><button id="set-save" class="btn btn-primary" type="button">Save settings</button><span id="set-status" class="status" role="status"></span></div>
+    </section>
+  </div>
+
+  <div class="device-foot">
+    <span>STATION HOST API · LOOPBACK BY DEFAULT · WRITES NEED AN ADMIN TOKEN</span>
+    <span id="foot-asof" class="mono"></span>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <p>Open source · MIT · Your data stays on your station host</p>
+  <nav aria-label="Project">
+    <a href="index.html">Listener</a>
+    <a href="briefing.html">Evidence &amp; claim gate</a>
+    <a href="https://github.com/Agent9AI/exposure-radio" rel="noopener">GitHub</a>
+  </nav>
+</footer>
+
+<dialog id="token-dialog" class="token-dialog" aria-labelledby="token-title">
+  <form id="token-form" method="dialog">
+    <h2 id="token-title" class="drawer-title">Admin token</h2>
+    <p class="note">The station host printed this token when it started. It is kept for this browser tab only.</p>
+    <label class="field"><span>Token</span><input id="token-input" name="token-input" class="input" type="password" autocomplete="off" required></label>
+    <div class="save-row">
+      <button class="btn btn-primary" type="submit" value="ok">Unlock</button>
+      <button class="btn" type="submit" value="cancel" formnovalidate>Cancel</button>
+    </div>
+  </form>
+</dialog>
+</body>
+</html>

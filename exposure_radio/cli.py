@@ -239,6 +239,29 @@ def cmd_mcp(args) -> int:
     return 0
 
 
+def cmd_station_serve(args) -> int:
+    from .station import serve
+    serve(args.host, args.port, args.allow_lan)
+    return 0
+
+
+def cmd_station_keys(args) -> int:
+    from .station import keys_set
+    keys_set(args.provider)
+    return 0
+
+
+def cmd_station_pull(args) -> int:
+    from .station import pull
+    from .tenable_api import TenableError
+    try:
+        print(json.dumps(pull(args.out), indent=2))
+    except TenableError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="exposure_radio", description="Verified, spoken priority briefings from "
                                                                    "Tenable exports.")
@@ -288,6 +311,21 @@ def main(argv: list[str] | None = None) -> int:
 
     m = sub.add_parser("mcp", help="run the read-only MCP server on stdio")
     m.set_defaults(fn=cmd_mcp)
+
+    s = sub.add_parser("station", help="run the station host, set keys, or pull a Tenable export")
+    ssub = s.add_subparsers(dest="station_cmd", required=True)
+    sv = ssub.add_parser("serve", help="serve the listener and console (loopback by default)")
+    sv.add_argument("--host", default="127.0.0.1")
+    sv.add_argument("--port", type=int, default=8080)
+    sv.add_argument("--allow-lan", action="store_true", help="listen beyond loopback (put it behind your SSO)")
+    sv.set_defaults(fn=cmd_station_serve)
+    sk = ssub.add_parser("keys", help="store provider keys in the private settings file")
+    sk.add_argument("action", choices=("set",))
+    sk.add_argument("provider", choices=("tenable", "gemini"))
+    sk.set_defaults(fn=cmd_station_keys)
+    sp = ssub.add_parser("pull", help="pull a complete Tenable VM export (read-only API)")
+    sp.add_argument("--out", help="snapshot directory (default: settings home/exports/DATE)")
+    sp.set_defaults(fn=cmd_station_pull)
 
     args = p.parse_args(argv)
     return args.fn(args)

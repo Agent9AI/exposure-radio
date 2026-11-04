@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:01.200 --> 00:00:04.037
+<v Ava>Security news. Here&#x27;s what CISA flagged this week.
+
+00:00:04.257 --> 00:00:08.801
+<v Ava>Seven vulnerabilities joined the known exploited list in the last seven days.
+
+00:00:09.181 --> 00:00:20.445
+<v Cole>On the list: WordPress Core, Ivanti Connect Secure, GitLab Community Edition, Cisco Secure Firewall ASA Software, and Broadcom VMware ESX.
+
+00:00:20.665 --> 00:00:22.372
+<v Cole>Plus one more on screen.
+
+00:00:22.752 --> 00:00:26.741
+<v Ava>If any of those are in your environment, your exposure desk will call it out.
+
+00:00:27.121 --> 00:00:36.209
+<v Cole>The newest CISA advisories cover Subnet Solutions PowerSYSTEM Center and Hitachi Energy TRO600 series products.

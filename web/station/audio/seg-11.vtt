@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:01.200 --> 00:00:04.656
+<v Ava>You&#x27;ll hear us mention EPSS. Cole, what is it, in plain English?
+
+00:00:05.036 --> 00:00:16.364
+<v Cole>It&#x27;s the Exploit Prediction Scoring System, run by FIRST. Every day it estimates the chance that a vulnerability sees exploitation activity somewhere in the next thirty days.
+
+00:00:16.744 --> 00:00:19.176
+<v Ava>So a high score means we&#x27;re about to get hacked?
+
+00:00:19.556 --> 00:00:30.009
+<v Cole>No, and that&#x27;s the common mistake. It describes activity across the internet, not the odds that your environment gets breached. It&#x27;s a signal for ordering work.
+
+00:00:30.229 --> 00:00:40.043
+<v Cole>Use it alongside CISA&#x27;s known exploited list, which tells you attacks are already happening, and alongside what the asset actually does for the business.
+
+00:00:40.423 --> 00:00:47.676
+<v Ava>Known exploited first, then likely to be exploited, then everything else. That&#x27;s a plan a small team can actually follow.

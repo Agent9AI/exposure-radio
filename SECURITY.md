@@ -20,8 +20,11 @@ text fields as untrusted.
 | Model access | Optional. The analyst model sees only allowlisted, structured facts, can call read-only tools, and runs under call and time caps. The API adapter reserves counted input and output tokens; the operator-trusted command adapter uses bounded bytes and requires separate provider controls. |
 | Hostnames | Executive editions, audio scripts and notification payloads are checked fail-closed for tenant hostnames, FQDNs, IP addresses and asset IDs. |
 | Notifications | Push payloads carry generic text and an opaque reference only. |
-| Network | The core and the demo make no network calls. The optional API-backed analyst is an explicit opt-in. Feed files are supplied locally. |
-| Credentials | None are stored in the repository. API keys are read from the environment at run time. |
+| Network | The core, the demo and the station host make no outbound calls while playing. Public desks fetch NWS, Census geocoder and CISA feeds over HTTPS only when a station hour is built; `station pull` calls the Tenable export API; Gemini is called only with the operator's own key. |
+| Station host | Listens on loopback unless `--allow-lan` is given. Writes require the admin token printed at start; the Host header is checked against an allowlist to stop DNS rebinding; request bodies are capped; settings are validated against a fixed schema. |
+| Keys | Tenable and Gemini keys are stored in one private settings file (mode 600, directory 700) on the station host. The API reports only whether a key is configured; no endpoint returns a key. |
+| Cloud voices | Exposure segments use a cloud voice only when the operator marks the Gemini project as paid, because free-tier content may be used to improve Google products. Spoken lines carry product names and counts, never asset names, addresses or owners. |
+| Credentials | None are stored in the repository. API keys come from the environment or the private settings file at run time. |
 
 Public demos and the hosted sample use synthetic data only.
 

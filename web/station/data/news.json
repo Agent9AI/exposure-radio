@@ -1,0 +1,71 @@
+{
+  "fetched": "2026-11-03T18:51-05:00",
+  "catalog_version": "2026.11.03",
+  "released": "2026-11-03",
+  "days": 7,
+  "kev_recent": [
+    {
+      "cve": "CVE-2026-119977",
+      "vendor": "WordPress",
+      "product": "WordPress Core",
+      "added": "2026-11-03",
+      "ransomware": false
+    },
+    {
+      "cve": "CVE-2026-118527",
+      "vendor": "Ivanti",
+      "product": "Connect Secure",
+      "added": "2026-10-30",
+      "ransomware": false
+    },
+    {
+      "cve": "CVE-2026-111357",
+      "vendor": "Ivanti",
+      "product": "Connect Secure",
+      "added": "2026-10-30",
+      "ransomware": false
+    },
+    {
+      "cve": "CVE-2026-97229",
+      "vendor": "GitLab",
+      "product": "Community Edition and Enterprise Edition",
+      "added": "2026-10-29",
+      "ransomware": false
+    },
+    {
+      "cve": "CVE-2026-76418",
+      "vendor": "Cisco",
+      "product": "Secure Firewall ASA Software and Cisco Secure FTD Software",
+      "added": "2026-10-29",
+      "ransomware": false
+    },
+    {
+      "cve": "CVE-2026-41709",
+      "vendor": "Broadcom",
+      "product": "VMware ESX",
+      "added": "2026-10-28",
+      "ransomware": false
+    },
+    {
+      "cve": "CVE-2026-46300",
+      "vendor": "Linux",
+      "product": "Kernel",
+      "added": "2026-10-28",
+      "ransomware": false
+    }
+  ],
+  "advisories": [
+    {
+      "title": "Subnet Solutions PowerSYSTEM Center",
+      "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-307-01"
+    },
+    {
+      "title": "Hitachi Energy TRO600 series products",
+      "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-302-02"
+    },
+    {
+      "title": "Siemens Mendix SAML Module",
+      "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-302-01"
+    }
+  ]
+}

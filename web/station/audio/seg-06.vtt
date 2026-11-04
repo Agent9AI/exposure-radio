@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:01.200 --> 00:00:04.592
+<v Ava>Cole, the finding count jumped this week. Should the team panic?
+
+00:00:04.972 --> 00:00:15.425
+<v Cole>Not yet. First ask where the new findings came from. If they&#x27;re on machines we&#x27;ve been scanning all along, that&#x27;s new exposure. Something changed, and it needs a look.
+
+00:00:15.645 --> 00:00:26.397
+<v Cole>But if they&#x27;re on machines we only just started scanning, or just gave the scanner credentials for, that&#x27;s new visibility. The risk was already there. We can finally see it.
+
+00:00:26.777 --> 00:00:29.679
+<v Ava>So a higher number can actually mean better coverage.
+
+00:00:30.059 --> 00:00:41.173
+<v Cole>Exactly. And the reverse is the trap. When a finding disappears from a machine that missed its scan, that&#x27;s not a fix. It&#x27;s unverified until a rescan proves it.
+
+00:00:41.553 --> 00:00:49.169
+<v Ava>New exposure, new visibility, verified fixed, unverified. Four different stories, and this station keeps them apart for you.
