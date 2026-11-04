@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "exposure-radio": {
+      "type": "stdio",
+      "command": "python3",
+      "args": ["-m", "exposure_radio", "mcp"]
+    }
+  }
+}

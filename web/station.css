@@ -468,12 +468,12 @@ select.input { appearance: auto; }
 @media (max-width: 640px) {
   body { font-size: 14.5px; }
   .device { width: calc(100% - 20px); margin-top: 10px; border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 20px 50px rgba(0,0,0,.6); }
-  .device-bar { grid-template-columns: 1fr auto; padding: 12px 14px; gap: 10px; }
+  .device-bar { grid-template-columns: minmax(0, 1fr) auto; padding: 12px 14px; gap: 10px; }
   .bar-status { justify-self: end; flex-direction: column; align-items: flex-end; gap: 6px; }
   .bar-meta { display: none; }
   .brand-sub { display: none; }
   .mark { width: 36px; height: 36px; font-size: 14px; }
-  .brand-name { font-size: 12.5px; letter-spacing: .12em; }
+  .brand-name { font-size: 12.5px; letter-spacing: .12em; white-space: normal; line-height: 1.2; }
   .device-body { padding: 12px; gap: 12px; }
   .timeline { left: 14px; right: 14px; bottom: 34px; }
   .screen-label.tl { top: 12px; left: 12px; }

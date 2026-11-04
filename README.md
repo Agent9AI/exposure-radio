@@ -113,6 +113,20 @@ The model cannot write remediation state or put free text into speech.
 `python3 -m exposure_radio mcp` exposes four read-only tools: `exposure_briefing`,
 `check_claims`, `remediation_packet` and `explain_priority`.
 
+### Ask Claude about your exposure
+
+Open the clone in Claude Code and the read-only MCP server loads from `.mcp.json`
+(approve it once). The bundled `exposure-briefing` skill makes Claude answer the way the
+hosts do: brief from the ledger, run every factual sentence through `check_claims`,
+and keep only what the evidence supports.
+
+```bash
+cd exposure-radio && claude
+> /exposure-briefing what should we fix first today, and why?
+```
+
+Elsewhere: `claude mcp add exposure-radio -- python3 -m exposure_radio mcp`, run from the clone.
+
 ## Verification
 
 ```bash
