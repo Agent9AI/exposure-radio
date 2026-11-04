@@ -115,7 +115,7 @@
           "cites": [],
           "banter": "exposure_open",
           "start": 1.2,
-          "end": 4.699
+          "end": 4.677
         },
         {
           "host": "avery",
@@ -128,8 +128,8 @@
             "F012"
           ],
           "banter": null,
-          "start": 4.919,
-          "end": 10.636
+          "start": 4.897,
+          "end": 10.615
         },
         {
           "host": "avery",
@@ -139,8 +139,8 @@
           "subject": null,
           "cites": [],
           "banter": "priority_hand",
-          "start": 10.856,
-          "end": 12.371
+          "start": 10.835,
+          "end": 12.349
         },
         {
           "host": "cole",
@@ -152,8 +152,8 @@
             "F230"
           ],
           "banter": null,
-          "start": 12.751,
-          "end": 19.62
+          "start": 12.729,
+          "end": 19.599
         },
         {
           "host": "cole",
@@ -165,8 +165,8 @@
             "F223"
           ],
           "banter": null,
-          "start": 19.84,
-          "end": 22.037
+          "start": 19.819,
+          "end": 22.016
         },
         {
           "host": "cole",
@@ -178,8 +178,8 @@
             "F235"
           ],
           "banter": null,
-          "start": 22.257,
-          "end": 24.796
+          "start": 22.236,
+          "end": 24.775
         },
         {
           "host": "avery",
@@ -192,8 +192,8 @@
             "F223"
           ],
           "banter": null,
-          "start": 25.176,
-          "end": 29.699
+          "start": 25.155,
+          "end": 29.677
         },
         {
           "host": "avery",
@@ -203,8 +203,8 @@
           "subject": null,
           "cites": [],
           "banter": "card",
-          "start": 29.919,
-          "end": 34.079
+          "start": 29.897,
+          "end": 34.057
         }
       ],
       "id": "seg-02",
@@ -275,12 +275,12 @@
       "watch": [],
       "audio": "station/audio/seg-02.mp3",
       "duration": 35.71,
-      "sha256": "b14cd89936c92765ef575bfba6ef9d165561a37612b77d6129442eed06bfe32a",
+      "sha256": "452b762d045e873d48525734f632c55d86e9cf50ea698487034fa3ec7af27b06",
       "captions": "station/audio/seg-02.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.55,
-        "true_peak_dbtp": -1.36
+        "true_peak_dbtp": -1.52
       }
     },
     {
@@ -923,15 +923,15 @@
       "priority": false,
       "track": null,
       "card": null,
+      "audio": "station/audio/seg-08.mp3",
+      "duration": 65.72,
+      "sha256": "d66aa2f9518b32fa0482186a20103b3d1a78f0a4d3279cf77076c177797a3abd",
+      "captions": "station/audio/seg-08.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.52,
         "true_peak_dbtp": -1.8
-      },
-      "audio": "station/audio/seg-08.mp3",
-      "duration": 65.72,
-      "sha256": "d66aa2f9518b32fa0482186a20103b3d1a78f0a4d3279cf77076c177797a3abd",
-      "captions": "station/audio/seg-08.vtt"
+      }
     },
     {
       "kind": "wins",
@@ -1084,7 +1084,7 @@
           "cites": [],
           "banter": "blind_close",
           "start": 30.221,
-          "end": 33.037
+          "end": 33.059
         }
       ],
       "id": "seg-10",
@@ -1106,15 +1106,15 @@
       "track": null,
       "card": null,
       "watch": [],
-      "audio": "station/audio/seg-10.mp3",
-      "duration": 34.69,
-      "sha256": "fa7d5af15d19fcfedc8e71feef8f8cc29dc95272ab99b156cdd7d4d17fdb805d",
-      "captions": "station/audio/seg-10.vtt",
       "voice": "Kokoro (local)",
       "measure": {
         "integrated_lufs": -16.53,
-        "true_peak_dbtp": -1.79
-      }
+        "true_peak_dbtp": -1.86
+      },
+      "audio": "station/audio/seg-10.mp3",
+      "duration": 34.69,
+      "sha256": "bf58e3a2736e1e33a2048e7dec7de666313605f19e941efe4eb0c996ba8b2763",
+      "captions": "station/audio/seg-10.vtt"
     },
     {
       "kind": "learn",
