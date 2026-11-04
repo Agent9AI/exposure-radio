@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-11-04T11:04:03.807572+00:00",
+  "recorded_at": "2026-11-04T11:08:10.759655+00:00",
   "base_station_commit": "9358334286a822403c1d608de4127c00a7012aae",
   "tests": {
     "count": 118,
@@ -28,7 +28,7 @@
       "connectionVisible": true,
       "overflow": false,
       "playback": {
-        "time": 4.249252,
+        "time": 4.371156,
         "paused": false,
         "duration": 65.684943,
         "error": null
@@ -44,7 +44,7 @@
       "connectionVisible": true,
       "overflow": false,
       "playback": {
-        "time": 2.069478,
+        "time": 2.50195,
         "paused": false,
         "duration": 65.684943,
         "error": null
@@ -54,9 +54,9 @@
       "outbound": []
     },
     "actionCardFixture": {
-      "visible": false,
-      "copyIncludesBoundary": false,
-      "copyIncludesSource": false
+      "visible": true,
+      "copyIncludesBoundary": true,
+      "copyIncludesSource": true
     }
   },
   "agreement": {
@@ -69,5 +69,28 @@
     "local_fable_worktree_commit": "d984931",
     "state": "scaffold only; no completed independent cloud build available"
   },
-  "submission": "pending repository-binding confirmation; no Exchange PR created"
+  "submission": "pending repository-binding confirmation; no Exchange PR created",
+  "clean_source": {
+    "source_commit": "5e41e3f",
+    "make_check_exit": 0,
+    "tests": 118,
+    "adversarial_blocked": 27,
+    "identifier_leaks": 0
+  },
+  "scanner_positive_control": {
+    "findings": 2,
+    "types": [
+      "generic-api-key",
+      "github-pat"
+    ],
+    "purpose": "synthetic controls confirm scanners still detect unrelated credentials; only three exact historical test fingerprints excluded"
+  },
+  "history_scan": {
+    "source_commit": "5e41e3f",
+    "scope": "all reachable Git history",
+    "scanner": "Gitleaks 8.30.1",
+    "findings": 0,
+    "known_fixture_fingerprints_excluded": 3,
+    "limitations": "Git patch scanning excludes binary media contents."
+  }
 }
